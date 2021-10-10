@@ -8,6 +8,8 @@ public class test {
 		System.out.println("BD creada");
 		db.loadDatabase();
 		System.out.println("Datos iniciales cargados en la BD");
+		
+		//asasasasa
 	}
 
 }
