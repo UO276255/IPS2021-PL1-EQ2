@@ -2,7 +2,7 @@ package com.uniovi.muebleria.maven.util;
 
 import java.awt.EventQueue;
 
-import com.uniovi.muebleria.maven.vista.VistaMuebleria;
+import com.uniovi.muebleria.maven.vista.MuebleriaVisual;
 
 public class test {
 
@@ -10,13 +10,15 @@ public class test {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VistaMuebleria frame = new VistaMuebleria();
+					MuebleriaVisual frame = new MuebleriaVisual();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});	
+		
+		
 	}
 
 }
