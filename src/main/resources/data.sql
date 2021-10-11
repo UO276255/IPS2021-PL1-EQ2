@@ -1,5 +1,15 @@
---Datos para carga inicial de la base de datos
- 
+delete from Cliente;
+delete from Presupuestos; 
+delete from almacen;
+delete from productos;
+delete from proveedor;
+delete from pedido;
+delete from solicitudes;
+delete from repuesto;
+delete from venta;
+delete from transportista;
+
+
 insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (78456156,'Luis','Rodriguez',to_date('1995-03-12','yyyy-mm-dd'));
 insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (45215638,'Ana','Sanchez',to_date('2001-07-08','yyyy-mm-dd'));
 insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (14578232,'Jose','Martinez',to_date('1986-01-25','yyyy-mm-dd'));
