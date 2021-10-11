@@ -1,13 +1,13 @@
-delete from Cliente;
-delete from Presupuestos; 
-delete from almacen;
-delete from productos;
-delete from proveedor;
-delete from pedido;
-delete from solicitudes;
-delete from repuesto;
-delete from venta;
-delete from transportista;
+--delete from Cliente;
+--delete from Presupuestos; 
+--delete from almacen;
+--delete from productos;
+--delete from proveedor;
+--delete from pedido;
+--delete from solicitudes;
+--delete from repuesto;
+--delete from venta;
+--delete from transportista;
 
 
 insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (78456156,'Luis','Rodriguez',to_date('1995-03-12','yyyy-mm-dd'));
