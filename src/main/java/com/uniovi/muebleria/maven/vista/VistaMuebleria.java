@@ -62,7 +62,7 @@ public class VistaMuebleria extends JFrame {
 		
 		JButton btnFechaEntrega = new JButton("Determinar fecha de entrega");
 		btnFechaEntrega.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { 
 				abrirOpcionFecha();
 			}
 
