@@ -7,7 +7,10 @@ public class TransportistaDTO {
 	private int numTelefono;
 	private Date horario;
 	
-	public TransportistaDTO() {}
+	public TransportistaDTO() {
+		
+	}
+	
 	public TransportistaDTO(String nombre, int numTelefono, Date horario) {
 		this.nombre = nombre;
 		this.numTelefono = numTelefono;
