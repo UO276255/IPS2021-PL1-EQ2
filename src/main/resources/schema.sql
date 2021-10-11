@@ -66,6 +66,7 @@ CREATE TABLE Venta (
 
 CREATE TABLE Transportista (
 	id_transp VARCHAR(32) PRIMARY KEY NOT NULL,
+	Nombre VARCHAR(32) NOT NULL,
 	Numero_tel INT NOT NULL,
 	hora_entrada DATETIME,
 	hora_salida DATETIME);

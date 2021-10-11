@@ -6,11 +6,16 @@ import java.nio.file.Paths;
 import java.rmi.UnexpectedException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 
 public abstract class DbUtil {
 
@@ -112,11 +117,37 @@ public abstract class DbUtil {
 			throw new UnexpectedException(e.getMessage());
 		}
 	}
+	
 	private void executeWithoutException(Statement stmt, String sql) {
 		try {
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			//no causa excepcion intencionaamente
 		}		
+	}
+	
+	public ArrayList<TransportistaDTO> recogeTransportistas(String sql){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		TransportistaDTO tra = null;
+		ArrayList<TransportistaDTO> list = new ArrayList<TransportistaDTO>();
+		try {
+			c = Jdbc.getConnection();
+			pst = c.prepareStatement(sql);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5));
+				list.add(tra);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
 	}
 }

@@ -2,12 +2,18 @@ package com.uniovi.muebleria.maven.vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.GridLayout;
+
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 
 public class VistaMuebleria extends JFrame {
 
@@ -16,6 +22,7 @@ public class VistaMuebleria extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel PanelInicio;
+	private VistaAsignaTransporte vat;
 
 	/**
 	 * Launch the application.
@@ -35,6 +42,7 @@ public class VistaMuebleria extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param list 
 	 */
 	public VistaMuebleria() {
 		setTitle("Muebleria");
@@ -56,6 +64,12 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.add(btnAsignarPresupuesto);
 		
 		JButton btnAsignarTransporte = new JButton("Asignar Transporte");
+		btnAsignarTransporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vat = new VistaAsignaTransporte();
+				vat.setVisible(true);
+			}
+		});
 		PanelBotones.add(btnAsignarTransporte);
 		
 		JButton btnFechaEntrega = new JButton("Determinar fecha de entrega");
@@ -71,4 +85,5 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.add(btnSeguimientoPedido);
 	}
 
+	public JFrame getFrame() { return this.getFrame(); }
 }
