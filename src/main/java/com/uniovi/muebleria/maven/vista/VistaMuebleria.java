@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VistaMuebleria extends JFrame {
 
@@ -59,6 +61,12 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.add(btnAsignarTransporte);
 		
 		JButton btnFechaEntrega = new JButton("Determinar fecha de entrega");
+		btnFechaEntrega.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirOpcionFecha();
+			}
+
+		});
 		PanelBotones.add(btnFechaEntrega);
 		
 		JButton btnVisualiarPresupuestos = new JButton("Visualizar Presupuestos");
@@ -70,5 +78,11 @@ public class VistaMuebleria extends JFrame {
 		JButton btnSeguimientoPedido = new JButton("Seguimiento de pedidos");
 		PanelBotones.add(btnSeguimientoPedido);
 	}
+
+	private void abrirOpcionFecha() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }
