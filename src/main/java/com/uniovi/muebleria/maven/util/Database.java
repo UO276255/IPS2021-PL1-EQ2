@@ -49,5 +49,7 @@ public class Database extends DbUtil {
 		return URL;
 	}
 	
-	
+	/*public l<> executeQueryPojo() {
+		
+	}*/
 }
