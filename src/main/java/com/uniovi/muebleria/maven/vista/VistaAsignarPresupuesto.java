@@ -76,7 +76,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	}
 	public JComboBox<PresupuestoDTO> getComboBoxPresupuestos() {
 		if (comboBoxPresupuestos == null) {
-			comboBoxPresupuestos = new JComboBox();
+			comboBoxPresupuestos = new JComboBox<PresupuestoDTO>();
 			comboBoxPresupuestos.setBounds(40, 90, 535, 22);
 		}
 		return comboBoxPresupuestos;

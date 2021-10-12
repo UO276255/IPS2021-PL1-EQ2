@@ -25,4 +25,10 @@ public class TransportistaDTO {
 	public void setNumTelefono(int numTelefono) { this.numTelefono=numTelefono; }
 	public void setHorarioIn(Date horarioInicio) { this.horarioInicio=horarioInicio; }
 	public void setHorarioFin(Date horarioFin) { this.horarioFin=horarioFin; }
+	
+	public String toString() {
+		String str = "Nombre: " + getNombre() + ", Número de tlfn: " + getNumTelefono() + ", Entra a las " + 
+				getHorarioIn() + ", Sale a las " + getHorarioFin();
+		return str;
+	}
 }

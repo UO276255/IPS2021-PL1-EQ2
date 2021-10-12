@@ -143,7 +143,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			
-			if (rs.next()) {
+			while (rs.next()) {
 				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5));
 				list.add(tra);
 			}

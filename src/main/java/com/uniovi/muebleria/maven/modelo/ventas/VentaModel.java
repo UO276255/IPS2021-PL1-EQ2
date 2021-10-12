@@ -1,12 +1,8 @@
 package com.uniovi.muebleria.maven.modelo.ventas;
 
-import java.util.List;
-
-import com.uniovi.muebleria.maven.util.Database;
 
 public class VentaModel {
 
-	private Database db = new Database();
 	
 //	public List<VentaDTO> getListaVentas(boolean conTransporte) {
 //		String d = String.valueOf(conTransporte);
