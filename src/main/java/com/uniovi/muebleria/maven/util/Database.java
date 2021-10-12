@@ -2,15 +2,13 @@ package com.uniovi.muebleria.maven.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Database extends DbUtil {
 
 	private static final String SQL_SCHEMA = "src/main/resources/schema.sql";
 	private static final String SQL_LOAD = "src/main/resources/data.sql";
-	private static final String URL = "jdbc:hsqldb:file:db/muebleria";
+	private static final String URL = "jdbc:hsqldb:file:db/muebleria.script";
 	
 	private static boolean databaseCreated=false;
 	

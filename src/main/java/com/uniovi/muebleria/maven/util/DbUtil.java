@@ -12,8 +12,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import com.uniovi.muebleria.maven.modelo.producto.PresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 
 public abstract class DbUtil {
@@ -75,6 +77,10 @@ public abstract class DbUtil {
 			}
 	}
 	
+	public Connection getConnection() throws SQLException {
+		return DriverManager.getConnection(getUrl());
+	}
+	
 	/**
 	 * Ejecuta un conjunto de sentencias sql de actualizacion en un unico batch
 	 */
@@ -126,6 +132,7 @@ public abstract class DbUtil {
 	}
 	
 	public ArrayList<TransportistaDTO> recogeTransportistas(String sql){
+		
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -149,4 +156,35 @@ public abstract class DbUtil {
 		}
 		return list;
 	}
+	
+	public ArrayList<PresupuestoDTO> recogerPresupuestos(String sql){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		PresupuestoDTO pres = null;
+		ArrayList<PresupuestoDTO> list = new ArrayList<PresupuestoDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				pres = new PresupuestoDTO(rs.getInt(1), rs.getInt(2),presupuestoAceptado(rs.getInt(3)),rs.getDate(4), rs.getInt(5));
+				list.add(pres);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+
+	private boolean presupuestoAceptado(int value) {
+		return value == 0;
+	}
+	
+	
 }

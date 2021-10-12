@@ -7,6 +7,8 @@ import com.uniovi.muebleria.maven.vista.VistaMuebleria;
 public class test {
 
 	public static void main(String[] args) {	
+	
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -16,7 +18,9 @@ public class test {
 					e.printStackTrace();
 				}
 			}
-		});	
+		});
+		
+		
 	}
 
 }

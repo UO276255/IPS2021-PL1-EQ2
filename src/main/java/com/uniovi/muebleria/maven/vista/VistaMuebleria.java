@@ -5,10 +5,16 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
+import com.uniovi.muebleria.maven.modelo.producto.PresupuestosModel;
+import com.uniovi.muebleria.maven.util.Database;
+
 
 public class VistaMuebleria extends JFrame {
 
@@ -18,22 +24,8 @@ public class VistaMuebleria extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel PanelInicio;
 	private VistaAsignaTransporte vat;
+	private VistaAsignarPresupuesto vap;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaMuebleria frame = new VistaMuebleria();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -51,11 +43,27 @@ public class VistaMuebleria extends JFrame {
 		JPanel panel = new JPanel();
 		PanelInicio.add(panel, BorderLayout.CENTER);
 		
+		JButton btnCargarBaseDatos = new JButton("Cargar la base de datos");
+		btnCargarBaseDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Database db=new Database();
+				db.createDatabase(false);
+				db.loadDatabase();
+			}
+		});
+		panel.add(btnCargarBaseDatos);
+		
 		JPanel PanelBotones = new JPanel();
 		PanelInicio.add(PanelBotones, BorderLayout.EAST);
 		PanelBotones.setLayout(new GridLayout(6, 1, 0, 0));
 		
 		JButton btnAsignarPresupuesto = new JButton("Asignar Presupuesto");
+		btnAsignarPresupuesto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), new VistaAsignarPresupuesto());
+				controller.initView();
+			}
+		});
 		PanelBotones.add(btnAsignarPresupuesto);
 		
 		JButton btnAsignarTransporte = new JButton("Asignar Transporte");
