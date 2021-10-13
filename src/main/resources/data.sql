@@ -84,9 +84,3 @@ insert into venta(id_venta,fecha_venta,precio,transporte) values (2,to_date('202
 insert into venta(id_venta,fecha_venta,precio,transporte) values (3,to_date('2021-11-05','yyyy-mm-dd'),85,0);
 insert into venta(id_venta,fecha_venta,precio,transporte) values (4,to_date('2021-10-25','yyyy-mm-dd'),70,1);
 insert into venta(id_venta,fecha_venta,precio,transporte) values (5,to_date('2021-09-30','yyyy-mm-dd'),200,1);
-
-
-insert into Transportista(id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (1,'Juan',649881125,to_date('08:00:00 AM','hh:mi:ss am'),to_date('02:00:00 PM','hh:mi:ss am'));
-insert into Transportista(id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (2,'Lorena',635286174,to_date('08:00:00 AM','hh:mi:ss am'),to_date('02:00:00 PM','hh:mi:ss am'));
-insert into Transportista(id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (3,'Luis',694253187,to_date('03:00:00 PM','hh:mi:ss am'),to_date('09:00:00 PM','hh:mi:ss am'));
-insert into Transportista(id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (4,'Victor',617172845,to_date('03:00:00 PM','hh:mi:ss am'),to_date('09:00:00 PM','hh:mi:ss am'));
