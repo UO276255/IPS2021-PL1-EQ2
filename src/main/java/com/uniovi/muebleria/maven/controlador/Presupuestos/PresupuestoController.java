@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
+import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.vista.VistaAsignarPresupuesto;
@@ -29,6 +30,10 @@ public class PresupuestoController {
 		List<PresupuestoDTO> presupuestos = model.obtenerPresupuestos();
 		PresupuestoDTO[] listaPresupuestos = convertirArray(presupuestos);
 		view.getComboBoxPresupuestos().setModel(new DefaultComboBoxModel<PresupuestoDTO>(listaPresupuestos));
+	}
+	
+	public void asignarClienteAPresupuesto(int Idclient, int Idpresupuesto) {
+		model.AsignarClienteAPresupuesto(Idclient,Idpresupuesto);
 	}
 
 	private PresupuestoDTO[] convertirArray(List<PresupuestoDTO> presupuestos) {

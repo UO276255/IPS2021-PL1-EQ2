@@ -34,6 +34,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	private JPanel panelNuevoCliente;
 	private JPanel panelClienteExistente;
 	private JComboBox<ClienteDTO> comboBoxClientesExistentes;
+	private JButton btnAsignarCliente;
 
 	/**
 	 * Create the frame.
@@ -75,7 +76,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 				public void actionPerformed(ActionEvent e) {		
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 					c.show(getPanelGeneral(), "PanelClienteExistente");	
-					ClienteController controller = new ClienteController(new ClienteModel(), new VistaAsignarPresupuesto());
+					ClienteController controller = new ClienteController(new ClienteModel(), VistaMuebleria.VIEW_PRESUPUESTO);
 					controller.setListaClientes();	
 				}
 			});
@@ -93,7 +94,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	public JComboBox<PresupuestoDTO> getComboBoxPresupuestos() {
 		if (comboBoxPresupuestos == null) {
 			comboBoxPresupuestos = new JComboBox<PresupuestoDTO>();
-			comboBoxPresupuestos.setBounds(40, 90, 535, 22);
+			comboBoxPresupuestos.setBounds(40, 54, 535, 22);
 		}
 		return comboBoxPresupuestos;
 	}
@@ -108,14 +109,28 @@ public class VistaAsignarPresupuesto extends JFrame {
 			panelClienteExistente = new JPanel();
 			panelClienteExistente.setLayout(null);
 			panelClienteExistente.add(getComboBoxClientesExistentes());
+			panelClienteExistente.add(getBtnAsignarCliente());
 		}
 		return panelClienteExistente;
 	}
 	public JComboBox<ClienteDTO> getComboBoxClientesExistentes() {
 		if (comboBoxClientesExistentes == null) {
 			comboBoxClientesExistentes = new JComboBox<ClienteDTO>();
-			comboBoxClientesExistentes.setBounds(42, 114, 429, 22);
+			comboBoxClientesExistentes.setBounds(10, 88, 535, 22);
 		}
 		return comboBoxClientesExistentes;
+	}
+	private JButton getBtnAsignarCliente() {
+		if (btnAsignarCliente == null) {
+			btnAsignarCliente = new JButton("Asignar Cliente");
+			btnAsignarCliente.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_PRESUPUESTO);
+					controller.asignarClienteAPresupuesto(((PresupuestoDTO) getComboBoxClientesExistentes().getSelectedItem()).getIdPresupuesto(), 22);
+				}
+			});
+			btnAsignarCliente.setBounds(402, 224, 143, 23);
+		}
+		return btnAsignarCliente;
 	}
 }

@@ -183,6 +183,7 @@ public abstract class DbUtil {
 	}
 	
 	public ArrayList<ClienteDTO> recogerClientes(String sql){
+		
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -193,9 +194,8 @@ public abstract class DbUtil {
 			c = getConnection();
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
-			
 			while (rs.next()) {
-				client = new ClienteDTO(rs.getInt(1), rs.getString(2),rs.getString(3));
+				client = new ClienteDTO(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getDate(4));
 				list.add(client);
 			}
 		} catch (SQLException e) {
@@ -205,6 +205,26 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return list;
+	}
+	
+	public void AsignarPresupuestoACliente(String sql, int idclient, int idpresupuesto) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,idclient);
+			pst.setInt(2,idpresupuesto);	
+			rs = pst.executeQuery();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		
 	}
 
 	private boolean presupuestoAceptado(int value) {

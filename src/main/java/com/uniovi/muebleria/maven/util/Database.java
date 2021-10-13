@@ -46,8 +46,5 @@ public class Database extends DbUtil {
 	public String getUrl() {
 		return URL;
 	}
-	
-	/*public l<> executeQueryPojo() {
-		
-	}*/
+
 }
