@@ -82,6 +82,7 @@ public class VistaMuebleria extends JFrame {
 			}
 
 		});
+
 		PanelBotones.add(btnFechaEntrega);
 		
 		JButton btnVisualiarPresupuestos = new JButton("Visualizar Presupuestos");
@@ -100,4 +101,5 @@ public class VistaMuebleria extends JFrame {
 		// TODO Auto-generated method stub
 		
 	}
+
 }
