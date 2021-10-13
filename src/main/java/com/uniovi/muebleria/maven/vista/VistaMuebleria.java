@@ -1,18 +1,19 @@
 package com.uniovi.muebleria.maven.vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
+import com.uniovi.muebleria.maven.controlador.Transportista.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 import com.uniovi.muebleria.maven.util.Database;
 
 
@@ -23,8 +24,6 @@ public class VistaMuebleria extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel PanelInicio;
-	private VistaAsignaTransporte vat;
-	private VistaAsignarPresupuesto vap;
 
 
 	/**
@@ -69,8 +68,8 @@ public class VistaMuebleria extends JFrame {
 		JButton btnAsignarTransporte = new JButton("Asignar Transporte");
 		btnAsignarTransporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vat = new VistaAsignaTransporte();
-				vat.setVisible(true);
+				TransportistaController controller = new TransportistaController(new TransportistaModel(), new VistaAsignaTransporte());
+				controller.initView();
 			}
 		});
 		PanelBotones.add(btnAsignarTransporte);

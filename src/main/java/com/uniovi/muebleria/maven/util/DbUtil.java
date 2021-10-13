@@ -132,23 +132,22 @@ public abstract class DbUtil {
 		}		
 	}
 	
-	public ArrayList<TransportistaDTO> recogeTransportistas(String sql){
-		
+	public ArrayList<TransportistaDTO> recogerTransportistas(String sql){
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		TransportistaDTO tra = null;
 		ArrayList<TransportistaDTO> list = new ArrayList<TransportistaDTO>();
+		
 		try {
-			c = Jdbc.getConnection();
+			c = getConnection();
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			
-			if (rs.next()) {
-				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5));
+			while (rs.next()) {
+				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3),rs.getDate(4), rs.getDate(5));
 				list.add(tra);
 			}
-			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

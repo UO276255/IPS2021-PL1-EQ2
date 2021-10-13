@@ -12,6 +12,6 @@ public class MuebleriaModel {
 	public ArrayList<TransportistaDTO> getListaTransportistas(){
 		String sql =
 				 "SELECT * FROM Transportista";
-		return db.recogeTransportistas(sql);
+		return db.recogerTransportistas(sql);
 	}
 }
