@@ -7,16 +7,18 @@ public class ClienteDTO {
 	private int IdCliente ;
 	private String nombre;
 	private String apellido;
+	private Date fechaNacimiento;
 	
 	public ClienteDTO() {
 		
 	}
 	
 	public ClienteDTO(int idCliente, String nombre, 
-			String apellido) {
+			String apellido, Date fechaNacimiento) {
 		this.IdCliente = idCliente;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	
 	
@@ -48,8 +50,16 @@ public class ClienteDTO {
 
 	public String toString() {
 		String cadena = "Id:" + getIdCliente()  + " - Nombre: " + getNombre() + " - Apellido: "
-				+ getApellido();
+				+ getApellido() + " - " + getFechaNacimiento();
 		return cadena;
 	
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fecha_nacimiento) {
+		this.fechaNacimiento = fecha_nacimiento;
 	}
 }

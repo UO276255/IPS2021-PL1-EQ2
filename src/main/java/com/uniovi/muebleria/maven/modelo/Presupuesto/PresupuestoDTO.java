@@ -20,8 +20,7 @@ public class PresupuestoDTO {
 		this.precio = precio;
 		this.aceptado = aceptado;
 		this.fechaCaducidad = fechaCaducidad;
-		this.idCliente = idCliente
-				;
+		this.idCliente = idCliente;
 	}
 
 	public int getIdPresupuesto() {

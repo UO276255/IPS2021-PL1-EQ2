@@ -24,7 +24,8 @@ public class VistaMuebleria extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel PanelInicio;
-
+	public static  VistaAsignaTransporte VIEW_TRANSPORTE = new VistaAsignaTransporte();
+	public static  VistaAsignarPresupuesto VIEW_PRESUPUESTO = new VistaAsignarPresupuesto();
 
 	/**
 	 * Create the frame.
@@ -59,7 +60,7 @@ public class VistaMuebleria extends JFrame {
 		JButton btnAsignarPresupuesto = new JButton("Asignar Presupuesto");
 		btnAsignarPresupuesto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), new VistaAsignarPresupuesto());
+				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VIEW_PRESUPUESTO);
 				controller.initView();
 			}
 		});
@@ -68,7 +69,7 @@ public class VistaMuebleria extends JFrame {
 		JButton btnAsignarTransporte = new JButton("Asignar Transporte");
 		btnAsignarTransporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TransportistaController controller = new TransportistaController(new TransportistaModel(), new VistaAsignaTransporte());
+				TransportistaController controller = new TransportistaController(new TransportistaModel(), VIEW_TRANSPORTE);
 				controller.initView();
 			}
 		});

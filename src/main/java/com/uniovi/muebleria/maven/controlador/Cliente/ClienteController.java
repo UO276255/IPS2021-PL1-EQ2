@@ -30,7 +30,7 @@ public class ClienteController {
 		ClienteDTO[] listaClientes = convertirArray(clientes);
 		view.getComboBoxClientesExistentes().setModel(new DefaultComboBoxModel<ClienteDTO>(listaClientes));
 	}
-	
+
 	private ClienteDTO[] convertirArray(List<ClienteDTO> clientes) {
 		ClienteDTO[] lista = new ClienteDTO[clientes.size()];
 		for(int i=0;i<clientes.size();i++) {
