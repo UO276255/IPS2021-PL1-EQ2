@@ -10,11 +10,11 @@ delete from venta;
 delete from Transportista;
 
 
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (78456156,'Luis','Rodriguez',to_date('1995-03-12','yyyy-mm-dd'));
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (45215638,'Ana','Sanchez',to_date('2001-07-08','yyyy-mm-dd'));
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (14578232,'Jose','Martinez',to_date('1986-01-25','yyyy-mm-dd'));
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (65842623,'Andrea','Lopez',to_date('1998-10-11','yyyy-mm-dd'));
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (21489632,'Antonio','Soto',to_date('1965-12-05','yyyy-mm-dd'));
+insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (78456156,'Luis','Rodriguez');
+insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (45215638,'Ana','Sanchez');
+insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (14578232,'Jose','Martinez');
+insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (65842623,'Andrea','Lopez');
+insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (21489632,'Antonio','Soto');
 
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values(1,261,0,to_date('2021-10-21','yyyy-mm-dd'),null);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (2,42,0,to_date('2021-11-04','yyyy-mm-dd'),null);
@@ -23,13 +23,6 @@ insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (5,1804,1,to_date('2021-11-05','yyyy-mm-dd'),14578232);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (6,84,0,to_date('2021-10-28','yyyy-mm-dd'),65842623);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (7,140,1,to_date('2021-10-25','yyyy-mm-dd'),21489632);
-
-
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (1,'Juan',649516244,to_date('2021-11-04','yyyy-mm-dd'),to_date('2021-10-21','yyyy-mm-dd'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (2,'Lorena',634159758,to_date('2021-11-04','yyyy-mm-dd'),to_date('2021-10-21','yyyy-mm-dd'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (3,'Luis',615215748,to_date('2021-10-19','yyyy-mm-dd'),to_date('2021-10-21','yyyy-mm-dd'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (4,'Victor',654987417,to_date('2021-11-01','yyyy-mm-dd'),to_date('2021-10-21','yyyy-mm-dd'));
-
 
 insert into almacen (id_almacen) values (100);
 insert into almacen (id_almacen) values (101);

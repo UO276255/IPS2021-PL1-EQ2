@@ -18,6 +18,11 @@ public class ClienteController {
 	public ClienteController(ClienteModel m, VistaAsignarPresupuesto v) {
 		this.model = m;
 		this.view = v;
+		this.initView();
+	}
+	
+	public void initView() {
+		setListaClientes();
 	}
 	
 	public void setListaClientes() {
