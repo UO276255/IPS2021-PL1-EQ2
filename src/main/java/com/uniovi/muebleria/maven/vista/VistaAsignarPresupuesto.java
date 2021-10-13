@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.uniovi.muebleria.maven.modelo.producto.PresupuestoDTO;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
