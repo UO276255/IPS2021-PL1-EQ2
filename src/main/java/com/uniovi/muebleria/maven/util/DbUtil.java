@@ -211,13 +211,12 @@ public abstract class DbUtil {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sql);
 			pst.setInt(1,idclient);
 			pst.setInt(2,idpresupuesto);	
-			rs = pst.executeQuery();
+			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
