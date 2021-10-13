@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -62,6 +63,14 @@ public class VistaMuebleria extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VIEW_PRESUPUESTO);
 				controller.initView();
+				if(VIEW_PRESUPUESTO.getComboBoxPresupuestos().getItemCount() == 0) {
+					VIEW_PRESUPUESTO.getBtnAsignarNuevo().setEnabled(false);
+					VIEW_PRESUPUESTO.getBtnAsignarExistente().setEnabled(false);
+					JOptionPane.showMessageDialog(null, "No hay ningun presupuesto sin asignar, lo siento");
+				} else {
+					VIEW_PRESUPUESTO.getBtnAsignarNuevo().setEnabled(true);
+					VIEW_PRESUPUESTO.getBtnAsignarExistente().setEnabled(true);
+				}
 			}
 		});
 		PanelBotones.add(btnAsignarPresupuesto);

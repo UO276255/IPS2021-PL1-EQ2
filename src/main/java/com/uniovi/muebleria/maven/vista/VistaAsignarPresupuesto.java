@@ -2,6 +2,7 @@ package com.uniovi.muebleria.maven.vista;
 
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -41,13 +42,14 @@ public class VistaAsignarPresupuesto extends JFrame {
 	 */
 	public VistaAsignarPresupuesto() {
 		setTitle("Muebleria");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 635, 328);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.add(getPanelGeneral());
+		this.dispose();
 	}
 	public JPanel getPanelGeneral() {
 		if (panelGeneral == null) {
@@ -77,7 +79,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 					c.show(getPanelGeneral(), "PanelClienteExistente");	
 					ClienteController controller = new ClienteController(new ClienteModel(), VistaMuebleria.VIEW_PRESUPUESTO);
-					controller.setListaClientes();	
+					controller.setListaClientes();
 				}
 			});
 			btnAsignarExistente.setBounds(354, 181, 221, 34);
@@ -125,12 +127,21 @@ public class VistaAsignarPresupuesto extends JFrame {
 			btnAsignarCliente = new JButton("Asignar Cliente");
 			btnAsignarCliente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_PRESUPUESTO);
-					controller.asignarClienteAPresupuesto(((PresupuestoDTO) getComboBoxClientesExistentes().getSelectedItem()).getIdPresupuesto(), 22);
-				}
+						PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_PRESUPUESTO);
+						controller.asignarClienteAPresupuesto(((ClienteDTO) getComboBoxClientesExistentes().getSelectedItem()).getIdCliente(),
+							((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem()).getIdPresupuesto());
+						CardLayout c = (CardLayout) getPanelGeneral().getLayout();
+						c.show(getPanelGeneral(), "PanelInicial");	
+						JOptionPane.showMessageDialog(null, "presupuesto con id : " + ((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem()).getIdPresupuesto()  + 
+								" asociado con exito al cliente con id:  " + ((ClienteDTO) getComboBoxClientesExistentes().getSelectedItem()).getIdCliente());
+						closeWindow();
+					}
 			});
 			btnAsignarCliente.setBounds(402, 224, 143, 23);
 		}
 		return btnAsignarCliente;
+	}
+	private void closeWindow() {
+		this.dispose();
 	}
 }
