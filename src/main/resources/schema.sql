@@ -34,7 +34,6 @@ CREATE TABLE Productos (
 	Nombre_prod VARCHAR(32) NOT NULL,
 	Precio_prod INT NOT NULL,
 	Transporte BIT,
-	Montaje BIT,
 	Categoria VARCHAR(32) NOT NULL,
 	Id_almacen INT REFERENCES Almacen(Id_almacen));
 

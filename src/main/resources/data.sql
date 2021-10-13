@@ -16,8 +16,8 @@ insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (14578232,'Jose','Mart
 insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (65842623,'Andrea','Lopez',to_date('1998-10-11','yyyy-mm-dd'));
 insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (21489632,'Antonio','Soto',to_date('1965-12-05','yyyy-mm-dd'));
 
-insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values(1,261,0,to_date('2021-10-21','yyyy-mm-dd'),null);
-insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (2,42,0,to_date('2021-11-04','yyyy-mm-dd'),null);
+insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values(1,261,0,to_date('2021-10-21','yyyy-mm-dd'),NULL);
+insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (2,42,0,to_date('2021-11-04','yyyy-mm-dd'),NULL);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (3,140,1,to_date('2021-10-19','yyyy-mm-dd'),78456156);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (4,580,0,to_date('2021-11-01','yyyy-mm-dd'),45215638);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (5,1804,1,to_date('2021-11-05','yyyy-mm-dd'),14578232);
@@ -29,17 +29,17 @@ insert into almacen (id_almacen) values (101);
 insert into almacen (id_almacen) values (102);
 insert into almacen (id_almacen) values (103);
 
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (123,'silla victoriana',111,0,1,'silla',100);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (150,'sofá tela negra',700,1,1,'sofa',100);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (95,'mesa cristal 4 patas',150,1,1,'mesa',100);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (45,'libreria hoinfrom',540,1,1,'estanteria',101);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (32,'puf negro',42,0,0,'silla',102);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (144,'mesa de cocina lisa',150,0,1,'mesa',102);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (124,'silla bizantina',180,0,0,'silla',103);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (140,'sofa victoriano',1104,1,1,'sofa',103);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (111,'estanteria lichetes',256,1,1,'estanteria',102);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (105,'silla normal blanca',140,0,0,'silla',101);
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (29,'mesa eclesiástica',580,1,1,'mesa',100);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (123,'silla victoriana',111,0,'silla',100);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (150,'sofá tela negra',700,1,'sofa',100);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (95,'mesa cristal 4 patas',150,1,'mesa',100);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (45,'libreria hoinfrom',540,1,'estanteria',101);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (32,'puf negro',42,0,'silla',102);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (144,'mesa de cocina lisa',150,0,'mesa',102);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (124,'silla bizantina',180,0,'silla',103);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (140,'sofa victoriano',1104,1,'sofa',103);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (111,'estanteria lichetes',256,1,'estanteria',102);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (105,'silla normal blanca',140,0,'silla',101);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,categoria,id_almacen) values (29,'mesa eclesiástica',580,1,'mesa',100);
 
 insert into proveedor(id_prov) values (1);
 insert into proveedor(id_prov) values (2);

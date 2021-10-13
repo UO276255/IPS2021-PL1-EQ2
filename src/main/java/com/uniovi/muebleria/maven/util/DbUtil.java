@@ -240,7 +240,7 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(5));
 				list.add(prod);
 			}
 		} catch (SQLException e) {
