@@ -1,5 +1,6 @@
 package com.uniovi.muebleria.maven.vista;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -27,7 +28,7 @@ public class VistaAsignaTransporte extends JFrame{
 	private JLabel lblProductos;
 	private JLabel lblMontados;
 	private JList<ProductoDTO> listProductos;
-	private JList listMontados;
+	private JList<ProductoDTO> listMontados;
 	private JButton btnTransportados;
 	private JButton btnMontados;
 	
@@ -108,19 +109,25 @@ public class VistaAsignaTransporte extends JFrame{
 		}
 		return lblMontados;
 	}
-	private JList getListProductos() {
+	public JList<ProductoDTO> getListProductos() {
 		if (listProductos == null) {
-			listProductos = new JList();
+			listProductos = new JList<ProductoDTO>();
 			listProductos.setBounds(0, 21, 317, 248);
 		}
 		return listProductos;
 	}
-	private JList getListMontados() {
+	public void setListProductos(DefaultListModel<ProductoDTO> modeloListProductos) {
+		listProductos = new JList<ProductoDTO>(modeloListProductos);
+	}
+	public JList<ProductoDTO> getListMontados() {
 		if (listMontados == null) {
-			listMontados = new JList();
+			listMontados = new JList<ProductoDTO>();
 			listMontados.setBounds(0, 22, 317, 248);
 		}
 		return listMontados;
+	}
+	public void setListMontados(DefaultListModel<ProductoDTO> modeloListMontados) {
+		listMontados = new JList<ProductoDTO>(modeloListMontados);
 	}
 	private JButton getBtnTransportados() {
 		if (btnTransportados == null) {

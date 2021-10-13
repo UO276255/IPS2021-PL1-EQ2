@@ -29,10 +29,10 @@ public class TransportistaController {
 		vista.getComboBoxListaTransportistas().setModel(new DefaultComboBoxModel<TransportistaDTO>(arrayTransportistas));
 	}
 	
-	public TransportistaDTO[] toArray(List<TransportistaDTO> lista) {
-		TransportistaDTO[] arrayTransportistas = new TransportistaDTO[lista.size()];
-		for(int i=0;i<lista.size();i++) {
-			arrayTransportistas[i] = lista.get(i);
+	public TransportistaDTO[] toArray(List<TransportistaDTO> listTransportistas) {
+		TransportistaDTO[] arrayTransportistas = new TransportistaDTO[listTransportistas.size()];
+		for(int i=0;i<listTransportistas.size();i++) {
+			arrayTransportistas[i] = listTransportistas.get(i);
 		}
 		return arrayTransportistas;
 	}

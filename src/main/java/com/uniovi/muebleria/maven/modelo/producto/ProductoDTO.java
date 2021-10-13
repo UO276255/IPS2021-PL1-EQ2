@@ -23,4 +23,10 @@ public class ProductoDTO {
 	public void setNombre(String nombre) { this.nombre=nombre; }
 	public void setPrecio(int precio) { this.precio=precio; }
 	public void setCategoria(String categoria) { this.categoria=categoria; }
+	
+	public String toString() {
+		String cadena = "Id: " + getId() + ", Nombre: " + getNombre() + ", precio: "
+				+ getPrecio() + ", categoria: " + getCategoria();
+		return cadena;
+	}
 }
