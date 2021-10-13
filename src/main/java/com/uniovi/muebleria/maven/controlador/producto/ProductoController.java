@@ -12,8 +12,8 @@ public class ProductoController {
 	private VistaAsignaTransporte vista;
 	private ProductoModel model;
 
-	private DefaultListModel<ProductoDTO> modeloListProd;
-	private DefaultListModel<ProductoDTO> modeloListMontados;
+	private DefaultListModel<ProductoDTO> modeloListProd = new DefaultListModel<ProductoDTO>();
+	private DefaultListModel<ProductoDTO> modeloListMontados = new DefaultListModel<ProductoDTO>();
 	
 	public ProductoController(ProductoModel m, VistaAsignaTransporte v) {
 		this.vista = v;
