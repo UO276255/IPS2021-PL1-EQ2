@@ -72,12 +72,11 @@ public class VistaAsignarPresupuesto extends JFrame {
 		if (btnAsignarExistente == null) {
 			btnAsignarExistente = new JButton("Asignar a un cliente existente");
 			btnAsignarExistente.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {	
-					ClienteController controller = new ClienteController(new ClienteModel(), new VistaAsignarPresupuesto());
-					controller.setListaClientes();
-			
+				public void actionPerformed(ActionEvent e) {		
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 					c.show(getPanelGeneral(), "PanelClienteExistente");	
+					ClienteController controller = new ClienteController(new ClienteModel(), new VistaAsignarPresupuesto());
+					controller.setListaClientes();	
 				}
 			});
 			btnAsignarExistente.setBounds(354, 181, 221, 34);
