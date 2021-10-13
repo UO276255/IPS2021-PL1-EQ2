@@ -1,4 +1,4 @@
-package com.uniovi.muebleria.maven.modelo.producto;
+package com.uniovi.muebleria.maven.modelo.Presupuesto;
 
 import java.util.Date;
 
@@ -14,7 +14,8 @@ public class PresupuestoDTO {
 		
 	}
 	
-	public PresupuestoDTO(int IdPresupuesto, int precio, boolean aceptado,Date fechaCaducidad,int idCliente) {
+	public PresupuestoDTO(int IdPresupuesto, int precio, 
+			boolean aceptado,Date fechaCaducidad,int idCliente) {
 		this.IdPresupuesto = IdPresupuesto;
 		this.precio = precio;
 		this.aceptado = aceptado;
@@ -67,7 +68,6 @@ public class PresupuestoDTO {
 		String cadena = "Id:" + getIdPresupuesto()  + " - Precio: " + getPrecio() + " - Caducidad: "
 				+ getFechaCaducidad().toString() + " - Id Cliente: " + getIdCliente();
 		return cadena;
-				
-		
+	
 	}
 }

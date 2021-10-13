@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
-import com.uniovi.muebleria.maven.modelo.producto.PresupuestoDTO;
-import com.uniovi.muebleria.maven.modelo.producto.PresupuestosModel;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.vista.VistaAsignarPresupuesto;
 
 public class PresupuestoController {

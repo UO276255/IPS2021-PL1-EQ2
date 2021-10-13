@@ -1,4 +1,4 @@
-package com.uniovi.muebleria.maven.modelo.producto;
+package com.uniovi.muebleria.maven.modelo.Presupuesto;
 
 import java.util.List;
 
