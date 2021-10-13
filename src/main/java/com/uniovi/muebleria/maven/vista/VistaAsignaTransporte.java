@@ -43,14 +43,14 @@ public class VistaAsignaTransporte extends JFrame{
 	private JLabel getLblListaTransportistas() {
 		if (lblListaTransportistas == null) {
 			lblListaTransportistas = new JLabel("Lista de transportistas para su envío: ");
-			lblListaTransportistas.setBounds(44, 116, 240, 21);
+			lblListaTransportistas.setBounds(44, 36, 240, 21);
 		}
 		return lblListaTransportistas;
 	}
 	public JComboBox<TransportistaDTO> getComboBoxListaTransportistas() {
 		if (comboBoxListaTransportistas == null) {
 			comboBoxListaTransportistas = new JComboBox<TransportistaDTO>();
-			comboBoxListaTransportistas.setBounds(44, 140, 647, 22);
+			comboBoxListaTransportistas.setBounds(44, 60, 647, 22);
 		}
 		return comboBoxListaTransportistas;
 	}
