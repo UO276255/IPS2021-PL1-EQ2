@@ -1,6 +1,5 @@
 package com.uniovi.muebleria.maven.vista;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.DefaultListModel;
@@ -35,7 +34,6 @@ public class VistaAsignaTransporte extends JFrame{
 	private JList<ProductoDTO> listMontados;
 	private JButton btnTransportados;
 	private JButton btnMontados;
-	private JScrollPane scrollPane;
 	
 	public VistaAsignaTransporte() {
 		setTitle("Muebleria");
@@ -85,7 +83,7 @@ public class VistaAsignaTransporte extends JFrame{
 			panelProductos.setLayout(null);
 			panelProductos.add(getLblProductos());
 			panelProductos.add(getBtnTransportados());
-			panelProductos.add(getScrollPane());
+			panelProductos.add(getListProductos());
 		}
 		return panelProductos;
 	}
@@ -117,6 +115,7 @@ public class VistaAsignaTransporte extends JFrame{
 	public JList<ProductoDTO> getListProductos() {
 		if (listProductos == null) {
 			listProductos = new JList<ProductoDTO>();
+			listProductos.setBounds(0, 22, 317, 249);
 			listProductos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		}
 		return listProductos;
@@ -147,13 +146,5 @@ public class VistaAsignaTransporte extends JFrame{
 			btnMontados.setBounds(0, 272, 317, 23);
 		}
 		return btnMontados;
-	}
-	private JScrollPane getScrollPane() {
-		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
-			scrollPane.setBounds(84, 87, 179, 115);
-			scrollPane.setViewportView(getListProductos());
-		}
-		return scrollPane;
 	}
 }
