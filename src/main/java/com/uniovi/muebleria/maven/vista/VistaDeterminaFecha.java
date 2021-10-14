@@ -27,6 +27,7 @@ public class VistaDeterminaFecha extends JFrame {
 	private JPanel pnAsignarCancelar;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JComboBox cbSeleccionarVenta;
 
 
 	/**
@@ -51,7 +52,7 @@ public class VistaDeterminaFecha extends JFrame {
 	public VistaDeterminaFecha() {
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 378, 334);
+		setBounds(100, 100, 694, 596);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -63,12 +64,29 @@ public class VistaDeterminaFecha extends JFrame {
 		contentPane.add(getCbMinutos());
 		contentPane.add(getLbDivisor());
 		contentPane.add(getPnAsignarCancelar());
+		
+		cbSeleccionarVenta = new JComboBox();
+		cbSeleccionarVenta.setBounds(56, 75, 415, 22);
+		contentPane.add(cbSeleccionarVenta);
+		
+		JLabel lblNewLabel = new JLabel("Seleccionar Venta :");
+		lblNewLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblNewLabel.setBounds(56, 48, 151, 22);
+		contentPane.add(lblNewLabel);
 	}
+	public JComboBox getCbSeleccionarVenta() {
+		return cbSeleccionarVenta;
+	}
+
+	public void setCbSeleccionarVenta(JComboBox cbSeleccionarVenta) {
+		this.cbSeleccionarVenta = cbSeleccionarVenta;
+	}
+
 	private JLabel getLblFecha() {
 		if (lblFecha == null) {
 			lblFecha = new JLabel("FECHA");
 			lblFecha.setFont(new Font("Calibri", Font.BOLD, 14));
-			lblFecha.setBounds(43, 90, 82, 28);
+			lblFecha.setBounds(352, 332, 82, 28);
 		}
 		return lblFecha;
 	}
@@ -76,7 +94,7 @@ public class VistaDeterminaFecha extends JFrame {
 		if (lblHorario == null) {
 			lblHorario = new JLabel("HORARIO");
 			lblHorario.setFont(new Font("Calibri", Font.BOLD, 14));
-			lblHorario.setBounds(43, 200, 82, 28);
+			lblHorario.setBounds(352, 442, 82, 28);
 		}
 		return lblHorario;
 	}
@@ -84,7 +102,7 @@ public class VistaDeterminaFecha extends JFrame {
 	private JCalendar getCalendar() {
 		if (calendar == null) {
 			calendar = new JCalendar();
-			calendar.setBounds(118, 36, 205, 153);
+			calendar.setBounds(427, 278, 205, 153);
 		}
 		return calendar;
 	}
@@ -92,7 +110,7 @@ public class VistaDeterminaFecha extends JFrame {
 		if (cbHoras == null) {
 			cbHoras = new JComboBox();
 			cbHoras.setModel(new DefaultComboBoxModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "00"}));
-			cbHoras.setBounds(118, 201, 44, 22);
+			cbHoras.setBounds(427, 443, 44, 22);
 		}
 		return cbHoras;
 	}
@@ -100,7 +118,7 @@ public class VistaDeterminaFecha extends JFrame {
 		if (cbMinutos == null) {
 			cbMinutos = new JComboBox();
 			cbMinutos.setModel(new DefaultComboBoxModel(new String[] {"00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"}));
-			cbMinutos.setBounds(176, 201, 44, 22);
+			cbMinutos.setBounds(485, 443, 44, 22);
 		}
 		return cbMinutos;
 	}
@@ -108,14 +126,14 @@ public class VistaDeterminaFecha extends JFrame {
 		if (lbDivisor == null) {
 			lbDivisor = new JLabel(":");
 			lbDivisor.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lbDivisor.setBounds(165, 202, 23, 14);
+			lbDivisor.setBounds(474, 444, 23, 14);
 		}
 		return lbDivisor;
 	}
 	private JPanel getPnAsignarCancelar() {
 		if (pnAsignarCancelar == null) {
 			pnAsignarCancelar = new JPanel();
-			pnAsignarCancelar.setBounds(154, 242, 198, 42);
+			pnAsignarCancelar.setBounds(395, 504, 237, 42);
 			pnAsignarCancelar.setLayout(new GridLayout(1, 0, 0, 0));
 			pnAsignarCancelar.add(getBtnNewButton());
 			pnAsignarCancelar.add(getBtnNewButton_1());
@@ -136,4 +154,5 @@ public class VistaDeterminaFecha extends JFrame {
 		}
 		return btnNewButton_1;
 	}
+
 }

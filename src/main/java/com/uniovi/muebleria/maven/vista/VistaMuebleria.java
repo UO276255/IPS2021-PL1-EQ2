@@ -12,11 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
+import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
+import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.util.Database;
 
 
@@ -31,6 +33,7 @@ public class VistaMuebleria extends JFrame {
 	public static VistaAsignaTransporte VIEW_TRANSPORTE = new VistaAsignaTransporte();
 	public static VistaCreacionVentas VIEW_VENTAS = new VistaCreacionVentas();
 	public static VistaAsignarPresupuesto VIEW_PRESUPUESTO = new VistaAsignarPresupuesto();
+	public static VistaDeterminaFecha VIEW_VENTA = new VistaDeterminaFecha();
 
 	/**
 	 * Create the frame.
@@ -93,7 +96,8 @@ public class VistaMuebleria extends JFrame {
 		JButton btnFechaEntrega = new JButton("Determinar fecha de entrega");
 		btnFechaEntrega.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-				abrirOpcionFecha();
+				VentaController controllerF = new VentaController(new VentaModel(), VIEW_VENTA);
+				
 			}
 
 		});
@@ -126,9 +130,5 @@ public class VistaMuebleria extends JFrame {
 
 	public JFrame getFrame() { return this.getFrame(); }
 
-	private void abrirOpcionFecha() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

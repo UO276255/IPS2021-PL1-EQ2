@@ -19,6 +19,7 @@ import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
+import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 
 public abstract class DbUtil {
 
@@ -146,6 +147,30 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3),rs.getDate(4), rs.getDate(5));
+				list.add(tra);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+	
+	public ArrayList<VentaDTO> recogerVentas(String sql){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		VentaDTO tra = null;
+		ArrayList<VentaDTO> list = new ArrayList<VentaDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
