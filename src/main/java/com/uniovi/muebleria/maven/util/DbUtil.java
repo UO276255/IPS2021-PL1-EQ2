@@ -232,6 +232,24 @@ public abstract class DbUtil {
 		return list;
 	}
 	
+	public void AsignarTransporte(String sql, int bit, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,bit);
+			pst.setInt(2,id);	
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
 	public void AsignarPresupuestoACliente(String sql, int idclient, int idpresupuesto) {
 		Connection c = null;
 		PreparedStatement pst = null;
@@ -251,7 +269,8 @@ public abstract class DbUtil {
 		
 	}
 
-	public ArrayList<ProductoDTO> recogerProductosTransp(String sql){
+
+	public ArrayList<ProductoDTO> recogerProductos(String sql){
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -264,8 +283,12 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(5));
-				list.add(prod);
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				if(list.contains(prod)) {
+					
+				}else {
+					list.add(prod);
+				}			
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
