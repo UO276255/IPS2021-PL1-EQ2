@@ -14,6 +14,8 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JTextArea;
+import javax.swing.JList;
 
 public class VistaDeterminaFecha extends JFrame {
 
@@ -28,6 +30,8 @@ public class VistaDeterminaFecha extends JFrame {
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
 	private JComboBox cbSeleccionarVenta;
+	private JLabel lblProductosConTransporte;
+	private JList list;
 
 
 	/**
@@ -73,6 +77,8 @@ public class VistaDeterminaFecha extends JFrame {
 		lblNewLabel.setFont(new Font("Calibri", Font.BOLD, 16));
 		lblNewLabel.setBounds(56, 48, 151, 22);
 		contentPane.add(lblNewLabel);
+		contentPane.add(getLblProductosConTransporte());
+		contentPane.add(getList());
 	}
 	public JComboBox getCbSeleccionarVenta() {
 		return cbSeleccionarVenta;
@@ -86,7 +92,7 @@ public class VistaDeterminaFecha extends JFrame {
 		if (lblFecha == null) {
 			lblFecha = new JLabel("FECHA");
 			lblFecha.setFont(new Font("Calibri", Font.BOLD, 14));
-			lblFecha.setBounds(352, 332, 82, 28);
+			lblFecha.setBounds(372, 332, 62, 28);
 		}
 		return lblFecha;
 	}
@@ -94,7 +100,7 @@ public class VistaDeterminaFecha extends JFrame {
 		if (lblHorario == null) {
 			lblHorario = new JLabel("HORARIO");
 			lblHorario.setFont(new Font("Calibri", Font.BOLD, 14));
-			lblHorario.setBounds(352, 442, 82, 28);
+			lblHorario.setBounds(370, 442, 55, 28);
 		}
 		return lblHorario;
 	}
@@ -155,4 +161,21 @@ public class VistaDeterminaFecha extends JFrame {
 		return btnNewButton_1;
 	}
 
+	private JLabel getLblProductosConTransporte() {
+		if (lblProductosConTransporte == null) {
+			lblProductosConTransporte = new JLabel("Productos con transporte disponibles : ");
+			lblProductosConTransporte.setFont(new Font("Calibri", Font.BOLD, 16));
+			lblProductosConTransporte.setBounds(56, 171, 269, 22);
+		}
+		return lblProductosConTransporte;
+	}
+	private JList getList() {
+		if (list == null) {
+			list = new JList();
+			list.setBackground(Color.WHITE);
+			list.setForeground(Color.BLACK);
+			list.setBounds(68, 488, 269, -277);
+		}
+		return list;
+	}
 }
