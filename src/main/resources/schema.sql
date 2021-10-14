@@ -35,7 +35,8 @@ CREATE TABLE Productos (
 	Precio_prod INT NOT NULL,
 	Transporte BIT,
 	Categoria VARCHAR(32) NOT NULL,
-	Id_almacen INT REFERENCES Almacen(Id_almacen));
+	Id_almacen INT REFERENCES Almacen(Id_almacen),	
+	fecha_entrega DATE);
 
 CREATE TABLE Proveedor (
 	Id_prov INT PRIMARY KEY NOT NULL);
