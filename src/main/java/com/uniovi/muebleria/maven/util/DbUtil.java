@@ -5,11 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.rmi.UnexpectedException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -248,6 +250,55 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return list;
+	}
+	
+	public int contarCliente(String sqlContarCliente) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlContarCliente);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public void crearCliente(String sql, int id, String nombre, String apellido,Date fecha) {
+		
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			
+			pst.setInt(1,id);
+			pst.setString(2,nombre);	
+			pst.setString(3,apellido);
+			pst.setDate(4,fecha);
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		
 	}
 
 	private boolean presupuestoAceptado(int value) {

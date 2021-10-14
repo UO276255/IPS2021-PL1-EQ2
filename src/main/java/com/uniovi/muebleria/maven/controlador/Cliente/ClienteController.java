@@ -38,4 +38,13 @@ public class ClienteController {
 		}
 		return lista;
 	}
+
+	public void crearNuevoCliente(String nombre, String apellido, String fecha) {
+		model.crearCliente(nombre,apellido,fecha);
+		
+	}
+	
+	public int contarClientes() {
+		return model.contarClientes();
+	}
 }
