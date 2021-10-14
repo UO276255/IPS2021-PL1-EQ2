@@ -227,7 +227,7 @@ public abstract class DbUtil {
 		
 	}
 
-	public ArrayList<ProductoDTO> recogerProductosTransp(String sql){
+	public ArrayList<ProductoDTO> recogerProductos(String sql){
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -240,7 +240,7 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(5));
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
 				list.add(prod);
 			}
 		} catch (SQLException e) {

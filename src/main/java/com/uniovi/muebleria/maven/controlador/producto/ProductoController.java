@@ -2,8 +2,6 @@ package com.uniovi.muebleria.maven.controlador.producto;
 
 import java.util.List;
 
-import javax.swing.DefaultListModel;
-
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
@@ -11,9 +9,6 @@ import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
 public class ProductoController {
 	private VistaAsignaTransporte vista;
 	private ProductoModel model;
-
-	private DefaultListModel<ProductoDTO> modeloListProd = new DefaultListModel<ProductoDTO>();
-	private DefaultListModel<ProductoDTO> modeloListMontados = new DefaultListModel<ProductoDTO>();
 	
 	public ProductoController(ProductoModel m, VistaAsignaTransporte v) {
 		this.vista = v;
@@ -23,13 +18,62 @@ public class ProductoController {
 	
 	public void initView() {
 		vista.setVisible(true);
-		setListProductos();
+		setListProductosNoTransp();
+		setListProductosTransp();
+		setListProductosNoMontar();
+		setListProductosMontar();
 	}
 	
-	public ProductoDTO[] getListaProductos() {
-		List<ProductoDTO> listProductos = model.getListaProductosTrans();
-		ProductoDTO[] arrayProductos = toArray(listProductos);
-		return arrayProductos;
+	public ProductoDTO[] getListaProductosNoTransp() {
+		List<ProductoDTO> listProductosNoTransp = model.getListaProductosNoTransp();
+		ProductoDTO[] arrayProductosNoTransp = toArray(listProductosNoTransp);
+		return arrayProductosNoTransp;
+	}
+	
+	public ProductoDTO[] getListaProductosTransp() {
+		List<ProductoDTO> listProductosTransp = model.getListaProductosTransp();
+		ProductoDTO[] arrayProductosTransp = toArray(listProductosTransp);
+		return arrayProductosTransp;
+	}
+	
+	public ProductoDTO[] getListaProductosNoMontar() {
+		List<ProductoDTO> listProductosNoMontar = model.getListaProductosNoMontar();
+		ProductoDTO[] arrayProductosNoMontar = toArray(listProductosNoMontar);
+		return arrayProductosNoMontar;
+	}
+	
+	public ProductoDTO[] getListaProductosMontar() {
+		List<ProductoDTO> listProductosMontar = model.getListaProductosMontar();
+		ProductoDTO[] arrayProductosMontar = toArray(listProductosMontar);
+		return arrayProductosMontar;
+	}
+	
+	private void setListProductosNoTransp() {
+		ProductoDTO[] arrayProductos = getListaProductosNoTransp();
+		for(int i=0;i<arrayProductos.length;i++) {
+			vista.addModeloListProdNoTransp(arrayProductos[i]);
+		}
+	}
+	
+	private void setListProductosTransp() {
+		ProductoDTO[] arrayProductos = getListaProductosTransp();
+		for(int i=0;i<arrayProductos.length;i++) {
+			vista.addModeloListProdTransp(arrayProductos[i]);
+		}
+	}
+	
+	private void setListProductosNoMontar() {
+		ProductoDTO[] arrayProductos = getListaProductosNoMontar();
+		for(int i=0;i<arrayProductos.length;i++) {
+			vista.addModeloListProdNoMontar(arrayProductos[i]);
+		}
+	}
+	
+	private void setListProductosMontar() {
+		ProductoDTO[] arrayProductos = getListaProductosMontar();
+		for(int i=0;i<arrayProductos.length;i++) {
+			vista.addModeloListProdMontar(arrayProductos[i]);
+		}
 	}
 	
 	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
@@ -38,16 +82,5 @@ public class ProductoController {
 			arrayProductos[i] = listProductos.get(i);
 		}
 		return arrayProductos;
-	}
-	
-	private void setListProductos() {
-		modeloListProd = new DefaultListModel<ProductoDTO>();
-		vista.setListProductos(modeloListProd);
-		modeloListMontados = new DefaultListModel<ProductoDTO>();
-		vista.setListProductos(modeloListMontados);
-		ProductoDTO[] arrayProductos = getListaProductos();
-		for(int i=0;i<arrayProductos.length;i++) {
-			modeloListProd.addElement(arrayProductos[i]);
-		}
 	}
 }
