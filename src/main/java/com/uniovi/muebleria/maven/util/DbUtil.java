@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -171,7 +170,32 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				pres = new PresupuestoDTO(rs.getInt(1), rs.getInt(2),presupuestoAceptado(rs.getInt(3)),rs.getDate(4), rs.getInt(5));
+				pres = new PresupuestoDTO(rs.getInt(1), rs.getInt(2),presupuestoAceptado(rs.getInt(3)),rs.getDate(4), rs.getInt(5),"");
+				list.add(pres);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+	
+	public ArrayList<PresupuestoDTO> recogerPresupuestosYClientes(String sql){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		PresupuestoDTO pres = null;
+		ArrayList<PresupuestoDTO> list = new ArrayList<PresupuestoDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				pres = new PresupuestoDTO(rs.getInt(1), rs.getInt(2),presupuestoAceptado(rs.getInt(3)),rs.getDate(4), rs.getInt(5),rs.getString(7));
 				list.add(pres);
 			}
 		} catch (SQLException e) {

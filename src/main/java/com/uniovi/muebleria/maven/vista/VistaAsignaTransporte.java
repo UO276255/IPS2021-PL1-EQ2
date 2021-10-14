@@ -1,20 +1,17 @@
 package com.uniovi.muebleria.maven.vista;
 
+import java.awt.Font;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
-import javax.swing.JScrollPane;
-import java.awt.CardLayout;
-import java.awt.BorderLayout;
-import javax.swing.JList;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class VistaAsignaTransporte extends JFrame{
 	
@@ -24,316 +21,129 @@ public class VistaAsignaTransporte extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	private TransportistaDTO transpElegido;
-	private JPanel panelGeneral;
-	private DefaultListModel<ProductoDTO> modeloListRecoger;
-	private DefaultListModel<ProductoDTO> modeloListTransp;
-	private DefaultListModel<ProductoDTO> modeloListMontar;
-	private DefaultListModel<ProductoDTO> modeloListNoMontar;
-	private JPanel panelInicial;
-	private JPanel panelTransportados;
+	private JPanel panelPrncpl;
+	private JLabel lblListaTransportistas;
 	private JComboBox<TransportistaDTO> comboBoxListaTransportistas;
 	private JButton btnAceptaTransp;
-	private JLabel lblRecoger;
-	private JButton btnParaTransportar;
-	private JScrollPane scrollPaneRecoger;
-	private JLabel lblTransportados;
-	private JButton btnParaRecoger;
-	private JScrollPane scrollPaneTransportar;
-	private JPanel panelRecoger;
-	private JPanel panelTransporte;
-	private JLabel lblLista;
-	private JList<ProductoDTO> listRecoger;
-	private JList<ProductoDTO> listTransportar;
+	private JPanel panelProductos;
 	private JPanel panelMontados;
-	private JPanel panelNoMontados;
-	private JPanel panelMontar;
-	private JLabel lblProdMontar;
-	private JLabel lblNoMontar;
-	private JLabel lblMontar;
-	private JButton btnParaMontar;
-	private JButton btnParaNoMontar;
-	private JList<ProductoDTO> listNoMontar;
-	private JList<ProductoDTO> listMontar;
-	private JScrollPane scrollPaneNoMontar;
-	private JScrollPane scrollPaneMontar;
-	private JButton btnCancelar;
+	private JLabel lblProductos;
+	private JLabel lblMontados;
+	private JList<ProductoDTO> listProductos;
+	private JList<ProductoDTO> listMontados;
+	private JButton btnTransportados;
+	private JButton btnMontados;
 	
 	public VistaAsignaTransporte() {
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 759, 515);
 		getContentPane().setLayout(null);
-		getContentPane().add(getPanelGeneral());
+		getContentPane().add(getPanelPrncpl());
 	}
-	private JPanel getPanelGeneral() {
-		if (panelGeneral == null) {
-			panelGeneral = new JPanel();
-			panelGeneral.setBounds(0, 0, 745, 478);
-			panelGeneral.setLayout(new CardLayout(0, 0));
-			panelGeneral.add(getPanelTransportados(), "PanelTransporte");
-			panelGeneral.add(getPanelMontados(), "PanelMontados");
+	private JPanel getPanelPrncpl() {
+		if (panelPrncpl == null) {
+			panelPrncpl = new JPanel();
+			panelPrncpl.setBounds(0, 0, 745, 478);
+			panelPrncpl.setLayout(null);
+			panelPrncpl.add(getLblListaTransportistas());
+			panelPrncpl.add(getComboBoxListaTransportistas());
+			panelPrncpl.add(getBtnAceptaTransp());
+			panelPrncpl.add(getPanelProductos());
+			panelPrncpl.add(getPanelMontados());
 		}
-		return panelGeneral;
+		return panelPrncpl;
 	}
-	private JPanel getPanelTransportados() {
-		if (panelTransportados == null) {
-			panelTransportados = new JPanel();
-			panelTransportados.setLayout(null);
-			panelTransportados.add(getComboBoxListaTransportistas());
-			panelTransportados.add(getBtnAceptaTransp());
-			panelTransportados.add(getPanelRecoger());
-			panelTransportados.add(getPanelTransporte());
-			panelTransportados.add(getLblLista());
+	private JLabel getLblListaTransportistas() {
+		if (lblListaTransportistas == null) {
+			lblListaTransportistas = new JLabel("Lista de transportistas para su envío: ");
+			lblListaTransportistas.setBounds(44, 36, 240, 21);
 		}
-		return panelTransportados;
+		return lblListaTransportistas;
 	}
 	public JComboBox<TransportistaDTO> getComboBoxListaTransportistas() {
 		if (comboBoxListaTransportistas == null) {
 			comboBoxListaTransportistas = new JComboBox<TransportistaDTO>();
-			comboBoxListaTransportistas.setBounds(20, 91, 703, 22);
+			comboBoxListaTransportistas.setBounds(44, 60, 647, 22);
 		}
 		return comboBoxListaTransportistas;
 	}
 	private JButton getBtnAceptaTransp() {
 		if (btnAceptaTransp == null) {
 			btnAceptaTransp = new JButton("Aceptar transportista");
-			btnAceptaTransp.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
-					c.show(getPanelGeneral(), "PanelMontados");
-				}
-			});
-			btnAceptaTransp.setBounds(283,444, 180, 23);
+			btnAceptaTransp.setBounds(44, 445, 200, 23);
 		}
 		return btnAceptaTransp;
 	}
-	private JLabel getLblRecoger() {
-		if (lblRecoger == null) {
-			lblRecoger = new JLabel("Productos para recoger");
+	private JPanel getPanelProductos() {
+		if (panelProductos == null) {
+			panelProductos = new JPanel();
+			panelProductos.setBounds(44, 119, 317, 295);
+			panelProductos.setLayout(null);
+			panelProductos.add(getLblProductos());
+			panelProductos.add(getBtnTransportados());
+			panelProductos.add(getListProductos());
 		}
-		return lblRecoger;
-	}
-	private JButton getBtnParaTransportar() {
-		if (btnParaTransportar == null) {
-			btnParaTransportar = new JButton("Añadir a productos para transportar");
-			btnParaTransportar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					for (int i=0;i<getListRecoger().getSelectedValuesList().size();i++) {
-						modeloListTransp.addElement(getListRecoger().getSelectedValuesList().get(i));
-						modeloListRecoger.removeElement(getListRecoger().getSelectedValuesList().get(i));
-					}
-				}
-			});
-		}
-		return btnParaTransportar;
-	}
-	private JScrollPane getScrollPaneRecoger() {
-		if (scrollPaneRecoger == null) {
-			scrollPaneRecoger = new JScrollPane();
-			scrollPaneRecoger.setViewportView(getListRecoger());
-		}
-		return scrollPaneRecoger;
-	}
-	private JLabel getLblTransportados() {
-		if (lblTransportados == null) {
-			lblTransportados = new JLabel("Productos para transportar");
-		}
-		return lblTransportados;
-	}
-	private JButton getBtnParaRecoger() {
-		if (btnParaRecoger == null) {
-			btnParaRecoger = new JButton("Quitar de productos para recoger");
-			btnParaRecoger.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					for (int i=0;i<getListTransportar().getSelectedValuesList().size();i++) {
-						modeloListRecoger.addElement(getListTransportar().getSelectedValuesList().get(i));
-						modeloListTransp.removeElement(getListTransportar().getSelectedValuesList().get(i));
-					}
-				}
-			});
-		}
-		return btnParaRecoger;
-	}
-	private JScrollPane getScrollPaneTransportar() {
-		if (scrollPaneTransportar == null) {
-			scrollPaneTransportar = new JScrollPane();
-			scrollPaneTransportar.setViewportView(getListTransportar());
-		}
-		return scrollPaneTransportar;
-	}
-	private JPanel getPanelRecoger() {
-		if (panelRecoger == null) {
-			panelRecoger = new JPanel();
-			panelRecoger.setBounds(20, 124, 344, 274);
-			panelRecoger.setLayout(new BorderLayout(0, 0));
-			panelRecoger.add(getLblRecoger(), BorderLayout.NORTH);
-			panelRecoger.add(getBtnParaTransportar(), BorderLayout.SOUTH);
-			panelRecoger.add(getScrollPaneRecoger(), BorderLayout.CENTER);
-		}
-		return panelRecoger;
-	}
-	private JPanel getPanelTransporte() {
-		if (panelTransporte == null) {
-			panelTransporte = new JPanel();
-			panelTransporte.setBounds(379, 124, 344, 274);
-			panelTransporte.setLayout(new BorderLayout(0, 0));
-			panelTransporte.add(getLblTransportados(), BorderLayout.NORTH);
-			panelTransporte.add(getBtnParaRecoger(), BorderLayout.SOUTH);
-			panelTransporte.add(getScrollPaneTransportar(), BorderLayout.CENTER);
-		}
-		return panelTransporte;
-	}
-	private JLabel getLblLista() {
-		if (lblLista == null) {
-			lblLista = new JLabel("Lista de transportistas disponibles:");
-			lblLista.setBounds(20, 78, 344, 14);
-		}
-		return lblLista;
-	}
-	private JList<ProductoDTO> getListRecoger() {
-		if (listRecoger == null) {
-			modeloListRecoger = new DefaultListModel<ProductoDTO>();
-			listRecoger = new JList<ProductoDTO>(modeloListRecoger);
-		}
-		return listRecoger;
-	}
-	private JList<ProductoDTO> getListTransportar() {
-		if (listTransportar == null) {
-			modeloListTransp = new DefaultListModel<ProductoDTO>();
-			listTransportar = new JList<ProductoDTO>(modeloListTransp);
-		}
-		return listTransportar;
-	}
-	public void addModeloListProdNoTransp(ProductoDTO prod){
-		modeloListRecoger.addElement(prod);
-	}
-	public void addModeloListProdTransp(ProductoDTO prod){
-		modeloListTransp.addElement(prod);
+		return panelProductos;
 	}
 	private JPanel getPanelMontados() {
 		if (panelMontados == null) {
 			panelMontados = new JPanel();
+			panelMontados.setBounds(371, 119, 317, 295);
 			panelMontados.setLayout(null);
-			panelMontados.add(getPanelNoMontados());
-			panelMontados.add(getPanelMontar());
-			panelMontados.add(getLblProdMontar());
-			panelMontados.add(getBtnCancelar());
+			panelMontados.add(getLblMontados());
+			panelMontados.add(getListMontados());
+			panelMontados.add(getBtnMontados());
 		}
 		return panelMontados;
 	}
-	private JPanel getPanelNoMontados() {
-		if (panelNoMontados == null) {
-			panelNoMontados = new JPanel();
-			panelNoMontados.setBounds(20, 124, 344, 274);
-			panelNoMontados.setLayout(new BorderLayout(0, 0));
-			panelNoMontados.add(getLblNoMontar(), BorderLayout.NORTH);
-			panelNoMontados.add(getBtnParaMontar(), BorderLayout.SOUTH);
-			panelNoMontados.add(getScrollPaneNoMontar(), BorderLayout.CENTER);
+	private JLabel getLblProductos() {
+		if (lblProductos == null) {
+			lblProductos = new JLabel("Productos transportados");
+			lblProductos.setBounds(10, 0, 307, 20);
 		}
-		return panelNoMontados;
+		return lblProductos;
 	}
-	private JPanel getPanelMontar() {
-		if (panelMontar == null) {
-			panelMontar = new JPanel();
-			panelMontar.setBounds(379, 124, 344, 274);
-			panelMontar.setLayout(new BorderLayout(0, 0));
-			panelMontar.add(getLblMontar(), BorderLayout.NORTH);
-			panelMontar.add(getBtnParaNoMontar(), BorderLayout.SOUTH);
-			panelMontar.add(getScrollPaneMontar(), BorderLayout.CENTER);
+	private JLabel getLblMontados() {
+		if (lblMontados == null) {
+			lblMontados = new JLabel("Productos montados");
+			lblMontados.setBounds(10, 0, 307, 21);
 		}
-		return panelMontar;
+		return lblMontados;
 	}
-	private JLabel getLblProdMontar() {
-		if (lblProdMontar == null) {
-			lblProdMontar = new JLabel("Selecciona los productos para montar: ");
-			lblProdMontar.setBounds(20, 99, 273, 16);
+	public JList<ProductoDTO> getListProductos() {
+		if (listProductos == null) {
+			listProductos = new JList<ProductoDTO>();
+			listProductos.setBounds(0, 22, 317, 249);
+			listProductos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		}
-		return lblProdMontar;
+		return listProductos;
 	}
-	private JLabel getLblNoMontar() {
-		if (lblNoMontar == null) {
-			lblNoMontar = new JLabel("Productos sin montar:");
+	public void setListProductos(DefaultListModel<ProductoDTO> modeloListProductos) {
+		listProductos = new JList<ProductoDTO>(modeloListProductos);
+	}
+	public JList<ProductoDTO> getListMontados() {
+		if (listMontados == null) {
+			listMontados = new JList<ProductoDTO>();
+			listMontados.setBounds(0, 22, 317, 248);
 		}
-		return lblNoMontar;
+		return listMontados;
 	}
-	private JLabel getLblMontar() {
-		if (lblMontar == null) {
-			lblMontar = new JLabel("Productos para montar:");
+	public void setListMontados(DefaultListModel<ProductoDTO> modeloListMontados) {
+		listMontados = new JList<ProductoDTO>(modeloListMontados);
+	}
+	private JButton getBtnTransportados() {
+		if (btnTransportados == null) {
+			btnTransportados = new JButton("Añadir a productos para montar");
+			btnTransportados.setBounds(0, 272, 317, 23);
 		}
-		return lblMontar;
+		return btnTransportados;
 	}
-	private JButton getBtnParaMontar() {
-		if (btnParaMontar == null) {
-			btnParaMontar = new JButton("Añadir para montar");
-			btnParaMontar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					for (int i=0;i<getListNoMontar().getSelectedValuesList().size();i++) {
-						modeloListMontar.addElement(getListNoMontar().getSelectedValuesList().get(i));
-						modeloListNoMontar.removeElement(getListNoMontar().getSelectedValuesList().get(i));
-					}
-				}
-			});
+	private JButton getBtnMontados() {
+		if (btnMontados == null) {
+			btnMontados = new JButton("Quitar de productos para montar");
+			btnMontados.setBounds(0, 272, 317, 23);
 		}
-		return btnParaMontar;
-	}
-	private JButton getBtnParaNoMontar() {
-		if (btnParaNoMontar == null) {
-			btnParaNoMontar = new JButton("Quitar para montar");
-			btnParaNoMontar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					for (int i=0;i<getListMontar().getSelectedValuesList().size();i++) {
-						modeloListNoMontar.addElement(getListMontar().getSelectedValuesList().get(i));
-						modeloListMontar.removeElement(getListMontar().getSelectedValuesList().get(i));
-					}
-				}
-			});
-		}
-		return btnParaNoMontar;
-	}
-	private JList<ProductoDTO> getListNoMontar() {
-		if (listNoMontar == null) {
-			modeloListNoMontar = new DefaultListModel<ProductoDTO>();
-			listNoMontar = new JList<ProductoDTO>(modeloListNoMontar);
-		}
-		return listNoMontar;
-	}
-	private JList<ProductoDTO> getListMontar() {
-		if (listMontar == null) {
-			modeloListMontar = new DefaultListModel<ProductoDTO>();
-			listMontar = new JList<ProductoDTO>(modeloListMontar);
-		}
-		return listMontar;
-	}public void addModeloListProdNoMontar(ProductoDTO prod){
-		modeloListNoMontar.addElement(prod);
-	}
-	public void addModeloListProdMontar(ProductoDTO prod){
-		modeloListMontar.addElement(prod);
-	}
-	private JScrollPane getScrollPaneNoMontar() {
-		if (scrollPaneNoMontar == null) {
-			scrollPaneNoMontar = new JScrollPane();
-			scrollPaneNoMontar.setViewportView(getListNoMontar());
-		}
-		return scrollPaneNoMontar;
-	}
-	private JScrollPane getScrollPaneMontar() {
-		if (scrollPaneMontar == null) {
-			scrollPaneMontar = new JScrollPane();
-			scrollPaneMontar.setViewportView(getListMontar());
-		}
-		return scrollPaneMontar;
-	}
-	private JButton getBtnCancelar() {
-		if (btnCancelar == null) {
-			btnCancelar = new JButton("Cancelar");
-			btnCancelar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
-					c.show(getPanelGeneral(), "PanelTransporte");
-				}
-			});
-			btnCancelar.setBounds(20, 444, 131, 23);
-		}
-		return btnCancelar;
+		return btnMontados;
 	}
 }

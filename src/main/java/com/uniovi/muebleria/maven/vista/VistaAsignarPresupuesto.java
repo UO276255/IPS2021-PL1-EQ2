@@ -12,7 +12,6 @@ import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteModel;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
-import com.uniovi.muebleria.maven.util.Database;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -178,9 +177,11 @@ public class VistaAsignarPresupuesto extends JFrame {
 		}
 		return btnAsignarCliente;
 	}
+	
 	private void closeWindow() {
 		this.dispose();
 	}
+	
 	private JTextField getTextFieldNombre() {
 		if (textFieldNombre == null) {
 			textFieldNombre = new JTextField();

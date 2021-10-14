@@ -24,6 +24,11 @@ insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (6,84,0,to_date('2021-10-28','yyyy-mm-dd'),65842623);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (7,140,1,to_date('2021-10-25','yyyy-mm-dd'),21489632);
 
+
+insert into venta(id_venta,fecha_venta,precio,transporte,id_pres) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5);
+insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres) values (2,to_date('2021-09-28','yyyy-mm-dd'),140,1,7);
+insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres) values (3,to_date('2021-11-05','yyyy-mm-dd'),140,0,3);
+
 insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (1,'Juan',647571418,to_date('2021-10-10','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));
 insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (2,'Lorena',642518935,to_date('2021-09-28','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));
 insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (3,'Luis',639293514,to_date('2021-11-05','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));
@@ -83,9 +88,3 @@ insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (8,5,1
 insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (9,6,45,10);
 insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (10,6,32,4);
 
-
-insert into venta(id_venta,fecha_venta,precio,transporte) values (1,to_date('2021-10-10','yyyy-mm-dd'),450,0);
-insert into venta(id_venta,fecha_venta,precio,transporte) values (2,to_date('2021-09-28','yyyy-mm-dd'),1500,1);
-insert into venta(id_venta,fecha_venta,precio,transporte) values (3,to_date('2021-11-05','yyyy-mm-dd'),85,0);
-insert into venta(id_venta,fecha_venta,precio,transporte) values (4,to_date('2021-10-25','yyyy-mm-dd'),70,1);
-insert into venta(id_venta,fecha_venta,precio,transporte) values (5,to_date('2021-09-30','yyyy-mm-dd'),200,1);

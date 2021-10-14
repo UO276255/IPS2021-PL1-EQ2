@@ -1,13 +1,22 @@
 package com.uniovi.muebleria.maven;
 
-/**
- * Hello world!
- *
- */
+import java.awt.EventQueue;
+
+import com.uniovi.muebleria.maven.vista.VistaMuebleria;
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VistaMuebleria frame = new VistaMuebleria();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
     }
 }

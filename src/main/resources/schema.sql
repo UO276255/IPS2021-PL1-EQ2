@@ -62,7 +62,8 @@ CREATE TABLE Venta (
 	Id_venta INT PRIMARY KEY NOT NULL,
 	Fecha_venta DATETIME,
 	Precio INT NOT NULL,
-	Transporte BIT);
+	Transporte BIT,
+	Id_pres INT REFERENCES Presupuestos(Id_pres));
 
 CREATE TABLE Transportista (
 	id_transp VARCHAR(32) PRIMARY KEY NOT NULL,

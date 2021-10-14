@@ -15,6 +15,7 @@ public class Database extends DbUtil {
 	public Database() {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+			@SuppressWarnings("unused")
 			Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			System.out.println("OK----------------------");			
 		} catch (ClassNotFoundException e) {
