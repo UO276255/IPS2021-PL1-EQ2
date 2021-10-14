@@ -143,9 +143,8 @@ public abstract class DbUtil {
 			c = getConnection();
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
-			
 			while (rs.next()) {
-				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5));
+				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3),rs.getDate(4), rs.getDate(5));
 				list.add(tra);
 			}
 		} catch (SQLException e) {

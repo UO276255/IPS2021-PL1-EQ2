@@ -1,5 +1,7 @@
 package com.uniovi.muebleria.maven.vista;
 
+import java.awt.Font;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,6 +12,7 @@ import javax.swing.JPanel;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
+import javax.swing.JScrollPane;
 
 public class VistaAsignaTransporte extends JFrame{
 	
@@ -79,8 +82,8 @@ public class VistaAsignaTransporte extends JFrame{
 			panelProductos.setBounds(44, 119, 317, 295);
 			panelProductos.setLayout(null);
 			panelProductos.add(getLblProductos());
-			panelProductos.add(getListProductos());
 			panelProductos.add(getBtnTransportados());
+			panelProductos.add(getListProductos());
 		}
 		return panelProductos;
 	}
@@ -112,7 +115,8 @@ public class VistaAsignaTransporte extends JFrame{
 	public JList<ProductoDTO> getListProductos() {
 		if (listProductos == null) {
 			listProductos = new JList<ProductoDTO>();
-			listProductos.setBounds(0, 21, 317, 248);
+			listProductos.setBounds(0, 22, 317, 249);
+			listProductos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		}
 		return listProductos;
 	}
