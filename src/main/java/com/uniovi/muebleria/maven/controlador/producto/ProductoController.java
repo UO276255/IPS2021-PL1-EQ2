@@ -13,7 +13,6 @@ public class ProductoController {
 	public ProductoController(ProductoModel m, VistaAsignaTransporte v) {
 		this.vista = v;
 		this.model = m;
-		this.initView();
 	}
 	
 	public void initView() {
@@ -74,6 +73,24 @@ public class ProductoController {
 		for(int i=0;i<arrayProductos.length;i++) {
 			vista.addModeloListProdMontar(arrayProductos[i]);
 		}
+	}
+	
+	public void actualizarTransporte(int bit,int id) {
+		model.ActualizarTransporte(bit, id);
+	}
+	
+	public void actualizarMontaje(int bit,int id) {
+		model.ActualizarMontaje(bit, id);
+	}
+	
+	public void actualizaListaMontaje() {
+		vista.clearListaMontaje();
+		setListProductosMontar();
+	}
+	
+	public void actualizaListaNoMontaje() {
+		vista.clearListaNoMontaje();
+		setListProductosNoMontar();
 	}
 	
 	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {

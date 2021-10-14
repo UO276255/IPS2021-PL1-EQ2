@@ -39,7 +39,7 @@ insert into almacen (id_almacen) values (101);
 insert into almacen (id_almacen) values (102);
 insert into almacen (id_almacen) values (103);
 
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (123,'silla victoriana',111,0,1,'silla',100);
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (123,'silla victoriana',111,0,0,'silla',100);
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (150,'sofá tela negra',700,1,0,'sofa',100);
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (95,'mesa cristal 4 patas',150,1,0,'mesa',100);
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen) values (45,'libreria hoinfrom',540,1,0,'estanteria',101);
