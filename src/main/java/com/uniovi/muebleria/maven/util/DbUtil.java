@@ -288,8 +288,7 @@ public abstract class DbUtil {
 					
 				}else {
 					list.add(prod);
-				}
-				System.out.println("i");				
+				}			
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
