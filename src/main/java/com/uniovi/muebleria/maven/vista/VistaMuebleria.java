@@ -27,7 +27,9 @@ public class VistaMuebleria extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel PanelInicio;
+	
 	public static VistaAsignaTransporte VIEW_TRANSPORTE = new VistaAsignaTransporte();
+	public static VistaCreacionVentas VIEW_VENTAS = new VistaCreacionVentas();
 	public static VistaAsignarPresupuesto VIEW_PRESUPUESTO = new VistaAsignarPresupuesto();
 
 	/**
@@ -64,7 +66,7 @@ public class VistaMuebleria extends JFrame {
 		btnAsignarPresupuesto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VIEW_PRESUPUESTO);
-				controller.initView();
+				controller.initViewPresupuesto();
 				if(VIEW_PRESUPUESTO.getComboBoxPresupuestos().getItemCount() == 0) {
 					VIEW_PRESUPUESTO.getBtnAsignarNuevo().setEnabled(false);
 					VIEW_PRESUPUESTO.getBtnAsignarExistente().setEnabled(false);
@@ -98,8 +100,22 @@ public class VistaMuebleria extends JFrame {
 
 		PanelBotones.add(btnFechaEntrega);
 		
-		JButton btnVisualiarPresupuestos = new JButton("Visualizar Presupuestos");
-		PanelBotones.add(btnVisualiarPresupuestos);
+		JButton btnCrearVenta = new JButton("Crear una venta");
+		btnCrearVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), VIEW_VENTAS);
+				controller.initViewVentas();
+				
+				if(VIEW_VENTAS.getComboBoxPresupuestoSinAceptar().getItemCount() == 0) {		
+					JOptionPane.showMessageDialog(null, "No hay ningun presupuesto sin aceptar, lo siento");
+				} else {
+					
+				}
+
+				
+			}
+		});
+		PanelBotones.add(btnCrearVenta);
 		
 		JButton btnVisualizarHistorial = new JButton("Visualizar historial de ventas");
 		PanelBotones.add(btnVisualizarHistorial);

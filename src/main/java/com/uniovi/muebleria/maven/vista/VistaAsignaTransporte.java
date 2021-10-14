@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
-import javax.swing.JScrollPane;
 
 public class VistaAsignaTransporte extends JFrame{
 	

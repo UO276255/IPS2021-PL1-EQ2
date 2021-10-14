@@ -1,4 +1,4 @@
-package com.uniovi.muebleria.maven.controlador;
+package com.uniovi.muebleria.maven.controlador.Venta;
 
 public class VentaController {
 
