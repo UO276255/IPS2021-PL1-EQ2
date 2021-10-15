@@ -37,7 +37,7 @@ CREATE TABLE Productos (
 	Montaje BIT,
 	Categoria VARCHAR(32) NOT NULL,
 	Id_almacen INT REFERENCES Almacen(Id_almacen),	
-	fecha_entrega DATE);
+	fecha_entrega DATETIME);
 
 CREATE TABLE Proveedor (
 	Id_prov INT PRIMARY KEY NOT NULL);
