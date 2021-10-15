@@ -295,7 +295,7 @@ public abstract class DbUtil {
 	}
 	
 
-	public ArrayList<ProductoDTO> recogerProductos(String sqlProducto, int id_pres, boolean conTransporte) {
+	public ArrayList<ProductoDTO> recogerProductosPresupuesto(String sqlProducto, int id_pres, boolean conTransporte) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;

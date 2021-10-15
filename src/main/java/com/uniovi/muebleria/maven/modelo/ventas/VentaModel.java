@@ -24,7 +24,7 @@ public class VentaModel {
 	}
 
 	public ProductoDTO[] getListaProductos(int id_pres, boolean conTransporte) {
-		ProductoDTO[] listaProductos = toArray(db.recogerProductos(SQL_PRODUCTO, id_pres, conTransporte));
+		ProductoDTO[] listaProductos = toArray(db.recogerProductosPresupuesto(SQL_PRODUCTO, id_pres, conTransporte));
 		return listaProductos;
 	}
 	
