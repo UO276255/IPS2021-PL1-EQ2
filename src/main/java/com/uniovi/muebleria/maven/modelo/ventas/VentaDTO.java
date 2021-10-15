@@ -51,5 +51,11 @@ public class VentaDTO {
 	public void setTransporte(boolean transporte) {
 		this.transporte = transporte;
 	}
+	
+	public String toString() {
+		String cadena = "Id:" + getId_venta()  + ", Fecha: " + getFecha() + ", Precio: "
+				+ getPrecio();
+		return cadena;
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
+import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.vista.VistaDeterminaFecha;
@@ -37,6 +38,11 @@ public class VentaController {
 			arrayVentas[i] = listVentas.get(i);
 		}
 		return arrayVentas;
+	}
+	
+	public ProductoDTO[] getListaProductos(VentaDTO venta, boolean conTransporte) {
+		ProductoDTO[] listaProductos = model.getListaProductos(venta.getId_pres(), conTransporte);
+		return listaProductos;
 	}
 	
 }
