@@ -39,16 +39,16 @@ insert into almacen (id_almacen) values (102);
 insert into almacen (id_almacen) values (103);
 
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (123,'silla victoriana',111,0,0,'silla',100,to_date('2021-10-10','yyyy-mm-dd'));
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (150,'sofá tela negra',700,0,0,'sofa',100,to_date('2021-10-10','yyyy-mm-dd'));
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (95,'mesa cristal 4 patas',150,0,0,'mesa',100,to_date('2021-10-10','yyyy-mm-dd'));
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (45,'libreria hoinfrom',540,0,0,'estanteria',101,to_date('2021-10-10','yyyy-mm-dd'));
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (150,'sofá tela negra',700,1,0,'sofa',100,to_date('2021-10-10','yyyy-mm-dd'));
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (95,'mesa cristal 4 patas',150,1,0,'mesa',100,to_date('2021-10-10','yyyy-mm-dd'));
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (45,'libreria hoinfrom',540,1,0,'estanteria',101,to_date('2021-10-10','yyyy-mm-dd'));
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (32,'puf negro',42,0,0,'silla',102,to_date('2021-10-10','yyyy-mm-dd'));
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (144,'mesa de cocina lisa',150,0,0,'mesa',102,to_date('2021-10-10','yyyy-mm-dd'));
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (124,'silla bizantina',180,0,0,'silla',103,to_date('2021-10-10','yyyy-mm-dd'));
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (140,'sofa victoriano',1104,0,0,'sofa',103,to_date('2021-10-10','yyyy-mm-dd'));
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (111,'estanteria lichetes',256,0,0,'estanteria',102,to_date('2021-10-10','yyyy-mm-dd'));
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (140,'sofa victoriano',1104,1,0,'sofa',103,to_date('2021-10-10','yyyy-mm-dd'));
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (111,'estanteria lichetes',256,1,0,'estanteria',102,to_date('2021-10-10','yyyy-mm-dd'));
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (105,'silla normal blanca',140,0,0,'silla',101,to_date('2021-10-10','yyyy-mm-dd'));
-insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (29,'mesa eclesiástica',580,0,0,'mesa',100,to_date('2021-10-10','yyyy-mm-dd'));
+insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,id_almacen,fecha_entrega) values (29,'mesa eclesiástica',580,1,0,'mesa',100,to_date('2021-10-10','yyyy-mm-dd'));
 
 insert into proveedor(id_prov) values (1);
 insert into proveedor(id_prov) values (2);

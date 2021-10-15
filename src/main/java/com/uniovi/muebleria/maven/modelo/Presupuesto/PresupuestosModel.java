@@ -24,6 +24,7 @@ public class PresupuestosModel {
 	public void AsignarClienteAPresupuesto(int idclient, int idpresupuesto) {
 		db.AsignarPresupuestoACliente(SQL_ASIGNAR_PRESUPUESTO,idclient,idpresupuesto);
 	}
+	
 
 }
 

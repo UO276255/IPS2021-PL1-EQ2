@@ -295,6 +295,37 @@ public abstract class DbUtil {
 		}
 		
 	}
+	
+
+	public ArrayList<ProductoDTO> recogerProductosPresupuesto(String sqlProducto, int id_pres, boolean conTransporte) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProducto);
+			pst.setInt(1,id_pres);
+			pst.setBoolean(2,conTransporte);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
+
 
 
 	public ArrayList<ProductoDTO> recogerProductos(String sql){

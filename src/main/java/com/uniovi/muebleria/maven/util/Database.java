@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
+
 public class Database extends DbUtil {
 
 	private static final String SQL_SCHEMA = "src/main/resources/schema.sql";
@@ -47,5 +49,7 @@ public class Database extends DbUtil {
 	public String getUrl() {
 		return URL;
 	}
+
+
 
 }
