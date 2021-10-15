@@ -36,5 +36,6 @@ public class VentaModel {
 		return arrayProductos;
 	}
 	
+	
 }
 	
