@@ -9,13 +9,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
+import com.uniovi.muebleria.maven.controlador.pedidos.PedidoController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
+import com.uniovi.muebleria.maven.modelo.pedidos.PedidoModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
@@ -34,6 +37,7 @@ public class VistaMuebleria extends JFrame {
 	public static VistaCreacionVentas VIEW_VENTAS = new VistaCreacionVentas();
 	public static VistaAsignarPresupuesto VIEW_PRESUPUESTO = new VistaAsignarPresupuesto();
 	public static VistaDeterminaFecha VIEW_VENTA = new VistaDeterminaFecha();
+	public static VistaSeguimientoPedido VIEW_SEGUIMIENTO = new VistaSeguimientoPedido();
 
 	/**
 	 * Create the frame.
@@ -125,6 +129,13 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.add(btnVisualizarHistorial);
 		
 		JButton btnSeguimientoPedido = new JButton("Seguimiento de pedidos");
+		btnSeguimientoPedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PedidoController controller = new PedidoController(new PedidoModel(), VIEW_SEGUIMIENTO);
+				controller.initView();
+				VIEW_SEGUIMIENTO.getSpinnerIdProv().setModel(new SpinnerNumberModel(1, 1, VIEW_SEGUIMIENTO.getMaxIdProv(), 1));
+			}
+		});
 		PanelBotones.add(btnSeguimientoPedido);
 	}
 

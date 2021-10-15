@@ -14,9 +14,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
+import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
@@ -375,5 +377,107 @@ public abstract class DbUtil {
 
 	private boolean presupuestoAceptado(int value) {
 		return value == 0;
+	}
+	
+	public PedidoDTO recogerPedidoProveedor(String sqlProductosProveedor, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		PedidoDTO result = null;
+		boolean recibido = false;
+		List<ProductoDTO> productos = new ArrayList<ProductoDTO>();
+		List<Integer> numProductos = new ArrayList<Integer>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductosProveedor);
+			pst.setInt(1,id);
+			rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				productos.add(recogerProductoProv("SELECT * FROM Productos where id_prod = ?", rs.getInt(5)));
+				numProductos.add(rs.getInt(3));
+				if(rs.getInt(2) == 1) {
+					recibido = true;
+				}
+			}
+			
+			result = new PedidoDTO(productos, numProductos, recibido, id);
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public ProductoDTO recogerProductoProv(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO result = null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			if(rs.next()) {
+				result = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+			}		
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public int recogerMaxValorIdProv(String sqlMaximoId) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlMaximoId);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public void actualizaPedido(String sqlActualizaPedido, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlActualizaPedido);
+			
+			pst.setInt(1,id);
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
 	}
 }

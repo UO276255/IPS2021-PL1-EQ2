@@ -16,7 +16,6 @@ public class ProductoController {
 	}
 	
 	public void initView() {
-		vista.setVisible(true);
 		setListProductosNoTransp();
 		setListProductosTransp();
 		setListProductosNoMontar();
