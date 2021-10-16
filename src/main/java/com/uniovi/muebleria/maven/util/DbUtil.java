@@ -537,4 +537,59 @@ public abstract class DbUtil {
 		}
 	}
 	
+	public boolean recogerEstadoPedido(String sqlEstado, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		boolean result = false;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlEstado);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				if(rs.getInt(1) == 0) {
+					result = false;
+				}else {
+					result = true;
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public List<ProductoDTO> recogerProductosVenta(String sqlProductoVenta, int id_pres) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductoVenta);
+			pst.setInt(1,id_pres);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
 }
