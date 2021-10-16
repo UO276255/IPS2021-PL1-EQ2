@@ -14,6 +14,7 @@ import com.uniovi.muebleria.maven.vista.VistaDeterminaFecha;
 public class VentaController {
 
 	private VistaDeterminaFecha vistaFecha;
+	@SuppressWarnings("unused")
 	private VistaCreacionVentas vistaVenta;
 	private VentaModel model;
 	

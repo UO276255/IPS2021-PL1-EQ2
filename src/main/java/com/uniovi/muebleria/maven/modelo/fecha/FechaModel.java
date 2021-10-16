@@ -1,8 +1,6 @@
 package com.uniovi.muebleria.maven.modelo.fecha;
 
-import java.util.List;
 
-import com.uniovi.muebleria.maven.util.Database;
 public class FechaModel {
 	
 //	private Database db = new Database();

@@ -15,8 +15,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import com.uniovi.muebleria.maven.controlador.pedidos.PedidoController;
-import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
-import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoModel;
 import java.awt.Color;

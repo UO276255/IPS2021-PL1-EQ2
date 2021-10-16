@@ -12,6 +12,8 @@ import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -87,6 +89,8 @@ public class VistaCreacionVentas extends JFrame {
 					VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTAS);
 					PresupuestoVentaDTO dto = (PresupuestoVentaDTO) getComboBoxPresupuestoSinAceptar().getSelectedItem();
 					controller.cearVenta((new Date(System.currentTimeMillis())),dto.getPrecio(),dto.getIdPresupuesto());
+					JOptionPane.showMessageDialog(null,"La venta se ha creado con exito");
+					closeWindow();
 				}
 			});
 			btnCrearVenta.setBounds(544, 134, 111, 23);
