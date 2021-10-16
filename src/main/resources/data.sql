@@ -56,16 +56,28 @@ insert into proveedor(id_prov) values (4);
 insert into proveedor(id_prov) values (5);
 insert into proveedor(id_prov) values (6);
 
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (1,0,3,1,95);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (2,0,6,1,144);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (3,0,1,1,29);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (4,0,7,2,123);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (5,0,3,2,124);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (6,0,4,2,105);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (7,0,1,3,150);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (8,0,2,3,140);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (9,0,5,4,45);
-insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (10,0,2,4,111);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (1,0,3,1,95);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (2,0,6,1,144);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (3,0,1,1,29);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (4,0,7,2,123);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (5,0,3,2,124);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (6,0,4,2,105);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (7,0,1,3,150);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (8,0,2,3,140);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (9,0,5,4,45);
+--insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (10,0,2,4,111);
+
+insert into pedido (id_pedido,estado,id_prov) values (1,0,1);
+insert into pedido (id_pedido,estado,id_prov) values (2,0,1);
+insert into pedido (id_pedido,estado,id_prov) values (3,0,1);
+insert into pedido (id_pedido,estado,id_prov) values (4,0,2);
+insert into pedido (id_pedido,estado,id_prov) values (5,0,2);
+insert into pedido (id_pedido,estado,id_prov) values (6,0,2);
+insert into pedido (id_pedido,estado,id_prov) values (7,0,3);
+insert into pedido (id_pedido,estado,id_prov) values (8,0,3);
+insert into pedido (id_pedido,estado,id_prov) values (9,0,4);
+insert into pedido (id_pedido,estado,id_prov) values (10,0,4);
+
 
 insert into solicitudes (id_solic,id_pres,id_prod) values (1,1,123);
 insert into solicitudes (id_solic,id_pres,id_prod) values (2,1,95);
