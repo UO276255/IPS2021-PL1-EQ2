@@ -3,13 +3,15 @@ package com.uniovi.muebleria.maven.modelo.transportista;
 import java.util.Date;
 
 public class TransportistaDTO {
+	private int Id_transp;
 	private String nombre;
 	private int numTelefono;
 	private Date horarioInicio;
 	private Date horarioFin;
 	
 	public TransportistaDTO() {}
-	public TransportistaDTO(String nombre, int numTelefono, Date horarioInicio, Date horarioFin) {
+	public TransportistaDTO(int id, String nombre, int numTelefono, Date horarioInicio, Date horarioFin) {
+		this.Id_transp=id;
 		this.nombre = nombre;
 		this.numTelefono = numTelefono;
 		this.horarioInicio = horarioInicio;
@@ -20,6 +22,7 @@ public class TransportistaDTO {
 	public int getNumTelefono() { return this.numTelefono; }
 	public Date getHorarioIn() { return this.horarioInicio; }
 	public Date getHorarioFin() { return this.horarioFin; }
+	public int getId() {return this.Id_transp; }
 	
 	public void setNombre(String nombre) { this.nombre=nombre; }
 	public void setNumTelefono(int numTelefono) { this.numTelefono=numTelefono; }
@@ -27,7 +30,7 @@ public class TransportistaDTO {
 	public void setHorarioFin(Date horarioFin) { this.horarioFin=horarioFin; }
 	
 	public String toString() {
-		String cadena = "Nombre:" + getNombre()  + ", Número de Tlfn: " + getNumTelefono() + ", horario de entrada: "
+		String cadena = "Id: "+getId() + ", Nombre:" + getNombre()  + ", Número de Tlfn: " + getNumTelefono() + ", horario de entrada: "
 				+ getHorarioIn().toString() + ", horario de salida: " + getHorarioFin().toString();
 		return cadena;
 	}

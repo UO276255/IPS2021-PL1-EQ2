@@ -59,16 +59,18 @@ CREATE TABLE Repuesto (
 	Id_prod INT REFERENCES Productos(Id_prod),
 	cantidad_prod INT );
 
-CREATE TABLE Venta (
-	Id_venta INT PRIMARY KEY NOT NULL,
-	Fecha_venta DATETIME,
-	Precio INT NOT NULL,
-	Transporte BIT,
-	Id_pres INT REFERENCES Presupuestos(Id_pres));
-
 CREATE TABLE Transportista (
-	id_transp VARCHAR(32) PRIMARY KEY NOT NULL,
+	id_transp INT PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32) NOT NULL,
 	Numero_tel INT NOT NULL,
 	hora_entrada DATETIME,
 	hora_salida DATETIME);
+
+CREATE TABLE Venta (
+	Id_venta INT PRIMARY KEY NOT NULL,
+	Nombre VARCHAR(32) NOT NULL,
+	Fecha_venta DATETIME,
+	Precio INT NOT NULL,
+	Transporte BIT,
+	Id_pres INT REFERENCES Presupuestos(Id_pres),
+	Id_transp INT REFERENCES Transportista(id_transp));

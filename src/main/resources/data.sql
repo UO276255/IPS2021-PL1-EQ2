@@ -25,9 +25,9 @@ insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (7,140,1,to_date('2021-10-25','yyyy-mm-dd'),21489632);
 
 
-insert into venta(id_venta,fecha_venta,precio,transporte,id_pres) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5);
-insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres) values (2,to_date('2021-09-28','yyyy-mm-dd'),140,1,7);
-insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres) values (3,to_date('2021-11-05','yyyy-mm-dd'),140,0,3);
+insert into venta(id_venta,fecha_venta,precio,transporte,id_pres) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5,1);
+insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres) values (2,to_date('2021-09-28','yyyy-mm-dd'),140,1,7,4);
+insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres) values (3,to_date('2021-11-05','yyyy-mm-dd'),140,0,3,2sxx);
 
 insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (1,'Juan',647571418,to_date('2021-10-10','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));
 insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (2,'Lorena',642518935,to_date('2021-09-28','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));

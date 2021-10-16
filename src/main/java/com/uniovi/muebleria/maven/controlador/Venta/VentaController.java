@@ -1,10 +1,12 @@
 package com.uniovi.muebleria.maven.controlador.Venta;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.vista.VistaDeterminaFecha;
@@ -43,6 +45,22 @@ public class VentaController {
 	public ProductoDTO[] getListaProductos(VentaDTO venta, boolean conTransporte) {
 		ProductoDTO[] listaProductos = model.getListaProductos(venta.getId_pres(), conTransporte);
 		return listaProductos;
+	}
+
+	@SuppressWarnings("deprecation")
+	public boolean asignaFechaVenta(VentaDTO venta, Date date, Date time) {
+		Date horaEntrada = new Date(0,0,0,6,0);
+		Date horaSalida = new Date(0,0,0,14,0);
+		TransportistaDTO transp = model.getTransportista(venta.getId_transp());
+		horaEntrada = transp.getHorarioIn();
+		horaSalida = transp.getHorarioFin();
+		
+		Date hora = new Date(0,0,0,time.getHours(), time.getMinutes());
+		if (hora.getTime()<horaEntrada.getTime() || hora.getTime() > horaSalida.getTime())
+			return false;
+		Date fecha = new Date(date.getYear(),date.getMonth(),date.getDay(), time.getHours(), time.getMinutes());
+		model.asignaFechaVentas(venta, fecha);
+		return true;
 	}
 	
 }

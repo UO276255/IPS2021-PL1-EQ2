@@ -20,28 +20,30 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JTextArea;
+import javax.swing.SpinnerDateModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
 import java.awt.List;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
 
 public class VistaDeterminaFecha extends JFrame {
 
 	private JPanel contentPane;
 	private JCalendar calendar;
-	private JComboBox cbHoras;
-	private JComboBox cbMinutos;
-	private JLabel lbDivisor;
 	private JPanel pnAsignarCancelar;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
+	private JButton btAsignar;
+	private JButton btCancelar;
 	private JList list;
 	private List listaProductos;
 	private JComboBox cbSeleccionarVenta;
 	private VentaDTO venta;
-	 
+	private JSpinner spTimer;
 
 	/**
 	 * Create the frame.
@@ -55,9 +57,6 @@ public class VistaDeterminaFecha extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.add(getCalendar());
-		contentPane.add(getCbHoras());
-		contentPane.add(getCbMinutos());
-		contentPane.add(getLbDivisor());
 		contentPane.add(getPnAsignarCancelar());
 		contentPane.add(getList());
 		
@@ -99,6 +98,14 @@ public class VistaDeterminaFecha extends JFrame {
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnNewButton_2.setBounds(27, 62, 151, 23);
 		contentPane.add(btnNewButton_2);
+		
+		spTimer = new JSpinner(new SpinnerDateModel());
+		spTimer.setFont(new Font("Tahoma", Font.BOLD, 14));
+		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spTimer, "HH:mm");
+		spTimer.setEditor(timeEditor);
+		spTimer.setValue(new Date(0,0,0,0,0));
+		spTimer.setBounds(247, 513, 90, 23);
+		contentPane.add(spTimer);
 	}
 	@SuppressWarnings("deprecation")
 	private void seleccionaVenta() {
@@ -124,53 +131,51 @@ public class VistaDeterminaFecha extends JFrame {
 		}
 		return calendar;
 	}
-	private JComboBox getCbHoras() {
-		if (cbHoras == null) {
-			cbHoras = new JComboBox();
-			cbHoras.setModel(new DefaultComboBoxModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "00"}));
-			cbHoras.setBounds(242, 520, 44, 22);
-		}
-		return cbHoras;
-	}
-	private JComboBox getCbMinutos() {
-		if (cbMinutos == null) {
-			cbMinutos = new JComboBox();
-			cbMinutos.setModel(new DefaultComboBoxModel(new String[] {"00", "05", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55"}));
-			cbMinutos.setBounds(296, 520, 44, 22);
-		}
-		return cbMinutos;
-	}
-	private JLabel getLbDivisor() {
-		if (lbDivisor == null) {
-			lbDivisor = new JLabel(":");
-			lbDivisor.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			lbDivisor.setBounds(288, 521, 23, 14);
-		}
-		return lbDivisor;
-	}
 	private JPanel getPnAsignarCancelar() {
 		if (pnAsignarCancelar == null) {
 			pnAsignarCancelar = new JPanel();
 			pnAsignarCancelar.setBounds(453, 531, 277, 58);
 			pnAsignarCancelar.setLayout(new GridLayout(1, 0, 0, 0));
-			pnAsignarCancelar.add(getBtnNewButton());
-			pnAsignarCancelar.add(getBtnNewButton_1());
+			pnAsignarCancelar.add(getBtAsignar());
+			pnAsignarCancelar.add(getBtCancelar());
 		}
 		return pnAsignarCancelar;
 	}
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("Asignar");
-			btnNewButton.setBackground(Color.GREEN);
+	private JButton getBtAsignar() {
+		if (btAsignar == null) {
+			btAsignar = new JButton("Asignar");
+			btAsignar.addActionListener(new ActionListener() {
+				@SuppressWarnings("deprecation")
+				public void actionPerformed(ActionEvent e) {
+					Date date = getCalendar().getDate();
+					if (date.getDay() == 0)
+							JOptionPane.showMessageDialog(null, "Debe asignarse una fecha en días laborables");
+					else {
+						
+						Date time = (Date) spTimer.getValue();
+						VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTA);
+						if (controller.asignaFechaVenta(venta,date,time))
+							JOptionPane.showMessageDialog(null, "Se asignó la fecha correctamente");
+						else
+							JOptionPane.showMessageDialog(null, "No está dentro del horario del transportista");
+					}
+				}
+			});
+			btAsignar.setBackground(Color.GREEN);
 		}
-		return btnNewButton;
+		return btAsignar;
 	}
-	private JButton getBtnNewButton_1() {
-		if (btnNewButton_1 == null) {
-			btnNewButton_1 = new JButton("Cancelar");
-			btnNewButton_1.setBackground(Color.RED);
+	private JButton getBtCancelar() {
+		if (btCancelar == null) {
+			btCancelar = new JButton("Cancelar");
+			btCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			btCancelar.setBackground(Color.RED);
 		}
-		return btnNewButton_1;
+		return btCancelar;
 	}
 	private JList getList() {
 		if (list == null) {

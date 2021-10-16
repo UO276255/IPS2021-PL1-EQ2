@@ -8,6 +8,7 @@ public class VentaDTO {
 	private int precio;
 	private boolean transporte;
 	private int id_pres;
+	private int id_transp;
 	
 	public VentaDTO() {}
 	
@@ -56,6 +57,10 @@ public class VentaDTO {
 		String cadena = "Id:" + getId_venta()  + ", Fecha: " + getFecha() + ", Precio: "
 				+ getPrecio();
 		return cadena;
+	}
+
+	public int getId_transp() {
+		return this.id_transp;
 	}
 
 }

@@ -1,8 +1,10 @@
 package com.uniovi.muebleria.maven.modelo.ventas;
 
+import java.util.Date;
 import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.util.Database;
 
 public class VentaModel {
@@ -14,6 +16,10 @@ public class VentaModel {
 			+ "JOIN productos prod ON sol.id_prod = prod.id_prod "
 			+ "WHERE id_pres = ? AND Transporte = ?";
 	public static final String SQL_VENTAS = "SELECT * FROM Venta";
+	
+	public static final String SQL_FECHAS = "UPDATE Venta SET Fecha_venta = ? WHERE Id_venta = ?";
+	
+	public static final String SQL_TRANSPORTISTA = "SELECT * FROM Transportista WHERE Id_transp=?";
 	
 	public VentaModel() {
 		
@@ -34,6 +40,16 @@ public class VentaModel {
 			arrayProductos[i] = listProductos.get(i);
 		}
 		return arrayProductos;
+	}
+
+	public void asignaFechaVentas(VentaDTO venta, Date dateTime) {
+		java.sql.Date fecha = new java.sql.Date(dateTime.getTime());
+		db.asignaFechaAVenta(SQL_FECHAS,venta,fecha);
+		
+	}
+
+	public TransportistaDTO getTransportista(int id_transp) {
+		return db.getTransportista(SQL_TRANSPORTISTA, id_transp);
 	}
 	
 	
