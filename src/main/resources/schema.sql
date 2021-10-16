@@ -2,15 +2,15 @@
 --(en este caso en cada una de las aplicaciones (tkrun y descuento) se usa solo una tabla, por lo que no hace falta)
 
 --Para giis.demo.tkrun:
-DROP TABLE IF EXISTS Cliente;
-DROP TABLE IF EXISTS Presupuestos;
-DROP TABLE IF EXISTS Productos;
-DROP TABLE IF EXISTS Almacen;
-DROP TABLE IF EXISTS Proveedor;
-DROP TABLE IF EXISTS Pedido;
-DROP TABLE IF EXISTS Solicitudes;
-DROP TABLE IF EXISTS Venta;
-DROP TABLE IF EXISTS Transportista;
+DROP TABLE Cliente;
+DROP TABLE Presupuestos;
+DROP TABLE Productos;
+DROP TABLE Proveedor;
+DROP TABLE Pedido;
+DROP TABLE Solicitudes;
+DROP TABLE Venta;
+DROP TABLE Transportista;
+DROP TABLE Almacen;
 
 CREATE TABLE Cliente (
 	Id INT PRIMARY KEY NOT NULL,
@@ -25,8 +25,8 @@ CREATE TABLE Presupuestos (
 	Fecha_cad DATETIME,
 	Id_cliente INT REFERENCES Cliente(Id));
 
-CREATE TABLE Almacen (
-	Id_almacen INT PRIMARY KEY NOT NULL);
+CREATE TABLE Almacen(
+	Id_almacen int PRIMARY KEY NOT NULL);
 	
 CREATE TABLE Productos (
 	Id_prod INT PRIMARY KEY NOT NULL,
@@ -34,9 +34,9 @@ CREATE TABLE Productos (
 	Precio_prod INT NOT NULL,
 	Transporte BIT,
 	Montaje BIT,
-	Categoria VARCHAR(32) NOT NULL,
-	Id_almacen INT REFERENCES Almacen(Id_almacen),	
-	fecha_entrega DATETIME);
+	Categoria VARCHAR(32) NOT NULL,	
+	fecha_entrega DATETIME,
+	Id_alm INT REFERENCES Almacen(Id_almacen ));
 
 CREATE TABLE Proveedor (
 	Id_prov INT PRIMARY KEY NOT NULL);
