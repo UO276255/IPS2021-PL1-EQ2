@@ -429,7 +429,7 @@ public abstract class DbUtil {
 				numProductos.add(rs.getInt(4));				
 			}
 			
-			result = new PedidoDTO(id, productos, numProductos, recogerEstadoPedido("SELECT estado FROM Pedido where id_pedido = ?", id), id);
+			//result = new PedidoDTO(id, productos, numProductos, recogerEstadoPedido("SELECT estado FROM Pedido where id_pedido = ?", id), id);
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -612,4 +612,5 @@ public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto
 		
 		return result;
 	}
+
 }
