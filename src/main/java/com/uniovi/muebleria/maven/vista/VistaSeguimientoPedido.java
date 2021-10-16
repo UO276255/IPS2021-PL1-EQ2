@@ -28,7 +28,7 @@ public class VistaSeguimientoPedido extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JSpinner spinnerIdProv;
+	private JSpinner spinnerIdProd;
 	private JLabel lblSeleccionarProveedor;
 	private JButton btnBuscar;
 	private JTextPane textPanePedido;
@@ -52,25 +52,25 @@ public class VistaSeguimientoPedido extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		contentPane.add(getSpinnerIdProv());
+		contentPane.add(getSpinnerIdProd());
 		contentPane.add(getLblSeleccionarProveedor());
 		contentPane.add(getBtnBuscar());
 		contentPane.add(getScrollPanePedido());
 		contentPane.add(getBtnCancelar());
 		contentPane.add(getBtnMarcarRecibido());
 	}
-	public JSpinner getSpinnerIdProv() {
-		if (spinnerIdProv == null) {
-			spinnerIdProv = new JSpinner();
-			spinnerIdProv.setModel(new SpinnerNumberModel(0, 0, 0, 1));
-			spinnerIdProv.setBounds(436, 69, 30, 20);
+	public JSpinner getSpinnerIdProd() {
+		if (spinnerIdProd == null) {
+			spinnerIdProd = new JSpinner();
+			spinnerIdProd.setModel(new SpinnerNumberModel(0, 0, 0, 1));
+			spinnerIdProd.setBounds(436, 69, 30, 20);
 		}
-		return spinnerIdProv;
+		return spinnerIdProd;
 	}
 	private JLabel getLblSeleccionarProveedor() {
 		if (lblSeleccionarProveedor == null) {
-			lblSeleccionarProveedor = new JLabel("Selecciona la id del proveedor para buscar el pedido:");
-			lblSeleccionarProveedor.setBounds(178, 72, 285, 14);
+			lblSeleccionarProveedor = new JLabel("Selecciona la id del producto para buscar el pedido:");
+			lblSeleccionarProveedor.setBounds(139, 72, 313, 14);
 		}
 		return lblSeleccionarProveedor;
 	}
@@ -82,7 +82,7 @@ public class VistaSeguimientoPedido extends JFrame {
 					textPanePedido.setVisible(true);
 					scrollPanePedido.setVisible(true);
 					PedidoController controller = new PedidoController(new PedidoModel(), VistaMuebleria.VIEW_SEGUIMIENTO);
-					PedidoDTO pedido = controller.getPedido((Integer) getSpinnerIdProv().getValue());
+					PedidoDTO pedido = controller.getPedido((Integer) getSpinnerIdProd().getValue());
 					textPanePedido.setText(pedido.toString());
 				}
 			});
@@ -127,12 +127,13 @@ public class VistaSeguimientoPedido extends JFrame {
 			btnMarcarRecibido = new JButton("Marcar pedido como recibido");
 			btnMarcarRecibido.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					int valor = (Integer) getSpinnerIdProd().getValue();
 					PedidoController controller = new PedidoController(new PedidoModel(), VistaMuebleria.VIEW_SEGUIMIENTO);
-					PedidoDTO pedido = controller.getPedido((Integer) getSpinnerIdProv().getValue());
-					controller.setPedidoRegistrado(pedido.getIdProv());
+					PedidoDTO pedido = controller.getPedido(valor);
+					controller.setPedidoRegistrado(valor);
 					textPanePedido.setVisible(true);
 					scrollPanePedido.setVisible(true);
-					pedido = controller.getPedido((Integer) getSpinnerIdProv().getValue());
+					pedido = controller.getPedido(valor);
 					textPanePedido.setText(pedido.toString());
 					JOptionPane.showMessageDialog(null, "Pedido con id : " + pedido.getId()  +  " marcado correctamente como recibido");
 				}
@@ -148,7 +149,7 @@ public class VistaSeguimientoPedido extends JFrame {
 	
 	private void inicializar() {
 		textPanePedido.setText("");
-		spinnerIdProv.setValue(0);
+		spinnerIdProd.setValue(0);
 		scrollPanePedido.setVisible(false);
 		textPanePedido.setVisible(false);
 	}

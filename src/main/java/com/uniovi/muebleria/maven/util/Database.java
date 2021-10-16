@@ -3,6 +3,9 @@ package com.uniovi.muebleria.maven.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+
+import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 
 
 public class Database extends DbUtil {
@@ -49,6 +52,9 @@ public class Database extends DbUtil {
 		return URL;
 	}
 
-
+	public PedidoDTO recogerRepuestoPedido(String sqlPedido, int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
