@@ -5,8 +5,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
+import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoVentaDTO;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 
 import javax.swing.BoxLayout;
@@ -81,14 +84,18 @@ public class VistaCreacionVentas extends JFrame {
 		}
 		return comboBoxPresupuestoSinAceptar;
 	}
-	private JButton getBtnCrearVenta() {
+	
+	public JButton getBtnCrearVenta() {
 		if (btnCrearVenta == null) {
 			btnCrearVenta = new JButton("Crear Venta");
 			btnCrearVenta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTAS);
+					PresupuestoController controllerP = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_VENTAS);
 					PresupuestoVentaDTO dto = (PresupuestoVentaDTO) getComboBoxPresupuestoSinAceptar().getSelectedItem();
+					controllerP.removePresupuesto(dto.getIdPresupuesto());
 					controller.cearVenta((new Date(System.currentTimeMillis())),dto.getPrecio(),dto.getIdPresupuesto());
+					
 					JOptionPane.showMessageDialog(null,"La venta se ha creado con exito");
 					closeWindow();
 				}

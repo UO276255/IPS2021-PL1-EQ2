@@ -55,6 +55,11 @@ public class PresupuestoController {
   
 	}
 	
+	public void removePresupuesto(int idPresupuesto) {
+		model.removePresupuesto(idPresupuesto);
+		
+	}
+	
 	private PresupuestoVentaDTO[] convertirArrayAFormato(List<PresupuestoDTO> listaPresupuestos) {
 		PresupuestoVentaDTO dto = null;
 		PresupuestoVentaDTO[] lista = new PresupuestoVentaDTO[listaPresupuestos.size()];
@@ -73,4 +78,5 @@ public class PresupuestoController {
 		}
 		return lista;
 	}
+
 }

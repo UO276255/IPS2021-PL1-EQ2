@@ -113,9 +113,10 @@ public class VistaMuebleria extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), VIEW_VENTAS);
 				controller.initViewVentas();
-				
+				VIEW_VENTAS.getBtnCrearVenta().setEnabled(true);
 				if(VIEW_VENTAS.getComboBoxPresupuestoSinAceptar().getItemCount() == 0) {		
 					JOptionPane.showMessageDialog(null, "No hay ningun presupuesto sin aceptar, lo siento");
+					VIEW_VENTAS.getBtnCrearVenta().setEnabled(false);
 				} else {
 					
 				}
