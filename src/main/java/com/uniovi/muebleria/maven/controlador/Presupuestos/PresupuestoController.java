@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.vista.VistaAsignarPresupuesto;
 import com.uniovi.muebleria.maven.vista.VistaCreacionVentas;
@@ -49,19 +50,22 @@ public class PresupuestoController {
 	
 	public void setListaPresupuestosSinAceptar() {
 		List<PresupuestoDTO> presupuestos = model.obtenerPresupuestosSinAceptar();
-		PresupuestoDTO[] listaPresupuestos = convertirArray(presupuestos);
-		combertirAformato(listaPresupuestos);
-		viewVentas.getComboBoxPresupuestoSinAceptar().setModel(new DefaultComboBoxModel<String>(combertirAformato(listaPresupuestos)));
+		PresupuestoVentaDTO[] listaPresupuestos = convertirArrayAFormato(presupuestos);
+		viewVentas.getComboBoxPresupuestoSinAceptar().setModel(new DefaultComboBoxModel<PresupuestoVentaDTO>(listaPresupuestos));
+  
 	}
-
-	private String[] combertirAformato(PresupuestoDTO[] listaPresupuestos) {
-		String[] lista = new String[listaPresupuestos.length];
-		for(int i=0; i< listaPresupuestos.length; i++) {
-			lista[i] = listaPresupuestos[i].toString2();
+	
+	private PresupuestoVentaDTO[] convertirArrayAFormato(List<PresupuestoDTO> listaPresupuestos) {
+		PresupuestoVentaDTO dto = null;
+		PresupuestoVentaDTO[] lista = new PresupuestoVentaDTO[listaPresupuestos.size()];
+		for(int i=0;i<listaPresupuestos.size();i++) {
+			dto =  new PresupuestoVentaDTO(listaPresupuestos.get(i).getIdPresupuesto(),listaPresupuestos.get(i).getPrecio(),
+					listaPresupuestos.get(i).getFechaCaducidad(),listaPresupuestos.get(i).getNombreCliente());
+			lista[i] = dto;
 		}
 		return lista;
 	}
-
+	
 	private PresupuestoDTO[] convertirArray(List<PresupuestoDTO> presupuestos) {
 		PresupuestoDTO[] lista = new PresupuestoDTO[presupuestos.size()];
 		for(int i=0;i<presupuestos.size();i++) {

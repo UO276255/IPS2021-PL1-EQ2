@@ -2,28 +2,22 @@ package com.uniovi.muebleria.maven.modelo.Presupuesto;
 
 import java.util.Date;
 
-public class PresupuestoDTO {
-	
+public class PresupuestoVentaDTO {
 	private int IdPresupuesto ;
-	private int precio;
-	private boolean aceptado;
+	private int precio;;
 	private Date fechaCaducidad;
-	private int idCliente;
 	private String nombreCliente;
 	private Date fechaCreacion;
 	
-	public PresupuestoDTO() {
+	public PresupuestoVentaDTO() {
 		
 	}
 	
 	@SuppressWarnings("deprecation")
-	public PresupuestoDTO(int IdPresupuesto, int precio, 
-			boolean aceptado,Date fechaCaducidad,int idCliente,String nombreCliente) {
+	public PresupuestoVentaDTO(int IdPresupuesto, int precio,Date fechaCaducidad,String nombreCliente) {
 		this.IdPresupuesto = IdPresupuesto;
 		this.precio = precio;
-		this.aceptado = aceptado;
 		this.fechaCaducidad = fechaCaducidad;
-		this.idCliente = idCliente;
 		this.fechaCreacion = fechaCaducidad;
 		this.nombreCliente = nombreCliente;
 		this.fechaCreacion.setDate(getFechaCaducidad().getDate() - 15);
@@ -33,6 +27,10 @@ public class PresupuestoDTO {
 		return nombreCliente;
 	}
 
+	public void setNombreCliente(String nombre) {
+		this.nombreCliente = nombre;
+	}
+	
 	public int getIdPresupuesto() {
 		return IdPresupuesto;
 	}
@@ -49,14 +47,6 @@ public class PresupuestoDTO {
 		this.precio = precio;
 	}
 
-	public boolean isAceptado() {
-		return aceptado;
-	}
-
-	public void setAceptado(boolean aceptado) {
-		this.aceptado = aceptado;
-	}
-
 	public Date getFechaCaducidad() {
 		return fechaCaducidad;
 	}
@@ -68,20 +58,10 @@ public class PresupuestoDTO {
 	public void setFechaCaducidad(Date fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
-
-	public int getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-
+	
 	public String toString() {		
-		String cadena = "Id:" + getIdPresupuesto()  + " - Precio: " + getPrecio() + " - Creación: "
-				+ getFechaCreacion().toString() + " - Id Cliente: " + getIdCliente();
+		String cadena = "Nombre cliente: " + getNombreCliente()  +" - Creación: "
+				+ getFechaCreacion().toString();
 		return cadena;
 	}
-	
-
 }

@@ -6,6 +6,7 @@ delete from productos;
 delete from proveedor;
 delete from pedido;
 delete from solicitudes;
+delete from almacen;
 
 insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (78456156,'Luis','Rodriguez',to_date('1995-03-12','yyyy-mm-dd'));
 insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (45215638,'Ana','Sanchez',to_date('2001-07-08','yyyy-mm-dd'));
@@ -26,9 +27,9 @@ insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) valu
 insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) values (3,to_date('2021-11-05','yyyy-mm-dd'),140,0,3,null);
 
 
-insert into almacen(Id_almacen ) values (1);
-insert into almacen(Id_almacen ) values (2);
-insert into almacen(Id_almacen ) values (3);
+insert into almacen(Id_almacen) values (1);
+insert into almacen(Id_almacen) values (2);
+insert into almacen(Id_almacen) values (3);
 
 
 insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (1,'Juan',647571418,to_date('2021-10-10','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));

@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
@@ -357,7 +356,7 @@ public abstract class DbUtil {
 		return list;
 	}
 	
-	public int contarCliente(String sqlContarCliente) {
+	public int contarDatos(String Contar) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -365,12 +364,13 @@ public abstract class DbUtil {
 		
 		try {
 			c = getConnection();
-			pst = c.prepareStatement(sqlContarCliente);
+			pst = c.prepareStatement(Contar);
 			rs = pst.executeQuery();
 			
 			if (rs.next()) {
 				result = rs.getInt(1);
 			}
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -511,4 +511,29 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 	}
+	
+	public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto) {
+		
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,id);
+			pst.setDate(2,fecha);	
+			pst.setInt(3,precio);	
+			pst.setInt(4,idPresupuesto);	
+			pst.executeQuery();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
 }
