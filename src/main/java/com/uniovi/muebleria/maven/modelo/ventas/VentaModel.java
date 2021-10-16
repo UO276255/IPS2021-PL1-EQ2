@@ -16,7 +16,7 @@ public class VentaModel {
 	
 	public static final String SQL_VENTAS = "SELECT * FROM Venta";
 	
-	public static final String SQL_CONTAR_VENTAS = "SELECT count(*) FROM Ventas";
+	public static final String SQL_CONTAR_VENTAS = "SELECT count(*) from venta";
 	
 	public static final String SQL_CREAR_VENTA = "insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) "
 													+ "values (?,?,?,0,?,null)";
@@ -41,9 +41,10 @@ public class VentaModel {
 		db.CrearVenta(SQL_CREAR_VENTA,id,fecha,precio,idPresupuesto);	
 	}
 	
-	private int contarVentas() {
-		return db.contarDatos(SQL_CREAR_VENTA);	
+	public int contarVentas() {
+		return db.contarDatos(SQL_CONTAR_VENTAS);
 	}
+
 
 	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
 		ProductoDTO[] arrayProductos = new ProductoDTO[listProductos.size()];

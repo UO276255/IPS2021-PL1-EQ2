@@ -1,7 +1,5 @@
 package com.uniovi.muebleria.maven.vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,7 +17,6 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.Color;
-import javax.swing.JTextArea;
 import javax.swing.JList;
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
@@ -28,7 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class VistaDeterminaFecha extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JCalendar calendar;
 	private JComboBox cbHoras;

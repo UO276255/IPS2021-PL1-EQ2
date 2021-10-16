@@ -377,6 +377,7 @@ public abstract class DbUtil {
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
+		
 		return result;
 	}
 	
@@ -526,7 +527,7 @@ public abstract class DbUtil {
 			pst.setDate(2,fecha);	
 			pst.setInt(3,precio);	
 			pst.setInt(4,idPresupuesto);	
-			pst.executeQuery();
+			pst.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
