@@ -4,10 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -17,12 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 
 import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VistaAsignaTransporte extends JFrame{
 	
@@ -32,7 +29,6 @@ public class VistaAsignaTransporte extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	private TransportistaDTO transpElegido;
-	private ArrayList<ProductoDTO> prodVenta = new ArrayList<ProductoDTO>();
 	private JPanel panelGeneral;
 	private DefaultListModel<ProductoDTO> modeloListRecoger = new DefaultListModel<ProductoDTO>();
 	private DefaultListModel<ProductoDTO> modeloListTransp = new DefaultListModel<ProductoDTO>();
@@ -68,9 +64,6 @@ public class VistaAsignaTransporte extends JFrame{
 	private JButton btnCancelar;
 	private JButton btnFinalizar;
 	private JButton btnMenu;
-	private JSpinner spinnerIdVenta;
-	private JLabel lblIdVenta;
-	private JButton btnBuscar;
 	
 	public VistaAsignaTransporte() {
 		addWindowListener(new WindowAdapter() {
@@ -108,9 +101,6 @@ public class VistaAsignaTransporte extends JFrame{
 			panelTransportados.add(getPanelTransporte());
 			panelTransportados.add(getLblLista());
 			panelTransportados.add(getBtnMenu());
-			panelTransportados.add(getSpinnerIdVenta());
-			panelTransportados.add(getLblIdVenta());
-			panelTransportados.add(getBtnBuscar());
 		}
 		return panelTransportados;
 	}
@@ -127,7 +117,8 @@ public class VistaAsignaTransporte extends JFrame{
 			btnAceptaTransp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					controller.actualizaListaNoMontaje(toArray(prodVenta));
+					controller.actualizaListaMontaje();
+					controller.actualizaListaNoMontaje();
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 					c.show(getPanelGeneral(), "PanelMontados");
 				}
@@ -152,7 +143,6 @@ public class VistaAsignaTransporte extends JFrame{
 					for (int i=0;i<getListRecoger().getSelectedValuesList().size();i++) {
 						modeloListTransp.addElement(getListRecoger().getSelectedValuesList().get(i));
 						modeloListRecoger.removeElement(getListRecoger().getSelectedValuesList().get(i));
-						prodVenta.add(getListRecoger().getSelectedValuesList().get(i));
 					}
 				}
 			});
@@ -182,7 +172,6 @@ public class VistaAsignaTransporte extends JFrame{
 					for (int i=0;i<getListTransportar().getSelectedValuesList().size();i++) {
 						modeloListRecoger.addElement(getListTransportar().getSelectedValuesList().get(i));
 						modeloListTransp.removeElement(getListTransportar().getSelectedValuesList().get(i));
-						prodVenta.remove(getListRecoger().getSelectedValuesList().get(i));
 					}
 				}
 			});
@@ -422,43 +411,5 @@ public class VistaAsignaTransporte extends JFrame{
 	
 	public void clearListaNoMontaje() {
 		modeloListNoMontar.clear();
-	}
-	JSpinner getSpinnerIdVenta() {
-		if (spinnerIdVenta == null) {
-			spinnerIdVenta = new JSpinner();
-			spinnerIdVenta.setBounds(181, 50, 30, 20);
-		}
-		return spinnerIdVenta;
-	}
-	private JLabel getLblIdVenta() {
-		if (lblIdVenta == null) {
-			lblIdVenta = new JLabel("Selecciona la id de la venta: ");
-			lblIdVenta.setBounds(20, 53, 165, 14);
-		}
-		return lblIdVenta;
-	}
-	private JButton getBtnBuscar() {
-		if (btnBuscar == null) {
-			btnBuscar = new JButton("Buscar");
-			btnBuscar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					ProductoDTO[] productos = controller.getListaProductosVenta((Integer) getSpinnerIdVenta().getValue());
-					for (int i=0;i<productos.length;i++) {
-						addModeloListProdNoTransp(productos[i]);						
-					}
-				}
-			});
-			btnBuscar.setBounds(231, 49, 89, 23);
-		}
-		return btnBuscar;
-	}
-	
-	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
-		ProductoDTO[] arrayProductos = new ProductoDTO[listProductos.size()];
-		for(int i=0;i<listProductos.size();i++) {
-			arrayProductos[i] = listProductos.get(i);
-		}
-		return arrayProductos;
 	}
 }
