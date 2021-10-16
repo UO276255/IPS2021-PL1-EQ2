@@ -67,4 +67,3 @@ CREATE TABLE Venta (
 	Transporte BIT,
 	Id_pres INT REFERENCES Presupuestos(Id_pres),
 	Id_transp INT REFERENCES Transportista(Id_transp));
-	
