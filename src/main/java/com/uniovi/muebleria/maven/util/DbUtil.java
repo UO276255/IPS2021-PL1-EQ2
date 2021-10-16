@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
@@ -357,7 +356,7 @@ public abstract class DbUtil {
 		return list;
 	}
 	
-	public int contarCliente(String sqlContarCliente) {
+	public int contarDatos(String Contar) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -365,12 +364,13 @@ public abstract class DbUtil {
 		
 		try {
 			c = getConnection();
-			pst = c.prepareStatement(sqlContarCliente);
+			pst = c.prepareStatement(Contar);
 			rs = pst.executeQuery();
 			
 			if (rs.next()) {
 				result = rs.getInt(1);
 			}
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -410,11 +410,12 @@ public abstract class DbUtil {
 		return value == 0;
 	}
 	
-	public PedidoDTO recogerRepuestoPedido(String sqlProductosProveedor, int id) {
+	public PedidoDTO recogerPedidoProveedor(String sqlProductosProveedor, int id) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		PedidoDTO result = null;
+		boolean recibido = false;
 		List<ProductoDTO> productos = new ArrayList<ProductoDTO>();
 		List<Integer> numProductos = new ArrayList<Integer>();
 		
@@ -425,11 +426,14 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while(rs.next()) {
-				productos.add(recogerProductoRep("SELECT * FROM Productos where id_prod = ?", rs.getInt(3)));
-				numProductos.add(rs.getInt(4));				
+				productos.add(recogerProductoProv("SELECT * FROM Productos where id_prod = ?", rs.getInt(5)));
+				numProductos.add(rs.getInt(3));
+				if(rs.getInt(2) == 1) {
+					recibido = true;
+				}
 			}
 			
-			result = new PedidoDTO(id, productos, numProductos, recogerEstadoPedido("SELECT estado FROM Pedido where id_pedido = ?", id), id);
+			result = new PedidoDTO(productos, numProductos, recibido, id);
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -440,7 +444,7 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public ProductoDTO recogerProductoRep(String sql, int id) {
+	public ProductoDTO recogerProductoProv(String sql, int id) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -508,59 +512,28 @@ public abstract class DbUtil {
 		}
 	}
 	
-	public boolean recogerEstadoPedido(String sqlEstado, int id) {
+	public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto) {
+		
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		boolean result = false;
 		
 		try {
-			c = getConnection();
-			pst = c.prepareStatement(sqlEstado);
-			pst.setInt(1, id);
-			rs = pst.executeQuery();
 			
-			if (rs.next()) {
-				if(rs.getInt(1) == 0) {
-					result = false;
-				}else {
-					result = true;
-				}
-			}
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,id);
+			pst.setDate(2,fecha);	
+			pst.setInt(3,precio);	
+			pst.setInt(4,idPresupuesto);	
+			pst.executeQuery();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
-		return result;
 	}
 	
-	public List<ProductoDTO> recogerProductosVenta(String sqlProductoVenta, int id_pres) {
-		Connection c = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		ProductoDTO prod = null;
-		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
-		try {
-			c = getConnection();
-			pst = c.prepareStatement(sqlProductoVenta);
-			pst.setInt(1,id_pres);	
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
-				if(listaProducto.contains(prod)) {
-					
-				}else {
-					listaProducto.add(prod);
-				}
-			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			Jdbc.close(rs, pst, c);
-		}
-		return listaProducto;
-	}
 }

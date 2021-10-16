@@ -45,5 +45,6 @@ public class ClienteController {
 	
 	public int contarClientes() {
 		return model.contarClientes();
+		//comentario
 	}
 }

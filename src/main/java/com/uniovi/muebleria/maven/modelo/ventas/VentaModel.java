@@ -1,7 +1,7 @@
 package com.uniovi.muebleria.maven.modelo.ventas;
 
+import java.sql.Date;
 import java.util.List;
-
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.util.Database;
 
@@ -13,7 +13,14 @@ public class VentaModel {
 			+ "JOIN Solicitudes sol ON pres.id_pres = sol.id_pres "
 			+ "JOIN productos prod ON sol.id_prod = prod.id_prod "
 			+ "WHERE id_pres = ? AND Transporte = ?";
+	
 	public static final String SQL_VENTAS = "SELECT * FROM Venta";
+	
+	public static final String SQL_CONTAR_VENTAS = "SELECT count(*) FROM Ventas";
+	
+	public static final String SQL_CREAR_VENTA = "insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) "
+													+ "values (?,?,?,0,?,null)";
+	
 	
 	public VentaModel() {
 		
@@ -28,6 +35,16 @@ public class VentaModel {
 		return listaProductos;
 	}
 	
+	
+	public void CrearVenta(Date fecha,int precio,int idPresupuesto) {
+		int id = contarVentas() + 1;
+		db.CrearVenta(SQL_CREAR_VENTA,id,fecha,precio,idPresupuesto);	
+	}
+	
+	private int contarVentas() {
+		return db.contarDatos(SQL_CREAR_VENTA);	
+	}
+
 	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
 		ProductoDTO[] arrayProductos = new ProductoDTO[listProductos.size()];
 		for(int i=0;i<listProductos.size();i++) {

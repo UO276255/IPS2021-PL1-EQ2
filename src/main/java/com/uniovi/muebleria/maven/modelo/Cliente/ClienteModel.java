@@ -25,7 +25,7 @@ public class ClienteModel {
 		db.crearCliente(SQL_AGREGAR_CLIENTE,id,nombre,apellido,fecha_final);		
 	}
 	public int contarClientes() {
-		return db.contarCliente(SQL_CONTAR_ClIENTE);
+		return db.contarDatos(SQL_CONTAR_ClIENTE);
 	}
 
 	private Date convertirADate(String fecha) {

@@ -1,12 +1,13 @@
 package com.uniovi.muebleria.maven.vista;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
+import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoVentaDTO;
+import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
@@ -15,6 +16,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.awt.event.ActionEvent;
 
 public class VistaCreacionVentas extends JFrame {
@@ -24,12 +26,14 @@ public class VistaCreacionVentas extends JFrame {
 	private JPanel panelGeneral;
 	private JPanel panelInicio;
 	private JLabel lblNTituloInicio;
-	private JComboBox<String> comboBoxPresupuestoSinAceptar;
+	private JComboBox<PresupuestoVentaDTO> comboBoxPresupuestoSinAceptar;
 	private JButton btnCrearVenta;
 	private JButton btnCancelarVenta;
+	
 	/**
 	 * Create the frame.
 	 */
+	
 	public VistaCreacionVentas() {
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,7 +49,7 @@ public class VistaCreacionVentas extends JFrame {
 		if (panelGeneral == null) {
 			panelGeneral = new JPanel();
 			panelGeneral.setLayout(new CardLayout(0, 0));
-			panelGeneral.add(getPanelInicio(), "name_22560730068600");
+			panelGeneral.add(getPanelInicio(), "PanelInicio");
 		}
 		return panelGeneral;
 	}
@@ -68,9 +72,9 @@ public class VistaCreacionVentas extends JFrame {
 		}
 		return lblNTituloInicio;
 	}
-	public JComboBox<String> getComboBoxPresupuestoSinAceptar() {
+	public JComboBox<PresupuestoVentaDTO> getComboBoxPresupuestoSinAceptar() {
 		if (comboBoxPresupuestoSinAceptar == null) {
-			comboBoxPresupuestoSinAceptar = new JComboBox<String>();
+			comboBoxPresupuestoSinAceptar = new JComboBox<PresupuestoVentaDTO>();
 			comboBoxPresupuestoSinAceptar.setBounds(56, 134, 459, 22);
 		}
 		return comboBoxPresupuestoSinAceptar;
@@ -78,6 +82,13 @@ public class VistaCreacionVentas extends JFrame {
 	private JButton getBtnCrearVenta() {
 		if (btnCrearVenta == null) {
 			btnCrearVenta = new JButton("Crear Venta");
+			btnCrearVenta.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTAS);
+					PresupuestoVentaDTO dto = (PresupuestoVentaDTO) getComboBoxPresupuestoSinAceptar().getSelectedItem();
+					controller.cearVenta((new Date(System.currentTimeMillis())),dto.getPrecio(),dto.getIdPresupuesto());
+				}
+			});
 			btnCrearVenta.setBounds(544, 134, 111, 23);
 		}
 		return btnCrearVenta;
