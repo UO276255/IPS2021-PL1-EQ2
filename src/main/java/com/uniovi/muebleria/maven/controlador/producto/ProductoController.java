@@ -15,15 +15,15 @@ public class ProductoController {
 		this.model = m;
 	}
 	
-	public void initView() {
-		setListProductosNoTransp();
-		setListProductosTransp();
-		setListProductosNoMontar();
-		setListProductosMontar();
-	}
+//	public void initView() {
+//		setListProductosVenta();
+//		setListProductosTransp();
+//		setListProductosNoMontar();
+//		setListProductosMontar();
+//	}
 	
-	public ProductoDTO[] getListaProductosNoTransp() {
-		List<ProductoDTO> listProductosNoTransp = model.getListaProductosNoTransp();
+	public ProductoDTO[] getListaProductosVenta(int id) {
+		List<ProductoDTO> listProductosNoTransp = model.getListaProductosVenta(id);
 		ProductoDTO[] arrayProductosNoTransp = toArray(listProductosNoTransp);
 		return arrayProductosNoTransp;
 	}
@@ -46,29 +46,28 @@ public class ProductoController {
 		return arrayProductosMontar;
 	}
 	
-	private void setListProductosNoTransp() {
-		ProductoDTO[] arrayProductos = getListaProductosNoTransp();
+	public void setListProductosVenta(int id) {
+		ProductoDTO[] arrayProductos = getListaProductosVenta(id);
 		for(int i=0;i<arrayProductos.length;i++) {
 			vista.addModeloListProdNoTransp(arrayProductos[i]);
 		}
 	}
 	
-	private void setListProductosTransp() {
-		ProductoDTO[] arrayProductos = getListaProductosTransp();
-		for(int i=0;i<arrayProductos.length;i++) {
-			vista.addModeloListProdTransp(arrayProductos[i]);
-		}
-	}
+//	private void setListProductosTransp() {
+//		ProductoDTO[] arrayProductos = getListaProductosTransp();
+//		for(int i=0;i<arrayProductos.length;i++) {
+//			vista.addModeloListProdTransp(arrayProductos[i]);
+//		}
+//	}
 	
-	private void setListProductosNoMontar() {
-		ProductoDTO[] arrayProductos = getListaProductosNoMontar();
+	private void setListProductosNoMontar(ProductoDTO[] arrayProductos) {
 		for(int i=0;i<arrayProductos.length;i++) {
 			vista.addModeloListProdNoMontar(arrayProductos[i]);
 		}
 	}
 	
 	private void setListProductosMontar() {
-		ProductoDTO[] arrayProductos = getListaProductosMontar();
+		ProductoDTO[] arrayProductos = getListaProductosNoMontar();
 		for(int i=0;i<arrayProductos.length;i++) {
 			vista.addModeloListProdMontar(arrayProductos[i]);
 		}
@@ -87,9 +86,9 @@ public class ProductoController {
 		setListProductosMontar();
 	}
 	
-	public void actualizaListaNoMontaje() {
+	public void actualizaListaNoMontaje(ProductoDTO[] arrayProductos) {
 		vista.clearListaNoMontaje();
-		setListProductosNoMontar();
+		setListProductosNoMontar(arrayProductos);
 	}
 	
 	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {

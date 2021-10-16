@@ -410,12 +410,11 @@ public abstract class DbUtil {
 		return value == 0;
 	}
 	
-	public PedidoDTO recogerPedidoProveedor(String sqlProductosProveedor, int id) {
+	public PedidoDTO recogerRepuestoPedido(String sqlProductosProveedor, int id) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		PedidoDTO result = null;
-		boolean recibido = false;
 		List<ProductoDTO> productos = new ArrayList<ProductoDTO>();
 		List<Integer> numProductos = new ArrayList<Integer>();
 		
@@ -426,14 +425,11 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while(rs.next()) {
-				productos.add(recogerProductoProv("SELECT * FROM Productos where id_prod = ?", rs.getInt(5)));
-				numProductos.add(rs.getInt(3));
-				if(rs.getInt(2) == 1) {
-					recibido = true;
-				}
+				productos.add(recogerProductoRep("SELECT * FROM Productos where id_prod = ?", rs.getInt(3)));
+				numProductos.add(rs.getInt(4));				
 			}
 			
-			result = new PedidoDTO(productos, numProductos, recibido, id);
+			result = new PedidoDTO(id, productos, numProductos, recogerEstadoPedido("SELECT estado FROM Pedido where id_pedido = ?", id), id);
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -444,7 +440,7 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public ProductoDTO recogerProductoProv(String sql, int id) {
+	public ProductoDTO recogerProductoRep(String sql, int id) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -510,5 +506,61 @@ public abstract class DbUtil {
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
+	}
+	
+	public boolean recogerEstadoPedido(String sqlEstado, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		boolean result = false;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlEstado);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				if(rs.getInt(1) == 0) {
+					result = false;
+				}else {
+					result = true;
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public List<ProductoDTO> recogerProductosVenta(String sqlProductoVenta, int id_pres) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductoVenta);
+			pst.setInt(1,id_pres);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
 	}
 }

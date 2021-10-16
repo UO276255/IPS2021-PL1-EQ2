@@ -11,6 +11,7 @@ DROP TABLE Solicitudes;
 DROP TABLE Venta;
 DROP TABLE Transportista;
 DROP TABLE Almacen;
+DROP TABLE Repuesto;
 
 CREATE TABLE Cliente (
 	Id INT PRIMARY KEY NOT NULL,
@@ -44,9 +45,7 @@ CREATE TABLE Proveedor (
 CREATE TABLE Pedido (
 	Id_pedido INT PRIMARY KEY NOT NULL,
 	Estado BIT,
-	Numero_prod INT NOT NULL,
-	Id_prov INT REFERENCES Proveedor(Id_prov),
-	Id_prod INT REFERENCES Productos(Id_prod));
+	Id_prov INT REFERENCES Proveedor(Id_prov));
 
 CREATE TABLE Solicitudes (
 	Id_solic INT PRIMARY KEY NOT NULL,
@@ -67,3 +66,9 @@ CREATE TABLE Venta (
 	Transporte BIT,
 	Id_pres INT REFERENCES Presupuestos(Id_pres),
 	Id_transp INT REFERENCES Transportista(Id_transp));
+	
+CREATE TABLE Repuesto (
+	Id_repuesto INT PRIMARY KEY NOT NULL,
+	Id_pedido INT REFERENCES Pedido(Id_pedido),
+	Id_prod INT REFERENCES Productos(Id_prod),
+	cantidad_prod INT);
