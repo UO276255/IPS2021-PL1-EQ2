@@ -136,6 +136,17 @@ public class VistaHistorial extends JFrame {
 		txSumaTotal.setColumns(10);
 		txSumaTotal.setBounds(118, 364, 122, 20);
 		pnCentro.add(txSumaTotal);
+		
+		JButton btnNewButton = new JButton("Cancelar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton.setBackground(Color.RED);
+		btnNewButton.setBounds(260, 339, 110, 45);
+		pnCentro.add(btnNewButton);
 	}
 	
 	
