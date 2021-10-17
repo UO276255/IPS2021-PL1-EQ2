@@ -12,6 +12,8 @@ public class PresupuestosModel {
 			+ "CURRENT_DATE <= p.Fecha_cad and c.id = p.id_cliente";
 	
 	public static final String SQL_ASIGNAR_PRESUPUESTO = "UPDATE Presupuestos set id_cliente = ? where id_pres = ?";
+	public static final String SQL_BORRAR_PRESUPUESTO = "UPDATE Presupuestos set Aceptado = 1 where id_pres = ?";
+	public static final String SQL_BORRAR_SOLICITUDES_DE_PRESUPUESTO = "DELETE from SOLICITUDES where id_pres = ?";
 	
 	public List<PresupuestoDTO> obtenerPresupuestosSinAsignar(){
 		return db.recogerPresupuestos(SQL_LISTA_PRESUPUESTOS_NO_ASIGNADOS);	
@@ -23,6 +25,11 @@ public class PresupuestosModel {
 	
 	public void AsignarClienteAPresupuesto(int idclient, int idpresupuesto) {
 		db.AsignarPresupuestoACliente(SQL_ASIGNAR_PRESUPUESTO,idclient,idpresupuesto);
+	}
+
+	public void removePresupuesto(int idPresupuesto) {
+		db.cancelPresupuesto(SQL_BORRAR_PRESUPUESTO,idPresupuesto);
+		
 	}
 	
 

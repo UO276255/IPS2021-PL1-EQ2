@@ -680,6 +680,28 @@ public abstract class DbUtil {
 		}
 	}
 
+	public void cancelPresupuesto(String sql, int idPresupuesto) {
+		
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,idPresupuesto);
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	
+	}
+
 	public int contarDatos(String Contar) {
 		Connection c = null;
 		PreparedStatement pst = null;
