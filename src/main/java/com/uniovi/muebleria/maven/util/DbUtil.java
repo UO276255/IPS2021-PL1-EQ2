@@ -564,7 +564,7 @@ public abstract class DbUtil {
 		return listaProducto;
 	}
 	
-public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto) {
+	public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto) {
 		
 		Connection c = null;
 		PreparedStatement pst = null;
@@ -611,5 +611,27 @@ public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto
 		}
 		
 		return result;
+	}
+	public void asignaFechaAVenta(String sqlFechas, VentaDTO venta,java.sql.Date dateTime) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlFechas);
+			
+			pst.setDate(1,dateTime);
+			pst.setInt(2,venta.getId_venta());	
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		
 	}
 }
