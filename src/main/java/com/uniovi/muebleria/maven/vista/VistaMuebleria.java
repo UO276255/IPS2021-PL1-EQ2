@@ -90,9 +90,8 @@ public class VistaMuebleria extends JFrame {
 		btnAsignarTransporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TransportistaController controllerT = new TransportistaController(new TransportistaModel(), VIEW_TRANSPORTE);
-				ProductoController controllerP = new ProductoController(new ProductoModel(), VIEW_TRANSPORTE);
 				controllerT.initView();
-				controllerP.initView();
+				VIEW_TRANSPORTE.getSpinnerIdVenta().setModel(new SpinnerNumberModel(1, 1, VIEW_TRANSPORTE.getMaxIdVenta(), 1));
 			}
 		});
 		PanelBotones.add(btnAsignarTransporte);
@@ -134,7 +133,7 @@ public class VistaMuebleria extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PedidoController controller = new PedidoController(new PedidoModel(), VIEW_SEGUIMIENTO);
 				controller.initView();
-				VIEW_SEGUIMIENTO.getSpinnerIdProv().setModel(new SpinnerNumberModel(1, 1, VIEW_SEGUIMIENTO.getMaxIdProv(), 1));
+				VIEW_SEGUIMIENTO.getSpinnerIdProd().setModel(new SpinnerNumberModel(1, 1, VIEW_SEGUIMIENTO.getMaxIdProv(), 1));
 			}
 		});
 		PanelBotones.add(btnSeguimientoPedido);

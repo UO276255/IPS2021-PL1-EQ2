@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
 
 public class ProductoController {
@@ -15,60 +16,59 @@ public class ProductoController {
 		this.model = m;
 	}
 	
-	public void initView() {
-		setListProductosNoTransp();
-		setListProductosTransp();
-		setListProductosNoMontar();
-		setListProductosMontar();
-	}
+//	public void initView() {
+//		setListProductosVenta();
+//		setListProductosTransp();
+//		setListProductosNoMontar();
+//		setListProductosMontar();
+//	}
 	
-	public ProductoDTO[] getListaProductosNoTransp() {
-		List<ProductoDTO> listProductosNoTransp = model.getListaProductosNoTransp();
+	public ProductoDTO[] getListaProductosVentaNoTransp(int id) {
+		List<ProductoDTO> listProductosNoTransp = model.getListaProductosVentaNoTransp(id);
 		ProductoDTO[] arrayProductosNoTransp = toArray(listProductosNoTransp);
 		return arrayProductosNoTransp;
 	}
 	
-	public ProductoDTO[] getListaProductosTransp() {
-		List<ProductoDTO> listProductosTransp = model.getListaProductosTransp();
+	public ProductoDTO[] getListaProductosVentaTransp(int id) {
+		List<ProductoDTO> listProductosTransp = model.getListaProductosVentaTransp(id);
 		ProductoDTO[] arrayProductosTransp = toArray(listProductosTransp);
 		return arrayProductosTransp;
 	}
 	
-	public ProductoDTO[] getListaProductosNoMontar() {
-		List<ProductoDTO> listProductosNoMontar = model.getListaProductosNoMontar();
+	public ProductoDTO[] getListaProductosVentaNoMontar(int id) {
+		List<ProductoDTO> listProductosNoMontar = model.getListaProductosVentaNoMontar(id);
 		ProductoDTO[] arrayProductosNoMontar = toArray(listProductosNoMontar);
 		return arrayProductosNoMontar;
 	}
 	
-	public ProductoDTO[] getListaProductosMontar() {
-		List<ProductoDTO> listProductosMontar = model.getListaProductosMontar();
+	public ProductoDTO[] getListaProductosVentaMontar(int id) {
+		List<ProductoDTO> listProductosMontar = model.getListaProductosVentaMontar(id);
 		ProductoDTO[] arrayProductosMontar = toArray(listProductosMontar);
 		return arrayProductosMontar;
 	}
 	
-	private void setListProductosNoTransp() {
-		ProductoDTO[] arrayProductos = getListaProductosNoTransp();
+	public void setListProductosVenta(int id) {
+		ProductoDTO[] arrayProductos = getListaProductosVentaNoTransp(id);
 		for(int i=0;i<arrayProductos.length;i++) {
 			vista.addModeloListProdNoTransp(arrayProductos[i]);
 		}
 	}
 	
-	private void setListProductosTransp() {
-		ProductoDTO[] arrayProductos = getListaProductosTransp();
-		for(int i=0;i<arrayProductos.length;i++) {
-			vista.addModeloListProdTransp(arrayProductos[i]);
-		}
-	}
+//	private void setListProductosTransp() {
+//		ProductoDTO[] arrayProductos = getListaProductosTransp();
+//		for(int i=0;i<arrayProductos.length;i++) {
+//			vista.addModeloListProdTransp(arrayProductos[i]);
+//		}
+//	}
 	
-	private void setListProductosNoMontar() {
-		ProductoDTO[] arrayProductos = getListaProductosNoMontar();
+	private void setListProductosNoMontar(ProductoDTO[] arrayProductos) {
 		for(int i=0;i<arrayProductos.length;i++) {
 			vista.addModeloListProdNoMontar(arrayProductos[i]);
 		}
 	}
 	
-	private void setListProductosMontar() {
-		ProductoDTO[] arrayProductos = getListaProductosMontar();
+	private void setListProductosMontar(int id) {
+		ProductoDTO[] arrayProductos = getListaProductosVentaMontar(id);
 		for(int i=0;i<arrayProductos.length;i++) {
 			vista.addModeloListProdMontar(arrayProductos[i]);
 		}
@@ -82,14 +82,14 @@ public class ProductoController {
 		model.ActualizarMontaje(bit, id);
 	}
 	
-	public void actualizaListaMontaje() {
+	public void actualizaListaMontaje(int id) {
 		vista.clearListaMontaje();
-		setListProductosMontar();
+		setListProductosMontar(id);
 	}
 	
-	public void actualizaListaNoMontaje() {
+	public void actualizaListaNoMontaje(ProductoDTO[] arrayProductos) {
 		vista.clearListaNoMontaje();
-		setListProductosNoMontar();
+		setListProductosNoMontar(arrayProductos);
 	}
 	
 	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
@@ -99,4 +99,9 @@ public class ProductoController {
 		}
 		return arrayProductos;
 	}
+
+	public int getMaxId() {
+		return model.getMaxId();
+	}
+
 }

@@ -148,7 +148,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3),rs.getDate(4), rs.getDate(5));
+				tra = new TransportistaDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getDate(4), rs.getDate(5));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -429,7 +429,7 @@ public abstract class DbUtil {
 				numProductos.add(rs.getInt(4));				
 			}
 			
-			//result = new PedidoDTO(id, productos, numProductos, recogerEstadoPedido("SELECT estado FROM Pedido where id_pedido = ?", id), id);
+			result = new PedidoDTO(id, productos, numProductos, recogerEstadoPedido("SELECT estado FROM Pedido where id_pedido = ?", id), id);
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -536,7 +536,7 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public List<ProductoDTO> recogerProductosVenta(String sqlProductoVenta, int id_pres) {
+	public List<ProductoDTO> recogerProductosVentaNoTransp(String sqlProductoVenta, int id_venta) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -545,10 +545,12 @@ public abstract class DbUtil {
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sqlProductoVenta);
-			pst.setInt(1,id_pres);	
+			pst.setInt(1,id_venta);	
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				if(rs.getInt(4) == 0) {
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				}
 				if(listaProducto.contains(prod)) {
 					
 				}else {
@@ -564,7 +566,97 @@ public abstract class DbUtil {
 		return listaProducto;
 	}
 	
-public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto) {
+	public List<ProductoDTO> recogerProductosVentaTransp(String sqlProductoVenta, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductoVenta);
+			pst.setInt(1,id_venta);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				if(rs.getInt(4) == 1) {
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				}			
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
+	
+	public List<ProductoDTO> recogerProductosVentaNoMontar(String sqlProductoVenta, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductoVenta);
+			pst.setInt(1,id_venta);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				if(rs.getInt(4) == 1 && rs.getInt(5) == 0) {
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				}			
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
+	
+	public List<ProductoDTO> recogerProductosVentaMontar(String sqlProductoVenta, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductoVenta);
+			pst.setInt(1,id_venta);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				if(rs.getInt(4) == 1 && rs.getInt(5) == 1) {
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				}			
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
+	
+	public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto) {
 		
 		Connection c = null;
 		PreparedStatement pst = null;
@@ -632,6 +724,72 @@ public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto
 			Jdbc.close(rs, pst, c);
 		}
 		
+		return result;
+	}
+
+	
+	public ProductoDTO recogerProductoProv(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO result = null;
+
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			if(rs.next()) {
+				result = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+			}		
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public void asignaTransportistaVenta(String sqlAsignar, int idTransp) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlAsignar);
+			pst.setInt(1,idTransp);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public int buscaIdTranspPorIdVenta(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
 		return result;
 	}
 
