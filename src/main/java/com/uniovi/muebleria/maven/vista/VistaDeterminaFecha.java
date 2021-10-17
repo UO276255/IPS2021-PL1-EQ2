@@ -11,6 +11,7 @@ import java.awt.Font;
 import com.toedter.calendar.JCalendar;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 
@@ -44,14 +45,16 @@ public class VistaDeterminaFecha extends JFrame {
 	private JComboBox cbSeleccionarVenta;
 	private VentaDTO venta;
 	private JSpinner spTimer;
+	List listaTransportista;
 
 	/**
 	 * Create the frame.
 	 */
 	public VistaDeterminaFecha() {
+		
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 774, 660);
+		setBounds(100, 100, 773, 620);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -61,7 +64,7 @@ public class VistaDeterminaFecha extends JFrame {
 		contentPane.add(getList());
 		
 		JPanel panelRecoger = new JPanel();
-		panelRecoger.setBounds(27, 96, 344, 319);
+		panelRecoger.setBounds(27, 96, 289, 335);
 		contentPane.add(panelRecoger);
 		panelRecoger.setLayout(new BorderLayout(0, 0));
 		
@@ -75,7 +78,7 @@ public class VistaDeterminaFecha extends JFrame {
 		panelRecoger.add(listaProductos, BorderLayout.CENTER);
 		
 		JPanel panelTransporte = new JPanel();
-		panelTransporte.setBounds(386, 96, 344, 319);
+		panelTransporte.setBounds(326, 96, 404, 58);
 		contentPane.add(panelTransporte);
 		panelTransporte.setLayout(new BorderLayout(0, 0));
 		
@@ -84,7 +87,7 @@ public class VistaDeterminaFecha extends JFrame {
 		lbTransportista.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panelTransporte.add(lbTransportista, BorderLayout.NORTH);
 		
-		List listaTransportista = new List();
+		 listaTransportista = new List();
 		panelTransporte.add(listaTransportista, BorderLayout.CENTER);
 		contentPane.add(getCbSeleccionarVenta());
 		
@@ -104,7 +107,7 @@ public class VistaDeterminaFecha extends JFrame {
 		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spTimer, "HH:mm");
 		spTimer.setEditor(timeEditor);
 		spTimer.setValue(new Date(0,0,0,0,0));
-		spTimer.setBounds(247, 513, 90, 23);
+		spTimer.setBounds(469, 400, 123, 31);
 		contentPane.add(spTimer);
 	}
 	@SuppressWarnings("deprecation")
@@ -115,9 +118,16 @@ public class VistaDeterminaFecha extends JFrame {
 		ProductoDTO[] productos = controller.getListaProductos(venta, true);
 		getCbSeleccionarVenta().setSelectedIndex(idx);
 		listaProductos.clear();
+		listaTransportista.clear();
 		for(int i=0; i< productos.length; i++)
 			listaProductos.add(productos[i].toString());
 			
+		TransportistaDTO transportista = controller.getTransportista(venta);
+		if (transportista==null) {
+			JOptionPane.showMessageDialog(null, "La venta no tiene transportista asignado");
+		}
+		else
+			listaTransportista.add(transportista.toString());
 	}
 
 	public void setCbSeleccionarVenta(JComboBox cbSeleccionarVenta) {
@@ -127,14 +137,14 @@ public class VistaDeterminaFecha extends JFrame {
 	private JCalendar getCalendar() {
 		if (calendar == null) {
 			calendar = new JCalendar();
-			calendar.setBounds(27, 457, 205, 153);
+			calendar.setBounds(326, 165, 404, 205);
 		}
 		return calendar;
 	}
 	private JPanel getPnAsignarCancelar() {
 		if (pnAsignarCancelar == null) {
 			pnAsignarCancelar = new JPanel();
-			pnAsignarCancelar.setBounds(453, 531, 277, 58);
+			pnAsignarCancelar.setBounds(252, 488, 277, 58);
 			pnAsignarCancelar.setLayout(new GridLayout(1, 0, 0, 0));
 			pnAsignarCancelar.add(getBtAsignar());
 			pnAsignarCancelar.add(getBtCancelar());
@@ -144,6 +154,7 @@ public class VistaDeterminaFecha extends JFrame {
 	private JButton getBtAsignar() {
 		if (btAsignar == null) {
 			btAsignar = new JButton("Asignar");
+			btAsignar.setFont(new Font("Tahoma", Font.BOLD, 12));
 			btAsignar.addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
@@ -168,6 +179,7 @@ public class VistaDeterminaFecha extends JFrame {
 	private JButton getBtCancelar() {
 		if (btCancelar == null) {
 			btCancelar = new JButton("Cancelar");
+			btCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
 			btCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();

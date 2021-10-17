@@ -11,6 +11,7 @@ public class App
 			public void run() {
 				try {
 					VistaMuebleria frame = new VistaMuebleria();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

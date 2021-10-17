@@ -39,6 +39,8 @@ public class VistaMuebleria extends JFrame {
 	public static VistaDeterminaFecha VIEW_VENTA = new VistaDeterminaFecha();
 	public static VistaSeguimientoPedido VIEW_SEGUIMIENTO = new VistaSeguimientoPedido();
 
+	private Database db=null;
+	
 	/**
 	 * Create the frame.
 	 * @param list 
@@ -55,15 +57,24 @@ public class VistaMuebleria extends JFrame {
 		JPanel panel = new JPanel();
 		PanelInicio.add(panel, BorderLayout.CENTER);
 		
-		JButton btnCargarBaseDatos = new JButton("Cargar la base de datos");
+		db=new Database();
+		
+		JButton btnCargarBaseDatos = new JButton("Crear la base de datos");
 		btnCargarBaseDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Database db=new Database();
 				db.createDatabase(false);
+				//db.loadDatabase();
+			}
+		});
+		
+		JButton btnLoadDB = new JButton("Cargar la base de datos");
+		btnLoadDB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				db.loadDatabase();
 			}
 		});
 		panel.add(btnCargarBaseDatos);
+		panel.add(btnLoadDB);
 		
 		JPanel PanelBotones = new JPanel();
 		PanelInicio.add(PanelBotones, BorderLayout.EAST);
@@ -100,7 +111,6 @@ public class VistaMuebleria extends JFrame {
 		btnFechaEntrega.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				VentaController controllerF = new VentaController(new VentaModel(), VIEW_VENTA);
-				
 			}
 
 		});

@@ -73,6 +73,7 @@ public abstract class DbUtil {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
 		if (!batchUpdate.isEmpty())
 			try {
 				this.executeBatch(batchUpdate);
@@ -109,7 +110,8 @@ public abstract class DbUtil {
 				stmt.executeBatch();
 		} catch (SQLException e) {
 			//Ojo, no dejar pasar las excepciones (no limitarse a dejar el codigo autoegenerado por Eclipse con printStackTrace)
-			throw new UnexpectedException(e.getMessage());
+			//throw new UnexpectedException(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
@@ -133,6 +135,7 @@ public abstract class DbUtil {
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			//no causa excepcion intencionaamente
+			e.printStackTrace();
 		}		
 	}
 	
@@ -148,7 +151,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3),rs.getDate(4), rs.getDate(5));
+				tra = new TransportistaDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getTime(4), rs.getTime(5));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -158,6 +161,29 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return list;
+	}
+	
+	public TransportistaDTO recogerTransportista(String sql, int idTransp){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		TransportistaDTO tra = null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, idTransp);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				tra = new TransportistaDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getTime(4), rs.getTime(5));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return tra;
 	}
 	
 	public ArrayList<VentaDTO> recogerVentas(String sql){
@@ -172,7 +198,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5));
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
 				list.add(tra);
 			}
 		} catch (SQLException e) {

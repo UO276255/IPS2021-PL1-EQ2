@@ -22,20 +22,18 @@ insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (6,84,0,to_date('2021-10-28','yyyy-mm-dd'),65842623);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (7,140,1,to_date('2021-10-25','yyyy-mm-dd'),21489632);
 
-insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5,null);
-insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) values (2,to_date('2021-09-28','yyyy-mm-dd'),140,1,7,null);
-insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) values (3,to_date('2021-11-05','yyyy-mm-dd'),140,0,3,null);
+insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (1,'Juan',647571418,to_date('06:00','HH:MM'),to_date('18:00','HH:MM'));
+insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (2,'Lorena',642518935,to_date('07:00','HH:MM'),to_date('20:00','HH:MM'));
+insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (3,'Luis',639293514,to_date('08:00','HH:MM'),to_date('22:00','HH:MM'));
+insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (4,'Victor',64918327,to_date('09:00','HH:MM'),to_date('23:59','HH:MM'));
 
+insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5,1);
+insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) values (2,to_date('2021-09-28','yyyy-mm-dd'),140,1,7,3);
+insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) values (3,to_date('2021-11-05','yyyy-mm-dd'),140,0,3,null);
 
 insert into almacen(Id_almacen) values (1);
 insert into almacen(Id_almacen) values (2);
 insert into almacen(Id_almacen) values (3);
-
-
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (1,'Juan',647571418,to_date('2021-10-10','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (2,'Lorena',642518935,to_date('2021-09-28','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (3,'Luis',639293514,to_date('2021-11-05','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (4,'Victor',64918327,to_date('2021-10-25','yyyy-mm-dd'),to_date('2021-10-10','yyyy-mm-dd'));
 
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,fecha_entrega,id_alm ) values (123,'silla victoriana',111,0,0,'silla',to_date('2021-10-10','yyyy-mm-dd'),1);
 insert into productos (id_prod,nombre_prod,precio_prod,transporte,montaje,categoria,fecha_entrega,id_alm ) values (150,'sofá tela negra',700,1,0,'sofa',to_date('2021-10-10','yyyy-mm-dd'),2);
@@ -56,17 +54,6 @@ insert into proveedor(id_prov) values (4);
 insert into proveedor(id_prov) values (5);
 insert into proveedor(id_prov) values (6);
 
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (1,0,3,1,95);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (2,0,6,1,144);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (3,0,1,1,29);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (4,0,7,2,123);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (5,0,3,2,124);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (6,0,4,2,105);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (7,0,1,3,150);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (8,0,2,3,140);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (9,0,5,4,45);
---insert into pedido (id_pedido,estado,numero_prod,id_prov,id_prod) values (10,0,2,4,111);
-
 insert into pedido (id_pedido,estado,id_prov) values (1,0,1);
 insert into pedido (id_pedido,estado,id_prov) values (2,0,1);
 insert into pedido (id_pedido,estado,id_prov) values (3,0,1);
@@ -77,7 +64,6 @@ insert into pedido (id_pedido,estado,id_prov) values (7,0,3);
 insert into pedido (id_pedido,estado,id_prov) values (8,0,3);
 insert into pedido (id_pedido,estado,id_prov) values (9,0,4);
 insert into pedido (id_pedido,estado,id_prov) values (10,0,4);
-
 
 insert into solicitudes (id_solic,id_pres,id_prod) values (1,1,123);
 insert into solicitudes (id_solic,id_pres,id_prod) values (2,1,95);
