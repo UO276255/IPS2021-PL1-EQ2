@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -11,15 +15,17 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 
 import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
+import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 
 public class VistaAsignaTransporte extends JFrame{
 	
@@ -64,6 +70,9 @@ public class VistaAsignaTransporte extends JFrame{
 	private JButton btnCancelar;
 	private JButton btnFinalizar;
 	private JButton btnMenu;
+	private JSpinner spinnerIdVenta;
+	private JLabel lblIdVenta;
+	private JButton btnBuscar;
 	
 	public VistaAsignaTransporte() {
 		addWindowListener(new WindowAdapter() {
@@ -101,6 +110,9 @@ public class VistaAsignaTransporte extends JFrame{
 			panelTransportados.add(getPanelTransporte());
 			panelTransportados.add(getLblLista());
 			panelTransportados.add(getBtnMenu());
+			panelTransportados.add(getSpinnerIdVenta());
+			panelTransportados.add(getLblIdVenta());
+			panelTransportados.add(getBtnBuscar());
 		}
 		return panelTransportados;
 	}
@@ -116,9 +128,17 @@ public class VistaAsignaTransporte extends JFrame{
 			btnAceptaTransp = new JButton("Aceptar transportista");
 			btnAceptaTransp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					inicializar();
 					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					controller.actualizaListaMontaje();
-					controller.actualizaListaNoMontaje();
+					ProductoDTO[] productos = controller.getListaProductosVentaNoMontar((Integer) getSpinnerIdVenta().getValue());
+					for (int i=0;i<productos.length;i++) {
+						addModeloListProdNoMontar(productos[i]);						
+					}
+					ProductoDTO[] productosMon = controller.getListaProductosVentaMontar((Integer) getSpinnerIdVenta().getValue());
+					for (int i=0;i<productosMon.length;i++) {
+						addModeloListProdMontar(productosMon[i]);						
+					}
+					setTransportista((TransportistaDTO) getComboBoxListaTransportistas().getSelectedItem());
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 					c.show(getPanelGeneral(), "PanelMontados");
 				}
@@ -370,6 +390,11 @@ public class VistaAsignaTransporte extends JFrame{
 			btnFinalizar = new JButton("Finalizar");
 			btnFinalizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					TransportistaController controller = new TransportistaController(new TransportistaModel(),  VistaMuebleria.VIEW_TRANSPORTE);
+					controller.asignaTransportista(getTransportista().getIdTransp());
+					JOptionPane.showMessageDialog(null, "Se ha seleccionado al transportista: " 
+								+ transpElegido.getNombre()  +  " para la venta de id: "
+								+ (Integer) getSpinnerIdVenta().getValue());
 					closeWindow();
 					inicializar();
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
@@ -411,5 +436,66 @@ public class VistaAsignaTransporte extends JFrame{
 	
 	public void clearListaNoMontaje() {
 		modeloListNoMontar.clear();
+	}
+	JSpinner getSpinnerIdVenta() {
+		if (spinnerIdVenta == null) {
+			spinnerIdVenta = new JSpinner();
+			spinnerIdVenta.setBounds(181, 50, 30, 20);
+		}
+		return spinnerIdVenta;
+	}
+	private JLabel getLblIdVenta() {
+		if (lblIdVenta == null) {
+			lblIdVenta = new JLabel("Selecciona la id de la venta: ");
+			lblIdVenta.setBounds(20, 53, 165, 14);
+		}
+		return lblIdVenta;
+	}
+	private JButton getBtnBuscar() {
+		if (btnBuscar == null) {
+			btnBuscar = new JButton("Buscar");
+			btnBuscar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					inicializar();
+					TransportistaController transpController = new TransportistaController(new TransportistaModel(), VistaMuebleria.VIEW_TRANSPORTE);
+					int idTransp = transpController.getTransportistaPorVenta((Integer) getSpinnerIdVenta().getValue());
+					if(idTransp != 0) {
+						getComboBoxListaTransportistas().setSelectedIndex(idTransp-1);
+					}
+					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
+					ProductoDTO[] productos = controller.getListaProductosVentaNoTransp((Integer) getSpinnerIdVenta().getValue());
+					for (int i=0;i<productos.length;i++) {
+						addModeloListProdNoTransp(productos[i]);						
+					}
+					ProductoDTO[] productosTr = controller.getListaProductosVentaTransp((Integer) getSpinnerIdVenta().getValue());
+					for (int i=0;i<productosTr.length;i++) {
+						addModeloListProdTransp(productosTr[i]);						
+					}
+				}
+			});
+			btnBuscar.setBounds(231, 49, 89, 23);
+		}
+		return btnBuscar;
+	}
+	
+	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
+		ProductoDTO[] arrayProductos = new ProductoDTO[listProductos.size()];
+		for(int i=0;i<listProductos.size();i++) {
+			arrayProductos[i] = listProductos.get(i);
+		}
+		return arrayProductos;
+	}
+	
+	public int getMaxIdVenta() {
+		ProductoController controller = new ProductoController(new ProductoModel(), VistaMuebleria.VIEW_TRANSPORTE);
+		return controller.getMaxId();
+	}
+	
+	public TransportistaDTO getTransportista() {
+		return transpElegido;
+	}
+	
+	public void setTransportista(TransportistaDTO transpElegido) {
+		this.transpElegido = transpElegido;
 	}
 }

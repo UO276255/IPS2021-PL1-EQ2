@@ -17,28 +17,24 @@ private Database db = new Database();
 			  + "JOIN Presupuestos pres ON pres.id_pres = sol.id_pres "
 			  + "JOIN Venta ven ON ven.id_pres = pres.id_pres "
 			  + "WHERE id_venta = ?";
-	
 	public static final String SQL_ACTUALIZA_TRANSPORTE = "UPDATE Productos set Transporte = ? where id_prod= ?";
 	public static final String SQL_ACTUALIZA_MONTAJE = "UPDATE Productos set Montaje = ? where id_prod= ?";
+	private static final String SQL_MAXIMO_ID = "SELECT MAX(id_venta) max_id_venta FROM Venta";
 	
-	public List<ProductoDTO> getListaProductosNoTransp(){
-		return db.recogerProductos(SQL_PRODUCTOS_NO_TRANSP);
+	public List<ProductoDTO> getListaProductosVentaNoTransp(int id_venta) {
+		return db.recogerProductosVentaNoTransp(SQL_PRODUCTO_VENTA, id_venta);
 	}
 	
-	public List<ProductoDTO> getListaProductosVenta(int id_pres) {
-		return db.recogerProductosVenta(SQL_PRODUCTO_VENTA, id_pres);
+	public List<ProductoDTO> getListaProductosVentaTransp(int id_venta){
+		return db.recogerProductosVentaTransp(SQL_PRODUCTO_VENTA, id_venta);
 	}
 	
-	public List<ProductoDTO> getListaProductosTransp(){
-		return db.recogerProductos(SQL_PRODUCTOS_TRANSP);
+	public List<ProductoDTO> getListaProductosVentaNoMontar(int id_venta){
+		return db.recogerProductosVentaNoMontar(SQL_PRODUCTO_VENTA, id_venta);
 	}
 	
-	public List<ProductoDTO> getListaProductosNoMontar(){
-		return db.recogerProductos(SQL_PRODUCTOS_NO_MONTAR);
-	}
-	
-	public List<ProductoDTO> getListaProductosMontar(){
-		return db.recogerProductos(SQL_PRODUCTOS_MONTAR);
+	public List<ProductoDTO> getListaProductosVentaMontar(int id_venta){
+		return db.recogerProductosVentaMontar(SQL_PRODUCTO_VENTA, id_venta);
 	}
 	
 	public void ActualizarTransporte(int bit, int id) {
@@ -48,4 +44,9 @@ private Database db = new Database();
 	public void ActualizarMontaje(int bit, int id) {
 		db.AsignarTransporte(SQL_ACTUALIZA_MONTAJE,bit,id);
 	}
+
+	public int getMaxId() {
+		return db.recogerMaxValorIdProv(SQL_MAXIMO_ID);
+	}
+
 }

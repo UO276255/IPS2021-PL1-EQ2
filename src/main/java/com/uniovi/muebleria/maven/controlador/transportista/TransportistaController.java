@@ -36,4 +36,12 @@ public class TransportistaController {
 		}
 		return arrayTransportistas;
 	}
+
+	public void asignaTransportista(int idTransp) {
+		model.asignaTransportista(idTransp);
+	}
+
+	public int getTransportistaPorVenta(int idVenta) {
+		return model.getIdTransp(idVenta);
+	}
 }

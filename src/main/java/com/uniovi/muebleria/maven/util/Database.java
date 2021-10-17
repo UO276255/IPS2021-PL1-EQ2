@@ -52,9 +52,4 @@ public class Database extends DbUtil {
 		return URL;
 	}
 
-	public PedidoDTO recogerRepuestoPedido(String sqlPedido, int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
