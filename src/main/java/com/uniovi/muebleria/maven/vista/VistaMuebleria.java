@@ -31,6 +31,7 @@ public class VistaMuebleria extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel PanelInicio;
 	
 	public static VistaAsignaTransporte VIEW_TRANSPORTE = new VistaAsignaTransporte();
@@ -38,6 +39,7 @@ public class VistaMuebleria extends JFrame {
 	public static VistaAsignarPresupuesto VIEW_PRESUPUESTO = new VistaAsignarPresupuesto();
 	public static VistaDeterminaFecha VIEW_VENTA = new VistaDeterminaFecha();
 	public static VistaSeguimientoPedido VIEW_SEGUIMIENTO = new VistaSeguimientoPedido();
+	public static final VistaHistorial VIEW_HISTORIAL = new VistaHistorial();
 
 	private Database db=null;
 	
@@ -135,6 +137,12 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.add(btnCrearVenta);
 		
 		JButton btnVisualizarHistorial = new JButton("Visualizar historial de ventas");
+		btnVisualizarHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentaController controller = new VentaController(new VentaModel(), VIEW_HISTORIAL);
+				controller.initViewHistorial();
+			}
+		});
 		PanelBotones.add(btnVisualizarHistorial);
 		
 		JButton btnSeguimientoPedido = new JButton("Seguimiento de pedidos");

@@ -24,7 +24,20 @@ public class VentaModel {
 	public static final String SQL_CREAR_VENTA = "insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) "
 											+ "values (?,?,?,0,?,null)";
 
-	public static final String SQL_TRANSPORTISTA = "SELECT * FROM Transportista WHERE id_transp = ?";	
+	public static final String SQL_TRANSPORTISTA = "SELECT * FROM Transportista WHERE id_transp = ?";
+
+	private static final String SQL_VENTAS_FECHA = "SELECT * FROM Venta WHERE fecha_venta >= ? AND fecha_venta <= ?";
+	
+	public static final String SQL_PRODUCTO_VENTA = "SELECT * FROM Presupuestos pres "
+			+ "JOIN Solicitudes sol ON pres.id_pres = sol.id_pres "
+			+ "JOIN productos prod ON sol.id_prod = prod.id_prod "
+			+ "WHERE id_pres = ?";
+	
+	public static final String SQL_NUM_PRODUCTOS_VENTA = "SELECT COUNT(prod.id_prod) NumProductos, SUM(prod.precio) TotalPrecio"
+			+ "FROM Presupuestos pres "
+			+ "JOIN Solicitudes sol ON pres.id_pres = sol.id_pres "
+			+ "JOIN Productos prod ON sol.id_prod = prod.id_prod "
+			+ "WHERE id_pres = ?";
 	
 	public VentaModel() {
 		
@@ -38,6 +51,12 @@ public class VentaModel {
 		ProductoDTO[] listaProductos = toArray(db.recogerProductosPresupuesto(SQL_PRODUCTO, id_pres, conTransporte));
 		return listaProductos;
 	}
+
+	public ProductoDTO[] getListaProductos(int id_pres) {
+		ProductoDTO[] listaProductos = toArray(db.recogerProductosPresupuesto(SQL_PRODUCTO_VENTA, id_pres));
+		return listaProductos;
+	}
+
 	public void CrearVenta(Date fecha,int precio,int idPresupuesto) {
 		java.sql.Date fechaSql = new java.sql.Date(fecha.getTime());
 		int id = contarVentas() + 1;
@@ -63,5 +82,11 @@ public class VentaModel {
 
 	public TransportistaDTO getTransportista(int idTransp) {
 		return db.recogerTransportista(SQL_TRANSPORTISTA, idTransp);
+	}
+
+	public List<VentaDTO> getListaVentasFechas(Date date, Date date2) {
+		java.sql.Date fecha = new java.sql.Date(date.getTime());
+		java.sql.Date fecha2 = new java.sql.Date(date2.getTime());
+		return db.recogerVentasFecha(SQL_VENTAS_FECHA,fecha,fecha2);
 	}
 }

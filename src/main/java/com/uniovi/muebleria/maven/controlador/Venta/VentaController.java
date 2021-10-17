@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JList;
+import javax.swing.ListModel;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
@@ -11,6 +13,7 @@ import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.vista.VistaCreacionVentas;
 import com.uniovi.muebleria.maven.vista.VistaDeterminaFecha;
+import com.uniovi.muebleria.maven.vista.VistaHistorial;
 
 public class VentaController {
 
@@ -18,6 +21,7 @@ public class VentaController {
 	@SuppressWarnings("unused")
 	private VistaCreacionVentas vistaVenta;
 	private VentaModel model;
+	private VistaHistorial vistaHistorial;
 	
 	public VentaController(VentaModel m, VistaDeterminaFecha v) {
 		this.vistaFecha = v;
@@ -27,6 +31,11 @@ public class VentaController {
 	
 	public VentaController(VentaModel m, VistaCreacionVentas v) {
 		this.vistaVenta = v;
+		this.model = m;
+	}
+	
+	public VentaController(VentaModel m, VistaHistorial v) {
+		this.vistaHistorial = v;
 		this.model = m;
 	}
 	
@@ -59,6 +68,11 @@ public class VentaController {
 		ProductoDTO[] listaProductos = model.getListaProductos(venta.getId_pres(), conTransporte);
 		return listaProductos;
 	}
+	
+	public ProductoDTO[] getListaProductos(VentaDTO venta) {
+		ProductoDTO[] listaProductos = model.getListaProductos(venta.getId_pres());
+		return listaProductos;
+	}
 
 	@SuppressWarnings("deprecation")
 	public boolean asignaFechaVenta(VentaDTO venta, Date date, Date time) {
@@ -79,5 +93,33 @@ public class VentaController {
 	public TransportistaDTO getTransportista(VentaDTO venta) {
 		return model.getTransportista(venta.getIdTransp());
 	}
+
+	public void initViewHistorial() {
+		vistaHistorial.setVisible(true);
+		vistaHistorial.setLocationRelativeTo(null);
+		
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	public void historialVentas(Date date, Date date2) {
+		List<VentaDTO> listVentas = model.getListaVentasFechas(date,date2);
+		VentaDTO[] arrayVentas = toArray(listVentas);
+		vistaHistorial.getListVentas().setListData(arrayVentas);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void ventaSeleccionada() {
+		VentaDTO venta = (VentaDTO)vistaHistorial.getListVentas().getSelectedValue();
+		double precio = venta.getPrecio();
+		ProductoDTO[] productos = getListaProductos(venta);
+		vistaHistorial.getListProductos().clearSelection();
+		vistaHistorial.getListProductos().setListData(productos);
+//		for (int i=0; i<productos.length;i++) {
+//			if (productos[i].)
+//		}
+	}
+	
+	
 	
 }

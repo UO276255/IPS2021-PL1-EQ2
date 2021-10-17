@@ -352,7 +352,33 @@ public abstract class DbUtil {
 		return listaProducto;
 	}
 
-
+	public ArrayList<ProductoDTO> recogerProductosPresupuesto(String sqlProducto, int id_pres) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProducto);
+			pst.setInt(1,id_pres);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6),rs.getBoolean(4),rs.getBoolean(5));
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
 
 	public ArrayList<ProductoDTO> recogerProductos(String sql){
 		Connection c = null;
@@ -659,5 +685,35 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		
+	}
+	
+	public List<VentaDTO> recogerVentasFecha(String sqlVentasFecha, Date fecha, Date fecha2) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		VentaDTO prod = null;
+		ArrayList<VentaDTO> listaProducto = new ArrayList<VentaDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlVentasFecha);
+			pst.setDate(1,fecha);	
+			pst.setDate(2, fecha2);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				prod = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3),rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+			
 	}
 }
