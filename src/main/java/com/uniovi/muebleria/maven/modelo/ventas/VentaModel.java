@@ -11,10 +11,11 @@ public class VentaModel {
 
 	private Database db = new Database();
 	
-	public static final String SQL_PRODUCTO = "SELECT * FROM Presupuestos pres "
+	public static final String SQL_PRODUCTO = "SELECT prod.* FROM Presupuestos pres "
 			+ "JOIN Solicitudes sol ON pres.id_pres = sol.id_pres "
 			+ "JOIN productos prod ON sol.id_prod = prod.id_prod "
 			+ "WHERE id_pres = ? AND Transporte = ?";
+	
 	public static final String SQL_VENTAS = "SELECT * FROM Venta";
 	
 	public static final String SQL_FECHAS = "UPDATE Venta SET Fecha_venta = ? WHERE Id_venta = ?";
@@ -28,16 +29,16 @@ public class VentaModel {
 
 	private static final String SQL_VENTAS_FECHA = "SELECT * FROM Venta WHERE fecha_venta >= ? AND fecha_venta <= ?";
 	
-	public static final String SQL_PRODUCTO_VENTA = "SELECT * FROM Presupuestos pres "
+	public static final String SQL_PRODUCTO_VENTA = "SELECT prod.* FROM Presupuestos pres "
 			+ "JOIN Solicitudes sol ON pres.id_pres = sol.id_pres "
 			+ "JOIN productos prod ON sol.id_prod = prod.id_prod "
 			+ "WHERE id_pres = ?";
 	
-	public static final String SQL_NUM_PRODUCTOS_VENTA = "SELECT COUNT(prod.id_prod) NumProductos, SUM(prod.precio) TotalPrecio"
+	public static final String SQL_NUM_PRODUCTOS_VENTA = "SELECT COUNT(prod.id_prod) NumProductos "
 			+ "FROM Presupuestos pres "
 			+ "JOIN Solicitudes sol ON pres.id_pres = sol.id_pres "
 			+ "JOIN Productos prod ON sol.id_prod = prod.id_prod "
-			+ "WHERE id_pres = ?";
+			+ "WHERE id_pres = ? and id_prod=?";
 	
 	public VentaModel() {
 		
@@ -88,5 +89,9 @@ public class VentaModel {
 		java.sql.Date fecha = new java.sql.Date(date.getTime());
 		java.sql.Date fecha2 = new java.sql.Date(date2.getTime());
 		return db.recogerVentasFecha(SQL_VENTAS_FECHA,fecha,fecha2);
+	}
+
+	public int contarUnidades(int id_pres, int id) {
+		return db.contarUnidades(SQL_NUM_PRODUCTOS_VENTA, id_pres, id);
 	}
 }

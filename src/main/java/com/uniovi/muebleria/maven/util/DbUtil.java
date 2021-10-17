@@ -431,7 +431,31 @@ public abstract class DbUtil {
 		}
 		return result;
 	}
-	
+
+	public int contarUnidades(String sql, int id_pres, int id_prod) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,id_pres);
+			pst.setInt(2, id_prod);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
 	public void crearCliente(String sql, int id, String nombre, String apellido,Date fecha) {
 		
 		Connection c = null;

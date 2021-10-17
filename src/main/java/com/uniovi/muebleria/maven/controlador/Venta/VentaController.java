@@ -9,6 +9,7 @@ import javax.swing.ListModel;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
+import com.uniovi.muebleria.maven.modelo.ventas.ProductoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.vista.VistaCreacionVentas;
@@ -113,11 +114,22 @@ public class VentaController {
 		VentaDTO venta = (VentaDTO)vistaHistorial.getListVentas().getSelectedValue();
 		double precio = venta.getPrecio();
 		ProductoDTO[] productos = getListaProductos(venta);
+		ProductoVentaDTO[] arrayProdVentas = new ProductoVentaDTO[productos.length];
+		int sumaMontaje=0;
+		for (int i=0; i<productos.length;i++) {
+			ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[i]);
+			prodVenta.setNumUnidades(model.contarUnidades(venta.getId_pres(), productos[i].getId()));
+			arrayProdVentas[i] = prodVenta;
+			if (productos[i].getMontaje())
+				sumaMontaje += 5;
+		}
+		precio += sumaMontaje;
 		vistaHistorial.getListProductos().clearSelection();
-		vistaHistorial.getListProductos().setListData(productos);
-//		for (int i=0; i<productos.length;i++) {
-//			if (productos[i].)
-//		}
+		vistaHistorial.getListProductos().setListData(arrayProdVentas);
+		
+		vistaHistorial.getTxSumaMontaje().setText(""+sumaMontaje+" €");
+		vistaHistorial.getTxSumaTotal().setText(""+precio+" €");
+		
 	}
 	
 	
