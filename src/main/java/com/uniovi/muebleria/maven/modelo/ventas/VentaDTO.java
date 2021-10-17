@@ -8,6 +8,7 @@ public class VentaDTO {
 	private int precio;
 	private boolean transporte;
 	private int id_pres;
+	private int id_transp;
 	
 	public VentaDTO() {}
 	
@@ -17,6 +18,15 @@ public class VentaDTO {
 		this.precio = precio;
 		this.transporte = transporte;
 		this.id_pres = id_pres;
+	}
+	
+	public VentaDTO(int id_venta, Date fecha, int precio, boolean transporte,int id_pres, int id_transp) {
+		this.id_venta = id_venta;
+		this.fecha = fecha;
+		this.precio = precio;
+		this.transporte = transporte;
+		this.id_pres = id_pres;
+		this.id_transp = id_transp;
 	}
 	
 	public int getId_pres() {
@@ -50,6 +60,13 @@ public class VentaDTO {
 	}
 	public void setTransporte(boolean transporte) {
 		this.transporte = transporte;
+	}
+	
+	public int getIdTransp() {
+		return id_transp;
+	}
+	public void setIdTransp() {
+		this.id_transp = id_transp;
 	}
 	
 	public String toString() {

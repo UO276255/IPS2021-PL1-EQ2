@@ -2,23 +2,23 @@
 --(en este caso en cada una de las aplicaciones (tkrun y descuento) se usa solo una tabla, por lo que no hace falta)
 
 --Para giis.demo.tkrun:
-DROP TABLE Cliente;
-DROP TABLE Presupuestos;
-DROP TABLE Productos;
-DROP TABLE Proveedor;
-DROP TABLE Pedido;
-DROP TABLE Solicitudes;
-DROP TABLE Venta;
-DROP TABLE Transportista;
-DROP TABLE Almacen;
-DROP TABLE Repuesto;
+DROP TABLE IF EXISTS Transportista;
+DROP TABLE IF EXISTS Venta;
+DROP TABLE IF EXISTS Productos;
+DROP TABLE IF EXISTS Presupuestos;
+DROP TABLE IF EXISTS Solicitudes;
+DROP TABLE IF EXISTS Cliente;
+DROP TABLE IF EXISTS Pedido;
+DROP TABLE IF EXISTS Repuesto;
+DROP TABLE IF EXISTS Almacen;
+DROP TABLE IF EXISTS Proveedor;
 
 CREATE TABLE Cliente (
 	Id INT PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32) NOT NULL,
 	Apellido VARCHAR(32) NOT NULL,
 	fecha_nac DATETIME);
-
+	
 CREATE TABLE Presupuestos (
 	Id_pres INT PRIMARY KEY NOT NULL,
 	Precio INT NOT NULL,
@@ -56,8 +56,8 @@ CREATE TABLE Transportista (
 	id_transp int PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32) NOT NULL,
 	Numero_tel INT NOT NULL,
-	hora_entrada DATETIME,
-	hora_salida DATETIME);
+	hora_entrada TIME,
+	hora_salida TIME);
 
 CREATE TABLE Venta (
 	Id_venta INT PRIMARY KEY NOT NULL,
