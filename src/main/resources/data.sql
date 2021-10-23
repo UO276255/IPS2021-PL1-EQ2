@@ -77,3 +77,13 @@ insert into solicitudes (id_solic,id_pres,id_prod) values (9,6,32);
 insert into solicitudes (id_solic,id_pres,id_prod) values (10,7,105);
 
 
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (1,1,123,2);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (2,1,95,2);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (3,1,144,10);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (4,2,111,2);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (5,2,32,8);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (6,3,150,4);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (7,3,29,3);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (8,4,105,8);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (9,4,45,10);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (10,5,32,4);
