@@ -489,7 +489,7 @@ public class VistaAsignaTransporte extends JFrame{
 	private JLabel getLblVenta() {
 		if (lblVenta == null) {
 			lblVenta = new JLabel("Selecciona la venta:");
-			lblVenta.setBounds(20, 26, 100, 14);
+			lblVenta.setBounds(20, 26, 163, 14);
 		}
 		return lblVenta;
 	}
