@@ -47,7 +47,7 @@ public class VistaHistorial extends JFrame {
 	 */
 	public VistaHistorial() {
 		setTitle("Muebleria : Historial");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 801, 516);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -70,8 +70,9 @@ public class VentaDTO {
 	}
 	
 	public String toString() {
-		String cadena = "Id: " + getId_venta() + " - Fecha: " + getFecha() + " - Precio: " + getPrecio() + " - Transporte: " + isTransporte(); 
+		String cadena = "Id: " + getId_venta() + " - Fecha: " + getFecha() + " - Precio: " + getPrecio(); 
 		return cadena;
+		
 	}
 
 }

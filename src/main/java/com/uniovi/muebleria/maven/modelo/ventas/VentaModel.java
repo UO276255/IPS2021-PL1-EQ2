@@ -10,7 +10,7 @@ public class VentaModel {
 
 	private Database db = new Database();
 	
-	public static final String SQL_PRODUCTO = "SELECT * FROM Presupuestos pres "
+	public static final String SQL_PRODUCTO = "SELECT prod.* FROM Presupuestos pres "
 			+ "JOIN Solicitudes sol ON pres.id_pres = sol.id_pres "
 			+ "JOIN productos prod ON sol.id_prod = prod.id_prod "
 			+ "WHERE id_pres = ? AND Transporte = ?";	
