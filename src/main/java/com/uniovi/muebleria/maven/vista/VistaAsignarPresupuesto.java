@@ -115,7 +115,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 					c.show(getPanelGeneral(), "PanelNuevoCliente");										
 				}
 			});
-			btnAsignarNuevo.setBounds(40, 181, 221, 34);
+			btnAsignarNuevo.setBounds(58, 181, 221, 34);
 		}
 		return btnAsignarNuevo;
 	}
