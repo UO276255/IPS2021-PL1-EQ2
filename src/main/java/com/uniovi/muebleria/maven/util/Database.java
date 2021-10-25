@@ -27,7 +27,7 @@ public class Database extends DbUtil {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			e.printStackTrace();//
 		}
 	}
 	
