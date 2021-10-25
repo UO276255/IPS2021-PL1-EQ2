@@ -18,7 +18,7 @@ public class PedidoController {
 	}
 	
 	public PedidoDTO getPedido(int id) {
-		PedidoDTO ped = model.getProductosProveedor(id);
+		PedidoDTO ped = model.getRepuestoPedido(id);
 		return ped;
 	}
 
@@ -31,3 +31,4 @@ public class PedidoController {
 	}
 	
 }
+

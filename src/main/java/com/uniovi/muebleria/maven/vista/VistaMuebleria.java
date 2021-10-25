@@ -31,6 +31,7 @@ public class VistaMuebleria extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel PanelInicio;
 	
 	public static VistaAsignaTransporte VIEW_TRANSPORTE = new VistaAsignaTransporte();
@@ -38,14 +39,17 @@ public class VistaMuebleria extends JFrame {
 	public static VistaAsignarPresupuesto VIEW_PRESUPUESTO = new VistaAsignarPresupuesto();
 	public static VistaDeterminaFecha VIEW_VENTA = new VistaDeterminaFecha();
 	public static VistaSeguimientoPedido VIEW_SEGUIMIENTO = new VistaSeguimientoPedido();
+	public static final VistaHistorial VIEW_HISTORIAL = new VistaHistorial();
 
+	private Database db=null;
+	
 	/**
 	 * Create the frame.
 	 * @param list 
 	 */
 	public VistaMuebleria() {
 		setTitle("Muebleria");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 759, 515);
 		PanelInicio = new JPanel();
 		PanelInicio.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,15 +59,24 @@ public class VistaMuebleria extends JFrame {
 		JPanel panel = new JPanel();
 		PanelInicio.add(panel, BorderLayout.CENTER);
 		
-		JButton btnCargarBaseDatos = new JButton("Cargar la base de datos");
+		db=new Database();
+		
+		JButton btnCargarBaseDatos = new JButton("Crear la base de datos");
 		btnCargarBaseDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Database db=new Database();
-				db.createDatabase(false);
+				db.createDatabase(true);
+				//db.loadDatabase();
+			}
+		});
+		
+		JButton btnLoadDB = new JButton("Cargar la base de datos");
+		btnLoadDB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				db.loadDatabase();
 			}
 		});
 		panel.add(btnCargarBaseDatos);
+		panel.add(btnLoadDB);
 		
 		JPanel PanelBotones = new JPanel();
 		PanelInicio.add(PanelBotones, BorderLayout.EAST);
@@ -90,9 +103,7 @@ public class VistaMuebleria extends JFrame {
 		btnAsignarTransporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TransportistaController controllerT = new TransportistaController(new TransportistaModel(), VIEW_TRANSPORTE);
-				ProductoController controllerP = new ProductoController(new ProductoModel(), VIEW_TRANSPORTE);
 				controllerT.initView();
-				controllerP.initView();
 			}
 		});
 		PanelBotones.add(btnAsignarTransporte);
@@ -101,7 +112,6 @@ public class VistaMuebleria extends JFrame {
 		btnFechaEntrega.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				VentaController controllerF = new VentaController(new VentaModel(), VIEW_VENTA);
-				
 			}
 
 		});
@@ -113,10 +123,9 @@ public class VistaMuebleria extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), VIEW_VENTAS);
 				controller.initViewVentas();
-				VIEW_VENTAS.getBtnCrearVenta().setEnabled(true);
+				
 				if(VIEW_VENTAS.getComboBoxPresupuestoSinAceptar().getItemCount() == 0) {		
 					JOptionPane.showMessageDialog(null, "No hay ningun presupuesto sin aceptar, lo siento");
-					VIEW_VENTAS.getBtnCrearVenta().setEnabled(false);
 				} else {
 					
 				}
@@ -127,6 +136,12 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.add(btnCrearVenta);
 		
 		JButton btnVisualizarHistorial = new JButton("Visualizar historial de ventas");
+		btnVisualizarHistorial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentaController controller = new VentaController(new VentaModel(), VIEW_HISTORIAL);
+				controller.initViewHistorial();
+			}
+		});
 		PanelBotones.add(btnVisualizarHistorial);
 		
 		JButton btnSeguimientoPedido = new JButton("Seguimiento de pedidos");
@@ -134,7 +149,7 @@ public class VistaMuebleria extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PedidoController controller = new PedidoController(new PedidoModel(), VIEW_SEGUIMIENTO);
 				controller.initView();
-				VIEW_SEGUIMIENTO.getSpinnerIdProv().setModel(new SpinnerNumberModel(1, 1, VIEW_SEGUIMIENTO.getMaxIdProv(), 1));
+				VIEW_SEGUIMIENTO.getSpinnerIdProd().setModel(new SpinnerNumberModel(1, 1, VIEW_SEGUIMIENTO.getMaxIdProv(), 1));
 			}
 		});
 		PanelBotones.add(btnSeguimientoPedido);

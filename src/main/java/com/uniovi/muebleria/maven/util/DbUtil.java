@@ -148,7 +148,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new TransportistaDTO(rs.getString(2), rs.getInt(3),rs.getDate(4), rs.getDate(5));
+				tra = new TransportistaDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getTime(4), rs.getTime(5));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -158,6 +158,29 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return list;
+	}
+	
+	public TransportistaDTO recogerTransportista(String sql, int idTransp){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		TransportistaDTO tra = null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, idTransp);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				tra = new TransportistaDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getTime(4), rs.getTime(5));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return tra;
 	}
 	
 	public ArrayList<VentaDTO> recogerVentas(String sql){
@@ -172,7 +195,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5));
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -257,24 +280,6 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return list;
-	}
-	
-	public void AsignarTransporte(String sql, int bit, int id) {
-		Connection c = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		try {
-			c = getConnection();
-			pst = c.prepareStatement(sql);
-			pst.setInt(1,bit);
-			pst.setInt(2,id);	
-			pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			Jdbc.close(rs, pst, c);
-		}
 	}
 	
 	public void AsignarPresupuestoACliente(String sql, int idclient, int idpresupuesto) {
@@ -429,7 +434,7 @@ public abstract class DbUtil {
 				numProductos.add(rs.getInt(4));				
 			}
 			
-			//result = new PedidoDTO(id, productos, numProductos, recogerEstadoPedido("SELECT estado FROM Pedido where id_pedido = ?", id), id);
+			result = new PedidoDTO(id, productos, numProductos, recogerEstadoPedido("SELECT estado FROM Pedido where id_pedido = ?", id), id);
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -536,19 +541,25 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public List<ProductoDTO> recogerProductosVenta(String sqlProductoVenta, int id_pres) {
+	public List<ProductoDTO> recogerProductosVentaNoTransp(String sqlProductoVenta, int id_venta) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		ProductoDTO prod = null;
+		int transporte;
+		int idpres;
 		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sqlProductoVenta);
-			pst.setInt(1,id_pres);	
+			pst.setInt(1,id_venta);	
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
+				if(transporte == 0) {
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4), false);
+				}
 				if(listaProducto.contains(prod)) {
 					
 				}else {
@@ -564,7 +575,205 @@ public abstract class DbUtil {
 		return listaProducto;
 	}
 	
-public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto) {
+	public List<ProductoDTO> recogerProductosVentaTransp(String sqlProductoVenta, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		int transporte;
+		int idpres;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductoVenta);
+			pst.setInt(1,id_venta);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
+				if(transporte == 1) {
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4), true);
+				}
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
+	
+	public List<ProductoDTO> recogerProductosVentaNoMontar(String sqlProductoVenta, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		int transporte;
+		int montaje;
+		int idpres;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductoVenta);
+			pst.setInt(1,id_venta);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
+				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
+				if(montaje == 0 && transporte == 1) {
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4), false);
+				}
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
+	
+	public List<ProductoDTO> recogerProductosVentaMontar(String sqlProductoVenta, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		int montaje;
+		int transporte;
+		int idpres;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProductoVenta);
+			pst.setInt(1,id_venta);	
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
+				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
+				if(montaje == 1 && transporte == 1) {
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4), true);
+				}
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
+	
+	public void AsignarTransporte(String sql, int bit, int id_prod, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int id_pres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,bit);
+			pst.setInt(2,id_prod);
+			pst.setInt(3,id_pres);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public int getIdPresPorIdVenta(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(5);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public int productoParaTransportar(String sql, int idprod, int idpres) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, idprod);
+			pst.setInt(2, idpres);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(4);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public int productoParaMontar(String sql, int idprod, int idpres) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, idprod);
+			pst.setInt(2, idpres);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(5);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto) {
 		
 		Connection c = null;
 		PreparedStatement pst = null;
@@ -634,5 +843,178 @@ public void CrearVenta(String sql,int id,Date fecha,int precio,int idPresupuesto
 		
 		return result;
 	}
+
+	
+	public ProductoDTO recogerProductoProv(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO result = null;
+
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			if(rs.next()) {
+				result = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+			}		
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public void asignaTransportistaVenta(String sqlAsignar, int idTransp) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlAsignar);
+			pst.setInt(1,idTransp);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public int buscaIdTranspPorIdVenta(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public void asignaFechaAVenta(String sqlFechas, VentaDTO venta,java.sql.Date dateTime) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlFechas);
+			
+			pst.setDate(1,dateTime);
+			pst.setInt(2,venta.getId_venta());	
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		
+	}
+	
+	public List<VentaDTO> recogerVentasFecha(String sqlVentasFecha, Date fecha, Date fecha2) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		VentaDTO prod = null;
+		ArrayList<VentaDTO> listaProducto = new ArrayList<VentaDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlVentasFecha);
+			pst.setDate(1,fecha);	
+			pst.setDate(2, fecha2);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				prod = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3),rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+			
+	}
+	
+	public int contarUnidades(String sql, int id_pres, int id_prod) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,id_pres);
+			pst.setInt(2, id_prod);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public ArrayList<ProductoDTO> recogerProductosPresupuestoTotal(String sqlProducto, int id_pres) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlProducto);
+			pst.setInt(1,id_pres);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6),rs.getBoolean(4),rs.getBoolean(5));
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
+	}
+	
 
 }
