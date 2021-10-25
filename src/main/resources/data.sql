@@ -8,11 +8,11 @@ delete from pedido;
 delete from solicitudes;
 delete from almacen;
 
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (78456156,'Luis','Rodriguez',to_date('1995-03-12','yyyy-mm-dd'));
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (45215638,'Ana','Sanchez',to_date('2001-07-08','yyyy-mm-dd'));
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (14578232,'Jose','Martinez',to_date('1986-01-25','yyyy-mm-dd'));
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (65842623,'Andrea','Lopez',to_date('1998-10-11','yyyy-mm-dd'));
-insert into Cliente (id,Nombre,Apellido,Fecha_nac) values (21489632,'Antonio','Soto',to_date('1965-12-05','yyyy-mm-dd'));
+insert into Cliente (id,Nombre,Apellido,Fecha_nac,dni,email) values (78456156,'Luis','Rodriguez',to_date('1995-03-12','yyyy-mm-dd'),113372889,'luisantonio@ggmail.com');
+insert into Cliente (id,Nombre,Apellido,Fecha_nac,dni,email) values (45215638,'Ana','Sanchez',to_date('2001-07-08','yyyy-mm-dd'),12823783,'Ana123@gmail.com');
+insert into Cliente (id,Nombre,Apellido,Fecha_nac,dni,email) values (14578232,'Jose','Martinez',to_date('1986-01-25','yyyy-mm-dd'),23487373,'joseMar@gmail.com');
+insert into Cliente (id,Nombre,Apellido,Fecha_nac,dni,email) values (65842623,'Andrea','Lopez',to_date('1998-10-11','yyyy-mm-dd'),1234985,'AndreaCosa@gmail.com');
+insert into Cliente (id,Nombre,Apellido,Fecha_nac,dni,email) values (21489632,'Antonio','Soto',to_date('1965-12-05','yyyy-mm-dd'),135849030,'AntonioJose193@gmail.com');
 
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values(1,261,0,to_date('2021-10-21','yyyy-mm-dd'),NULL);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (2,42,0,to_date('2021-11-04','yyyy-mm-dd'),NULL);

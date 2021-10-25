@@ -52,6 +52,8 @@ public class VistaAsignarPresupuesto extends JFrame {
 	private JButton btnCancelar;
 	private JButton btnCancelarNuevoCliente;
 	private JButton btnCancelarClienteExistente;
+	private JTextField textFieldDNI;
+	private JTextField textFieldEmail;
 
 	/**
 	 * Create the frame.
@@ -137,6 +139,24 @@ public class VistaAsignarPresupuesto extends JFrame {
 			panelNuevoCliente.add(getLblTitulo());
 			panelNuevoCliente.add(getBtnAsignar());
 			panelNuevoCliente.add(getBtnCancelarNuevoCliente());
+			
+			JLabel lblDni = new JLabel("DNI: ");
+			lblDni.setBounds(30, 204, 127, 14);
+			panelNuevoCliente.add(lblDni);
+			
+			textFieldDNI = new JTextField();
+			textFieldDNI.setColumns(10);
+			textFieldDNI.setBounds(178, 201, 166, 20);
+			panelNuevoCliente.add(textFieldDNI);
+			
+			JLabel lblEmail = new JLabel("Email: ");
+			lblEmail.setBounds(30, 235, 127, 14);
+			panelNuevoCliente.add(lblEmail);
+			
+			textFieldEmail = new JTextField();
+			textFieldEmail.setColumns(10);
+			textFieldEmail.setBounds(178, 232, 166, 20);
+			panelNuevoCliente.add(textFieldEmail);
 		}
 		return panelNuevoCliente;
 	}
@@ -258,7 +278,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					
 					ClienteController controllerC = new ClienteController(new ClienteModel(), VistaMuebleria.VIEW_PRESUPUESTO);
-					controllerC.crearNuevoCliente(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldNacimiento().getText());
+					controllerC.crearNuevoCliente(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldNacimiento().getText(),Integer.parseInt(textFieldDNI.getText()),textFieldEmail.getText());
 					
 					PresupuestoController controllerP = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_PRESUPUESTO);
 					controllerP.asignarClienteAPresupuesto(controllerC.contarClientes(),((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem()).getIdPresupuesto());

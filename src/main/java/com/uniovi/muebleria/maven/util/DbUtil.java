@@ -270,7 +270,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				client = new ClienteDTO(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getDate(4));
+				client = new ClienteDTO(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getDate(4),rs.getInt(5),rs.getString(6));
 				list.add(client);
 			}
 		} catch (SQLException e) {
@@ -385,7 +385,7 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public void crearCliente(String sql, int id, String nombre, String apellido,Date fecha) {
+	public void crearCliente(String sql, int id, String nombre, String apellido,Date fecha,int dni,String email) {
 		
 		Connection c = null;
 		PreparedStatement pst = null;
@@ -399,6 +399,8 @@ public abstract class DbUtil {
 			pst.setString(2,nombre);	
 			pst.setString(3,apellido);
 			pst.setDate(4,fecha);
+			pst.setInt(5,dni);
+			pst.setString(6,email);
 			
 			pst.executeUpdate();
 			

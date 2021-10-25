@@ -17,7 +17,9 @@ CREATE TABLE Cliente (
 	Id INT PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32) NOT NULL,
 	Apellido VARCHAR(32) NOT NULL,
-	fecha_nac DATETIME);
+	fecha_nac DATETIME,
+	dni INT,
+	email VARCHAR(32));
 	
 CREATE TABLE Presupuestos (
 	Id_pres INT PRIMARY KEY NOT NULL,
