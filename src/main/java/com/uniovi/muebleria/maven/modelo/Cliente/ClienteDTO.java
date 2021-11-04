@@ -8,17 +8,21 @@ public class ClienteDTO {
 	private String nombre;
 	private String apellido;
 	private Date fechaNacimiento;
+	private int dni;
+	private	String email;
 	
 	public ClienteDTO() {
 		
 	}
 	
 	public ClienteDTO(int idCliente, String nombre, 
-			String apellido, Date fechaNacimiento) {
+			String apellido, Date fechaNacimiento,int dni, String email) {
 		this.IdCliente = idCliente;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;
+		this.dni = dni;
+		this.email = email;
 	}
 	
 	

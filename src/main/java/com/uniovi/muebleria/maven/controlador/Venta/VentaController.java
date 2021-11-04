@@ -104,6 +104,18 @@ public class VentaController {
 	public void historialVentas(java.util.Date date, java.util.Date date2) {
 		List<VentaDTO> listVentas = model.getListaVentasFechas(date,date2);
 		VentaDTO[] arrayVentas = toArray(listVentas);
+		for (int i=0; i<arrayVentas.length;i++) {
+			ProductoDTO[] productos = getListaProductos(arrayVentas[i]);
+			ProductoVentaDTO[] arrayProdVentas = new ProductoVentaDTO[productos.length];
+			for (int j=0; j<productos.length;j++) {
+				ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[i]);
+				prodVenta.setNumUnidades(model.contarUnidades(arrayVentas[i].getId_pres(), productos[i].getId()));
+				arrayProdVentas[i] = prodVenta;
+				if (productos[i].getMontaje())
+					arrayVentas[i].setPrecio(arrayVentas[i].getPrecio()+5);
+			}
+		}
+		
 		vistaHistorial.getListVentas().setListData(arrayVentas);
 	}
 
@@ -121,7 +133,6 @@ public class VentaController {
 			if (productos[i].getMontaje())
 				sumaMontaje += 5;
 		}
-		precio += sumaMontaje;
 		vistaHistorial.getListProductos().clearSelection();
 		vistaHistorial.getListProductos().setListData(arrayProdVentas);
 		

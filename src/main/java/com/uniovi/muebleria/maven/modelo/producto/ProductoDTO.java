@@ -16,13 +16,21 @@ public class ProductoDTO {
 		this.categoria = categoria;
 	}
 	
-	public ProductoDTO(int id, String nombre, int precio, String categoria, boolean montaje, boolean transporte) {
+	public ProductoDTO(int id, String nombre, int precio, String categoria, boolean transporte) {
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.categoria = categoria;
-		this.montaje = montaje;
 		this.transporte = transporte;
+	}
+	
+	public ProductoDTO(int id, String nombre, int precio, String categoria, boolean transporte, boolean montaje) {
+		this.id = id;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.categoria = categoria;
+		this.transporte = transporte;
+		this.montaje = montaje;
 	}
 	
 	public int getId() { return this.id; }

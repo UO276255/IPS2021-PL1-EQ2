@@ -38,8 +38,8 @@ public class ClienteController {
 		return lista;
 	}
 
-	public void crearNuevoCliente(String nombre, String apellido, String fecha) {
-		model.crearCliente(nombre,apellido,fecha);
+	public void crearNuevoCliente(String nombre, String apellido, String fecha,int dni, String email) {
+		model.crearCliente(nombre,apellido,fecha,dni,email);
 		
 	}
 	

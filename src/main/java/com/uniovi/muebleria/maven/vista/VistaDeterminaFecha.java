@@ -29,6 +29,8 @@ import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
 import java.awt.List;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
@@ -74,7 +76,6 @@ public class VistaDeterminaFecha extends JFrame {
 		panelRecoger.add(lbProductos, BorderLayout.NORTH);
 		
 		listaProductos = new List();
-		listaProductos.setEnabled(false);
 		panelRecoger.add(listaProductos, BorderLayout.CENTER);
 		
 		JPanel panelTransporte = new JPanel();
@@ -158,12 +159,21 @@ public class VistaDeterminaFecha extends JFrame {
 			btAsignar.addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
+					Date time = (Date) spTimer.getValue();
 					Date date = getCalendar().getDate();
+					Date actual = Calendar.getInstance().getTime();
 					if (date.getDay() == 0)
 							JOptionPane.showMessageDialog(null, "Debe asignarse una fecha en días laborables");
+					if (date.compareTo(actual)<0)
+						JOptionPane.showMessageDialog(null, "La fecha asignada debe ser posterior a la actual");
+					else if (date.compareTo(actual)==0 && time.getHours() < actual.getHours())
+						JOptionPane.showMessageDialog(null, "La fecha asignada debe ser posterior a la actual");
+					else if (date.compareTo(actual)==0 && time.getHours() == actual.getHours() 
+							&& time.getMinutes() < actual.getMinutes())
+						JOptionPane.showMessageDialog(null, "La fecha asignada debe ser posterior a la actual");
 					else {
 						
-						Date time = (Date) spTimer.getValue();
+						
 						VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTA);
 						if (controller.asignaFechaVenta(venta,date,time))
 							JOptionPane.showMessageDialog(null, "Se asignó la fecha correctamente");

@@ -9,7 +9,7 @@ public class PresupuestosModel {
 	
 	public static final String SQL_LISTA_PRESUPUESTOS_NO_ASIGNADOS = "SELECT * FROM Presupuestos where aceptado = 0 and id_cliente is null";
 	public static final String SQL_LISTA_PRESUPUESTOS_NO_ACEPTADOS = "SELECT * FROM Presupuestos p , cliente c where p.aceptado = 0 and p.id_cliente != 0 and "
-			+ "CURRENT_DATE <= p.Fecha_cad and c.id = p.id_cliente";
+			+ "CAST(CURRENT_TIMESTAMP AS DATE) <= p.Fecha_cad and c.id = p.id_cliente";
 	
 	public static final String SQL_ASIGNAR_PRESUPUESTO = "UPDATE Presupuestos set id_cliente = ? where id_pres = ?";
 	public static final String SQL_BORRAR_PRESUPUESTO = "UPDATE Presupuestos set Aceptado = 1 where id_pres = ?";

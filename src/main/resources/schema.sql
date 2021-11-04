@@ -17,7 +17,9 @@ CREATE TABLE Cliente (
 	Id INT PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32) NOT NULL,
 	Apellido VARCHAR(32) NOT NULL,
-	fecha_nac DATETIME);
+	fecha_nac DATETIME,
+	dni INT,
+	email VARCHAR(32));
 	
 CREATE TABLE Presupuestos (
 	Id_pres INT PRIMARY KEY NOT NULL,
@@ -33,8 +35,6 @@ CREATE TABLE Productos (
 	Id_prod INT PRIMARY KEY NOT NULL,
 	Nombre_prod VARCHAR(32) NOT NULL,
 	Precio_prod INT NOT NULL,
-	Transporte BIT,
-	Montaje BIT,
 	Categoria VARCHAR(32) NOT NULL,	
 	fecha_entrega DATETIME,
 	Id_alm INT REFERENCES Almacen(Id_almacen ));
@@ -50,7 +50,9 @@ CREATE TABLE Pedido (
 CREATE TABLE Solicitudes (
 	Id_solic INT PRIMARY KEY NOT NULL,
 	Id_pres INT REFERENCES Presupuestos(Id_pres),
-	Id_prod INT REFERENCES Productos(Id_prod));
+	Id_prod INT REFERENCES Productos(Id_prod),
+	Transporte BIT,
+	Montaje BIT);
 
 CREATE TABLE Transportista (
 	id_transp int PRIMARY KEY NOT NULL,

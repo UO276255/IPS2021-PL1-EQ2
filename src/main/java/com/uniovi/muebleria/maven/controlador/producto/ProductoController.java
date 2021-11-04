@@ -74,12 +74,12 @@ public class ProductoController {
 		}
 	}
 	
-	public void actualizarTransporte(int bit,int id) {
-		model.ActualizarTransporte(bit, id);
+	public void actualizarTransporte(int bit, int id_prod, int id_venta) {
+		model.ActualizarTransporte(bit, id_prod, id_venta);
 	}
 	
-	public void actualizarMontaje(int bit,int id) {
-		model.ActualizarMontaje(bit, id);
+	public void actualizarMontaje(int bit, int id_prod, int id_venta) {
+		model.ActualizarMontaje(bit, id_prod, id_venta);
 	}
 	
 	public void actualizaListaMontaje(int id) {

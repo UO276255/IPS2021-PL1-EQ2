@@ -26,7 +26,7 @@ public class PresupuestoDTO {
 		this.idCliente = idCliente;
 		this.fechaCreacion = fechaCaducidad;
 		this.nombreCliente = nombreCliente;
-		this.fechaCreacion.setDate(getFechaCaducidad().getDate() - 15);
+		this.fechaCreacion = fechaCaducidad;
 	}
 
 	public String getNombreCliente() {
