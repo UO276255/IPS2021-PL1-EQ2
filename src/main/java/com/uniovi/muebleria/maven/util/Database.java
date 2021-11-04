@@ -9,7 +9,7 @@ public class Database extends DbUtil {
 
 	private static final String SQL_SCHEMA = "src/main/resources/schema.sql";
 	private static final String SQL_LOAD = "src/main/resources/data.sql";
-	private static final String URL = "jdbc:hsqldb:file:db/muebleria.script";
+	private static final String URL = "jdbc:hsqldb:hsql://localhost/muebleria";
 	
 	private static boolean databaseCreated=false;
 	
