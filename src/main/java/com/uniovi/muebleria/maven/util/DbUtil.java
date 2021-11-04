@@ -709,6 +709,30 @@ public abstract class DbUtil {
 		return listaProducto;
 	}
 	
+	public int precioProducto(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(3);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
 	public void AsignarTransporte(String sql, int bit, int id_prod, int id_venta) {
 		Connection c = null;
 		PreparedStatement pst = null;
