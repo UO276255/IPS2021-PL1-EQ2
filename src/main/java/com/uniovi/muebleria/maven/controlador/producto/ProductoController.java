@@ -4,24 +4,15 @@ import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
 
 public class ProductoController {
 	private VistaAsignaTransporte vista;
 	private ProductoModel model;
-	
 	public ProductoController(ProductoModel m, VistaAsignaTransporte v) {
 		this.vista = v;
 		this.model = m;
 	}
-	
-//	public void initView() {
-//		setListProductosVenta();
-//		setListProductosTransp();
-//		setListProductosNoMontar();
-//		setListProductosMontar();
-//	}
 	
 	public ProductoDTO[] getListaProductosVentaNoTransp(int id) {
 		List<ProductoDTO> listProductosNoTransp = model.getListaProductosVentaNoTransp(id);
@@ -99,6 +90,10 @@ public class ProductoController {
 		}
 		return arrayProductos;
 	}
+	
+	private void ProductosPorAlmacen(int idAlmacen) {
+		model.getProductosPorAlmacen(idAlmacen);
+	} 
 
 	public int getMaxId() {
 		return model.getMaxId();

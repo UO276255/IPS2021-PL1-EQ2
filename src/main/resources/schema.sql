@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS Pedido;
 DROP TABLE IF EXISTS Repuesto;
 DROP TABLE IF EXISTS Almacen;
 DROP TABLE IF EXISTS Proveedor;
+DROP TABLE IF EXISTS Registrado;
 
 CREATE TABLE Cliente (
 	Id INT PRIMARY KEY NOT NULL,
@@ -30,16 +31,14 @@ CREATE TABLE Presupuestos (
 
 CREATE TABLE Almacen(
 	Id_almacen int PRIMARY KEY NOT NULL,
-	Nombre VARCHAR(32),
-	Productos INT);
-	
+	Nombre VARCHAR(32));
+
 CREATE TABLE Productos (
 	Id_prod INT PRIMARY KEY NOT NULL,
 	Nombre_prod VARCHAR(32) NOT NULL,
 	Precio_prod INT NOT NULL,
 	Categoria VARCHAR(32) NOT NULL,	
-	fecha_entrega DATETIME,
-	Id_alm INT REFERENCES Almacen(Id_almacen ));
+	fecha_entrega DATETIME);
 
 CREATE TABLE Proveedor (
 	Id_prov INT PRIMARY KEY NOT NULL);
@@ -76,3 +75,10 @@ CREATE TABLE Repuesto (
 	Id_pedido INT REFERENCES Pedido(Id_pedido),
 	Id_prod INT REFERENCES Productos(Id_prod),
 	cantidad_prod INT);
+	
+CREATE TABLE Registrado(
+	Id_reg INT PRIMARY KEY NOT NULL,
+	Id_prod INT REFERENCES Productos(Id_prod),
+	Id_almacen INT REFERENCES Almacen(Id_almacen),
+	cantidad INT);
+)

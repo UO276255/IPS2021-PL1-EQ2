@@ -460,7 +460,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();	
 			while(rs.next()) {
-				result = new AlmacenDTO(rs.getString(2),rs.getInt(1),rs.getInt(3));
+				result = new AlmacenDTO(rs.getString(2),rs.getInt(1),0);
 				almacenes.add(result);
 			}
 			
@@ -1043,6 +1043,10 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return listaProducto;
+	}
+	
+	public  List<ProductoDTO> productosPorAlmacen(String sql) {
+		return null;
 	}
 	
 

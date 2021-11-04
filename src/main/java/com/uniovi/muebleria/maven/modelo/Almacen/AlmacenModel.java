@@ -13,4 +13,5 @@ public class AlmacenModel {
 	public List<AlmacenDTO> obtenerAlmacenes(){
 		return db.obtenerAlmacenes(SQL_ALMACEN_INFO);	
 	}
+	
 }
