@@ -14,9 +14,7 @@ public class ClienteModel {
 	public static final String SQL_CONTAR_ClIENTE = "SELECT count(*) FROM Cliente";
 	
 	public List<ClienteDTO> obtenerClientes(){
-		return db.recogerClientes(SQL_LISTA_ClIENTE);
-
-		
+		return db.recogerClientes(SQL_LISTA_ClIENTE);	
 	}
 
 	public void crearCliente(String nombre, String apellido,String fecha,int dni, String email) {

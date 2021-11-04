@@ -15,14 +15,14 @@ import javax.swing.border.EmptyBorder;
 import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
 import com.uniovi.muebleria.maven.controlador.pedidos.PedidoController;
-import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoModel;
-import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.util.Database;
+import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenModel;
+import com.uniovi.muebleria.maven.controlador.Almacen.AlmacenController;
 
 
 public class VistaMuebleria extends JFrame {
@@ -40,6 +40,7 @@ public class VistaMuebleria extends JFrame {
 	public static VistaDeterminaFecha VIEW_VENTA = new VistaDeterminaFecha();
 	public static VistaSeguimientoPedido VIEW_SEGUIMIENTO = new VistaSeguimientoPedido();
 	public static final VistaHistorial VIEW_HISTORIAL = new VistaHistorial();
+	public static final VistaAlmacenes VIEW_ALMACEN = new VistaAlmacenes();
 
 	private Database db=null;
 	
@@ -80,7 +81,7 @@ public class VistaMuebleria extends JFrame {
 		
 		JPanel PanelBotones = new JPanel();
 		PanelInicio.add(PanelBotones, BorderLayout.EAST);
-		PanelBotones.setLayout(new GridLayout(6, 1, 0, 0));
+		PanelBotones.setLayout(new GridLayout(7, 1, 0, 0));
 		
 		JButton btnAsignarPresupuesto = new JButton("Asignar Presupuesto");
 		btnAsignarPresupuesto.addActionListener(new ActionListener() {
@@ -153,6 +154,16 @@ public class VistaMuebleria extends JFrame {
 			}
 		});
 		PanelBotones.add(btnSeguimientoPedido);
+		
+		JButton btnVerAlmacenes = new JButton("Visualizar Almacenes");
+		btnVerAlmacenes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AlmacenController controller = new AlmacenController(new AlmacenModel(),VIEW_ALMACEN);
+				controller.initView();
+					
+			}
+		});
+		PanelBotones.add(btnVerAlmacenes);
 	}
 
 	public JFrame getFrame() { return this.getFrame(); }

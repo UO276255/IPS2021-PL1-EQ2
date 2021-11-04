@@ -29,7 +29,9 @@ CREATE TABLE Presupuestos (
 	Id_cliente INT REFERENCES Cliente(Id));
 
 CREATE TABLE Almacen(
-	Id_almacen int PRIMARY KEY NOT NULL);
+	Id_almacen int PRIMARY KEY NOT NULL,
+	Nombre VARCHAR(32),
+	Productos INT);
 	
 CREATE TABLE Productos (
 	Id_prod INT PRIMARY KEY NOT NULL,

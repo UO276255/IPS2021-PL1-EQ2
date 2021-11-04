@@ -14,8 +14,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
+import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
@@ -447,6 +447,32 @@ public abstract class DbUtil {
 		return result;
 	}
 	
+	public List<AlmacenDTO> obtenerAlmacenes(String sql){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		AlmacenDTO result = null;
+		List<AlmacenDTO> almacenes = new ArrayList<AlmacenDTO>();
+		
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			rs = pst.executeQuery();	
+			while(rs.next()) {
+				result = new AlmacenDTO(rs.getString(2),rs.getInt(1),rs.getInt(3));
+				almacenes.add(result);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return almacenes;
+	}
+	
 	public ProductoDTO recogerProductoRep(String sql, int id) {
 		Connection c = null;
 		PreparedStatement pst = null;
@@ -870,6 +896,7 @@ public abstract class DbUtil {
 		}
 		return result;
 	}
+	
 	
 	public void asignaTransportistaVenta(String sqlAsignar, int idTransp) {
 		Connection c = null;

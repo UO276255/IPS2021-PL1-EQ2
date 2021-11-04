@@ -146,7 +146,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 			
 			textFieldDNI = new JTextField();
 			textFieldDNI.setColumns(10);
-			textFieldDNI.setBounds(178, 201, 166, 20);
+			textFieldDNI.setBounds(239, 201, 166, 20);
 			panelNuevoCliente.add(textFieldDNI);
 			
 			JLabel lblEmail = new JLabel("Email: ");
@@ -155,7 +155,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 			
 			textFieldEmail = new JTextField();
 			textFieldEmail.setColumns(10);
-			textFieldEmail.setBounds(178, 232, 166, 20);
+			textFieldEmail.setBounds(239, 232, 166, 20);
 			panelNuevoCliente.add(textFieldEmail);
 		}
 		return panelNuevoCliente;
@@ -205,7 +205,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	private JTextField getTextFieldNombre() {
 		if (textFieldNombre == null) {
 			textFieldNombre = new JTextField();
-			textFieldNombre.setBounds(178, 111, 166, 20);
+			textFieldNombre.setBounds(239, 111, 166, 20);
 			textFieldNombre.setColumns(10);
 		}
 		return textFieldNombre;
@@ -213,7 +213,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	private JTextField getTextFieldApellido() {
 		if (textFieldApellido == null) {
 			textFieldApellido = new JTextField();
-			textFieldApellido.setBounds(178, 142, 166, 20);
+			textFieldApellido.setBounds(239, 142, 166, 20);
 			textFieldApellido.setColumns(10);
 		}
 		return textFieldApellido;
@@ -221,7 +221,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	private JTextField getTextFieldNacimiento() {
 		if (textFieldNacimiento == null) {
 			textFieldNacimiento = new JTextField();
-			textFieldNacimiento.setBounds(178, 173, 166, 20);
+			textFieldNacimiento.setBounds(239, 173, 166, 20);
 			textFieldNacimiento.setColumns(10);
 		}
 		return textFieldNacimiento;
@@ -242,8 +242,8 @@ public class VistaAsignarPresupuesto extends JFrame {
 	}
 	private JLabel getLblFechaNacimiento() {
 		if (lblFechaNacimiento == null) {
-			lblFechaNacimiento = new JLabel("Fecha de nacimiento: ");
-			lblFechaNacimiento.setBounds(30, 176, 127, 14);
+			lblFechaNacimiento = new JLabel("Fecha de nacimiento (yyyy-mm-dd): ");
+			lblFechaNacimiento.setBounds(30, 176, 227, 14);
 		}
 		return lblFechaNacimiento;
 	}
@@ -291,7 +291,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 					closeWindow();
 				}
 			});
-			btnAsignar.setBounds(428, 141, 100, 23);
+			btnAsignar.setBounds(456, 141, 100, 23);
 		}
 		return btnAsignar;
 	}
@@ -317,7 +317,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 					c.show(getPanelGeneral(), "PanelInicial");	
 				}
 			});
-			btnCancelarNuevoCliente.setBounds(428, 245, 100, 23);
+			btnCancelarNuevoCliente.setBounds(456, 245, 100, 23);
 		}
 		return btnCancelarNuevoCliente;
 	}
