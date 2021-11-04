@@ -1,15 +1,17 @@
 package com.uniovi.muebleria.maven.vista;
 
 import java.awt.CardLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -17,8 +19,15 @@ import javax.swing.border.EmptyBorder;
 
 import com.uniovi.muebleria.maven.controlador.producto.ProductoPresupuestoController;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
-import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JSpinner;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.SpinnerNumberModel;
 
 public class VistaCrearPresupuesto extends JFrame {
 
@@ -41,18 +50,37 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JList<ProductoDTO> listPresupuesto;
 	private DefaultListModel<ProductoDTO> modeloListProductos = new DefaultListModel<ProductoDTO>();
 	private DefaultListModel<ProductoDTO> modeloListPresupuesto = new DefaultListModel<ProductoDTO>();
+	private JPanel panelFiltrar;
+	private JButton btnFiltrar;
+	private JSpinner spinnerPrecio;
+	private JLabel lblSeleccionarPrecio;
+	private JRadioButton rdbtnPorEncimaDelPrecio;
+	private JRadioButton rdbtnPorDebajoDelPrecio;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JLabel lblCategoria;
+	private JComboBox<String> comboBoxCategorias;
+	private JButton btnCancelar;
+	private JButton btnFiltrarProductos;
 
 	/**
 	 * Create the frame.
 	 */
 	public VistaCrearPresupuesto() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				inicializar();
+				modeloListProductos.clear();
+			}
+		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 759, 515);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
-		contentPane.add(getPanelCrearPresupuesto(), "name_1478865512748300");
+		contentPane.add(getPanelCrearPresupuesto(), "PanelPresupuestos");
+		contentPane.add(getPanelFiltrar(), "PanelFiltrar");
 	}
 
 	private JPanel getPanelCrearPresupuesto() {
@@ -67,7 +95,9 @@ public class VistaCrearPresupuesto extends JFrame {
 			panelCrearPresupuesto.add(getLblPresupuesto());
 			panelCrearPresupuesto.add(getBtnCreaPresupuesto());
 			panelCrearPresupuesto.add(getTextCoste());
+		
 			panelCrearPresupuesto.add(getLblCoste());
+			panelCrearPresupuesto.add(getBtnFiltrar());
 		}
 		return panelCrearPresupuesto;
 	}
@@ -108,8 +138,10 @@ public class VistaCrearPresupuesto extends JFrame {
 			btnRetirarPresupuesto = new JButton("Retirar");
 			btnRetirarPresupuesto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
 					for (int i=0;i<getListPresupuesto().getSelectedValuesList().size();i++) {
 						modeloListPresupuesto.removeElement(getListPresupuesto().getSelectedValuesList().get(i));
+						restarPrecio(controller.getPrecioProducto(getListProductos().getSelectedValuesList().get(i).getId()));
 					}
 				}
 			});
@@ -120,7 +152,7 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JLabel getLblProductos() {
 		if (lblProductos == null) {
 			lblProductos = new JLabel("Productos disponibles: ");
-			lblProductos.setBounds(30, 63, 322, 14);
+			lblProductos.setBounds(30, 63, 199, 14);
 		}
 		return lblProductos;
 	}
@@ -134,6 +166,19 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JButton getBtnCreaPresupuesto() {
 		if (btnCreaPresupuesto == null) {
 			btnCreaPresupuesto = new JButton("Crear presupuesto");
+			btnCreaPresupuesto.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
+					controller.crearPresupuesto(Integer.parseInt(textCoste.getText()));
+					ArrayList<ProductoDTO> productos = new ArrayList<ProductoDTO>();
+					for(int i=0; i<modeloListPresupuesto.getSize(); i++) {
+						productos.add(modeloListPresupuesto.getElementAt(i));
+					}
+					controller.crearSolicitudes(controller.getIdPres(), toArray(productos));
+					JOptionPane.showMessageDialog(null, "Se ha creado el presupuesto de id: " + controller.getIdPres());
+					inicializar();
+				}
+			});
 			btnCreaPresupuesto.setBounds(276, 432, 173, 23);
 		}
 		return btnCreaPresupuesto;
@@ -176,5 +221,144 @@ public class VistaCrearPresupuesto extends JFrame {
 	public void sumarPrecio(int prod) {
 		int actual = Integer.parseInt(textCoste.getText());
 		textCoste.setText("" + (actual + prod));
+	}
+	
+	public void restarPrecio(int prod) {
+		int actual = Integer.parseInt(textCoste.getText());
+		textCoste.setText("" + (actual - prod));
+	}
+	
+	private ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
+		ProductoDTO[] arrayProductos = new ProductoDTO[listProductos.size()];
+		for(int i=0;i<listProductos.size();i++) {
+			arrayProductos[i] = listProductos.get(i);
+		}
+		return arrayProductos;
+	}
+	
+	private void inicializar() {
+		modeloListPresupuesto.clear();
+		getTextCoste().setText("0");
+	}
+	private JPanel getPanelFiltrar() {
+		if (panelFiltrar == null) {
+			panelFiltrar = new JPanel();
+			panelFiltrar.setLayout(null);
+			panelFiltrar.add(getSpinnerPrecio());
+			panelFiltrar.add(getLblSeleccionarPrecio());
+			panelFiltrar.add(getRdbtnPorEncimaDelPrecio());
+			panelFiltrar.add(getRdbtnPorDebajoDelPrecio());
+			panelFiltrar.add(getLblCategoria());
+			panelFiltrar.add(getComboBoxCategorias());
+			panelFiltrar.add(getBtnCancelar());
+			panelFiltrar.add(getBtnFiltrarProductos());
+		}
+		return panelFiltrar;
+	}
+	private JButton getBtnFiltrar() {
+		if (btnFiltrar == null) {
+			btnFiltrar = new JButton("Filtrar");
+			btnFiltrar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					CardLayout c = (CardLayout) getContentPane().getLayout();
+					c.show(getContentPane(), "PanelFiltrar");
+					rellenarComboBox();
+				}
+			});
+			btnFiltrar.setBounds(263, 59, 89, 23);
+		}
+		return btnFiltrar;
+	}
+	@SuppressWarnings("deprecation")
+	private JSpinner getSpinnerPrecio() {
+		if (spinnerPrecio == null) {
+			spinnerPrecio = new JSpinner();
+			spinnerPrecio.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(50)));
+			spinnerPrecio.setBounds(163, 115, 55, 20);
+		}
+		return spinnerPrecio;
+	}
+	private JLabel getLblSeleccionarPrecio() {
+		if (lblSeleccionarPrecio == null) {
+			lblSeleccionarPrecio = new JLabel("Selecciona un precio: ");
+			lblSeleccionarPrecio.setBounds(38, 118, 153, 14);
+		}
+		return lblSeleccionarPrecio;
+	}
+	private JRadioButton getRdbtnPorEncimaDelPrecio() {
+		if (rdbtnPorEncimaDelPrecio == null) {
+			rdbtnPorEncimaDelPrecio = new JRadioButton("Productos con precio mayor ");
+			rdbtnPorEncimaDelPrecio.setSelected(true);
+			buttonGroup.add(rdbtnPorEncimaDelPrecio);
+			rdbtnPorEncimaDelPrecio.setBounds(38, 139, 198, 23);
+		}
+		return rdbtnPorEncimaDelPrecio;
+	}
+	private JRadioButton getRdbtnPorDebajoDelPrecio() {
+		if (rdbtnPorDebajoDelPrecio == null) {
+			rdbtnPorDebajoDelPrecio = new JRadioButton("Productos con precio menor");
+			buttonGroup.add(rdbtnPorDebajoDelPrecio);
+			rdbtnPorDebajoDelPrecio.setBounds(38, 165, 198, 23);
+		}
+		return rdbtnPorDebajoDelPrecio;
+	}
+	private JLabel getLblCategoria() {
+		if (lblCategoria == null) {
+			lblCategoria = new JLabel("Selecciona una categoría:");
+			lblCategoria.setBounds(38, 263, 198, 14);
+		}
+		return lblCategoria;
+	}
+	private JComboBox<String> getComboBoxCategorias() {
+		if (comboBoxCategorias == null) {
+			comboBoxCategorias = new JComboBox<String>();
+			comboBoxCategorias.setBounds(38, 288, 245, 22);
+		}
+		return comboBoxCategorias;
+	}
+	private JButton getBtnCancelar() {
+		if (btnCancelar == null) {
+			btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					CardLayout c = (CardLayout) getContentPane().getLayout();
+					c.show(getContentPane(), "PanelPresupuestos");
+				}
+			});
+			btnCancelar.setBounds(246, 380, 89, 23);
+		}
+		return btnCancelar;
+	}
+	private JButton getBtnFiltrarProductos() {
+		if (btnFiltrarProductos == null) {
+			btnFiltrarProductos = new JButton("Filtrar");
+			btnFiltrarProductos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					modeloListProductos.clear();
+					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
+					boolean productosPrecioSuperior;
+					if(getRdbtnPorEncimaDelPrecio().isSelected()) {
+						productosPrecioSuperior = true;
+					}else {
+						productosPrecioSuperior = false;
+					}
+					controller.setListProductosFiltrados((Integer) getSpinnerPrecio().getValue(), (String) getComboBoxCategorias().getSelectedItem(), productosPrecioSuperior);
+					CardLayout c = (CardLayout) getContentPane().getLayout();
+					c.show(getContentPane(), "PanelPresupuestos");
+				}
+			});
+			btnFiltrarProductos.setBounds(373, 380, 89, 23);
+		}
+		return btnFiltrarProductos;
+	}
+	
+	private void rellenarComboBox() {
+		String[] categorias = new String[5];
+		categorias[0] = "Todas";
+		categorias[1] = "silla";
+		categorias[2] = "sofa";
+		categorias[3] = "mesa";
+		categorias[4] = "estanteria";
+		getComboBoxCategorias().setModel(new DefaultComboBoxModel<String>(categorias));
 	}
 }

@@ -315,7 +315,7 @@ public abstract class DbUtil {
 			pst.setBoolean(2,conTransporte);	
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 				if(listaProducto.contains(prod)) {
 					
 				}else {
@@ -346,7 +346,7 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 				if(list.contains(prod)) {
 					
 				}else {
@@ -485,7 +485,7 @@ public abstract class DbUtil {
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
 			if(rs.next()) {
-				result = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				result = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 			}		
 			
 		} catch (SQLException e) {
@@ -709,6 +709,67 @@ public abstract class DbUtil {
 		return listaProducto;
 	}
 	
+	public List<ProductoDTO> recogerTodosProductosFiltrados(String sql, int value) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> list = new ArrayList<ProductoDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, value);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
+				if(list.contains(prod)) {
+					
+				}else {
+					list.add(prod);
+				}			
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+
+	public List<ProductoDTO> recogerProductosFiltrados(String sql, int value, String selectedItem) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> list = new ArrayList<ProductoDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, value);
+			pst.setString(2, selectedItem);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
+				if(list.contains(prod)) {
+					
+				}else {
+					list.add(prod);
+				}			
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+	
 	public int precioProducto(String sql, int id) {
 		Connection c = null;
 		PreparedStatement pst = null;
@@ -909,7 +970,7 @@ public abstract class DbUtil {
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
 			if(rs.next()) {
-				result = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				result = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 			}		
 
 		} catch (SQLException e) {
@@ -1073,5 +1134,173 @@ public abstract class DbUtil {
 		return null;
 	}
 	
+	public void creaPresupuesto(String sql, int precio) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			
+			pst.setInt(1,calcularNumPresupuesto() + 1);
+			pst.setInt(2,precio);	
+			pst.setInt(3,0);
+			java.util.Date date = new java.util.Date();
+			pst.setDate(4,new Date(date.getTime() + 1296000000));
+			pst.setObject(5,null);
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public void creaSolicitudes(String sql, int idSol, int idPres, ProductoDTO prod) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,idSol);
+			pst.setInt(2,idPres);	
+			pst.setInt(3,prod.getId());
+			pst.setInt(4,1);
+			pst.setInt(5,0);
+			pst.setInt(6,0);
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
 
+	public int calcularNumPresupuesto() {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement("SELECT MAX(id_pres) max_id_pres FROM Presupuestos");
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public int calcularNumSolicitud() {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement("SELECT MAX(id_solic) max_id_solic FROM Solicitudes");
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public boolean existeIdProdIdPres(String sql, int idPres, int idProd) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		boolean result = false;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, idPres);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				if(rs.getInt(1) == idProd) {
+					result = true;
+				}else {
+					result = false;
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+
+	public void actualizaPresupuesto(String sql, int idPres, int idProd) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,numeroProductosPres("Select cantidad_prod From Solicitudes where id_Pres = ? and id_Prod = ?", idPres, idProd)+1);
+			pst.setInt(2,idPres);
+			pst.setInt(3,idProd);
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+
+	private int numeroProductosPres(String sql, int idPres, int idProd) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, idPres);
+			pst.setInt(2, idProd);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
 }

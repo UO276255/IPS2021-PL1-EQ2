@@ -7,7 +7,6 @@ public class ProductoDTO {
 	private String categoria;
 	private boolean montaje;
 	private boolean transporte;
-	private int CantidadParaAlmacen;
 	
 	public ProductoDTO() {	}
 	public ProductoDTO(int id, String nombre, int precio, String categoria) {
@@ -40,7 +39,6 @@ public class ProductoDTO {
 	public String getCategoria() { return this.categoria; }
 	public boolean getMontaje() {return this.montaje;}
 	public boolean getTransporte() {return this.transporte;}
-	public int getCantidad() { return this.CantidadParaAlmacen; }
 	
 	public void setId(int id) { this.id=id; }
 	public void setNombre(String nombre) { this.nombre=nombre; }
@@ -48,7 +46,6 @@ public class ProductoDTO {
 	public void setCategoria(String categoria) { this.categoria=categoria; }
 	public void setMontaje(boolean montaje) {this.montaje=montaje;}
 	public void setTransporte(boolean transporte) {this.transporte=transporte;}
-	public void setCantidad(int cant) {this.CantidadParaAlmacen=cant;}
 	
 	public String toString() {
 		String cadena = "Id: " + getId() + ", Nombre: " + getNombre() + ", precio: "

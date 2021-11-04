@@ -27,7 +27,7 @@ public class ProductoPresupuestoController {
 		return arrayProductos;
 	}
 	
-	public ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
+	private ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
 		ProductoDTO[] arrayProductos = new ProductoDTO[listProductos.size()];
 		for(int i=0;i<listProductos.size();i++) {
 			arrayProductos[i] = listProductos.get(i);
@@ -41,7 +41,35 @@ public class ProductoPresupuestoController {
 		}
 	}
 	
+	public void setListProductosFiltrados(int value, String selectedItem, boolean productosPrecioSuperior) {
+		List<ProductoDTO> listProductos = model.getListaProductosFiltrados(value, selectedItem, productosPrecioSuperior);
+		ProductoDTO[] arrayProductos = toArray(listProductos);
+		setListProductos(arrayProductos);
+	}
+	
 	public int getPrecioProducto(int id) {
 		return model.getPrecioProd(id);
+	}
+	
+	public void crearPresupuesto(int precio) {
+		model.crearPresupuesto(precio);
+	}
+	
+	public int getIdPres() {
+		return model.idPresupuesto();
+	}
+
+	public int getIdSolicitud() {
+		return model.idSolicitud();
+	}
+
+	public void crearSolicitudes(int idPres, ProductoDTO[] ListProductos) {
+		for (ProductoDTO producto : ListProductos) {
+			if(model.existeIdProdIdPres(idPres, producto.getId())) {
+				model.actualizaNumProdIdSol(idPres, producto.getId());
+			}else {
+				model.crearSolicitudes(getIdSolicitud()+1, idPres, producto);
+			}
+		}
 	}
 }
