@@ -12,17 +12,19 @@ import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
+import com.uniovi.muebleria.maven.controlador.Almacen.AlmacenController;
 import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
 import com.uniovi.muebleria.maven.controlador.pedidos.PedidoController;
+import com.uniovi.muebleria.maven.controlador.producto.ProductoPresupuestoController;
 import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
+import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenModel;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoModel;
+import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoModel;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.util.Database;
-import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenModel;
-import com.uniovi.muebleria.maven.controlador.Almacen.AlmacenController;
 
 
 public class VistaMuebleria extends JFrame {
@@ -41,6 +43,7 @@ public class VistaMuebleria extends JFrame {
 	public static VistaSeguimientoPedido VIEW_SEGUIMIENTO = new VistaSeguimientoPedido();
 	public static final VistaHistorial VIEW_HISTORIAL = new VistaHistorial();
 	public static final VistaAlmacenes VIEW_ALMACEN = new VistaAlmacenes();
+	public static final VistaCrearPresupuesto VIEW_PRODPRES = new VistaCrearPresupuesto();
 
 	private Database db=null;
 	
@@ -81,7 +84,7 @@ public class VistaMuebleria extends JFrame {
 		
 		JPanel PanelBotones = new JPanel();
 		PanelInicio.add(PanelBotones, BorderLayout.EAST);
-		PanelBotones.setLayout(new GridLayout(7, 1, 0, 0));
+		PanelBotones.setLayout(new GridLayout(8, 1, 0, 0));
 		
 		JButton btnAsignarPresupuesto = new JButton("Asignar Presupuesto");
 		btnAsignarPresupuesto.addActionListener(new ActionListener() {
@@ -143,6 +146,15 @@ public class VistaMuebleria extends JFrame {
 				controller.initViewHistorial();
 			}
 		});
+		
+		JButton btnCreaPresupuesto = new JButton("Crear un presupuesto");
+		btnCreaPresupuesto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(), VIEW_PRODPRES);
+				controller.initViewProdPres();
+			}
+		});
+		PanelBotones.add(btnCreaPresupuesto);
 		PanelBotones.add(btnVisualizarHistorial);
 		
 		JButton btnSeguimientoPedido = new JButton("Seguimiento de pedidos");
