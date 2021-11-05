@@ -1195,9 +1195,8 @@ public abstract class DbUtil {
 			pst.setInt(1,idSol);
 			pst.setInt(2,idPres);	
 			pst.setInt(3,prod.getId());
-			pst.setInt(4,1);
+			pst.setInt(4,0);
 			pst.setInt(5,0);
-			pst.setInt(6,0);
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -1266,7 +1265,7 @@ public abstract class DbUtil {
 			pst.setInt(1, idPres);
 			rs = pst.executeQuery();
 			
-			if (rs.next()) {
+			while (rs.next()) {
 				if(rs.getInt(1) == idProd) {
 					result = true;
 				}else {
@@ -1282,50 +1281,50 @@ public abstract class DbUtil {
 		return result;
 	}
 
-	public void actualizaPresupuesto(String sql, int idPres, int idProd) {
-		Connection c = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		
-			try {
-			c = getConnection();
-			pst = c.prepareStatement(sql);
-			pst.setInt(1,numeroProductosPres("Select cantidad_prod From Solicitudes where id_Pres = ? and id_Prod = ?", idPres, idProd)+1);
-			pst.setInt(2,idPres);
-			pst.setInt(3,idProd);
-			
-			pst.executeUpdate();
-			
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			Jdbc.close(rs, pst, c);
-		}
-	}
+//	public void actualizaPresupuesto(String sql, int idPres, int idProd) {
+//		Connection c = null;
+//		PreparedStatement pst = null;
+//		ResultSet rs = null;
+//		
+//			try {
+//			c = getConnection();
+//			pst = c.prepareStatement(sql);
+//			pst.setInt(1,numeroProductosPres("Select cantidad_prod From Solicitudes where id_Pres = ? and id_Prod = ?", idPres, idProd)+1);
+//			pst.setInt(2,idPres);
+//			pst.setInt(3,idProd);
+//			
+//			pst.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			throw new RuntimeException(e);
+//		}
+//		finally {
+//			Jdbc.close(rs, pst, c);
+//		}
+//	}
 
-	private int numeroProductosPres(String sql, int idPres, int idProd) {
-		Connection c = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		int result = 0;
-		
-		try {
-			c = getConnection();
-			pst = c.prepareStatement(sql);
-			pst.setInt(1, idPres);
-			pst.setInt(2, idProd);
-			rs = pst.executeQuery();
-			
-			if (rs.next()) {
-				result = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			Jdbc.close(rs, pst, c);
-		}
-		return result;
-	}
+//	private int numeroProductosPres(String sql, int idPres, int idProd) {
+//		Connection c = null;
+//		PreparedStatement pst = null;
+//		ResultSet rs = null;
+//		int result = 0;
+//		
+//		try {
+//			c = getConnection();
+//			pst = c.prepareStatement(sql);
+//			pst.setInt(1, idPres);
+//			pst.setInt(2, idProd);
+//			rs = pst.executeQuery();
+//			
+//			if (rs.next()) {
+//				result = rs.getInt(1);
+//			}
+//		} catch (SQLException e) {
+//			throw new RuntimeException(e);
+//		}
+//		finally {
+//			Jdbc.close(rs, pst, c);
+//		}
+//		return result;
+//	}
 }

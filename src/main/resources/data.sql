@@ -65,15 +65,15 @@ insert into pedido (id_pedido,estado,id_prov) values (8,0,3);
 insert into pedido (id_pedido,estado,id_prov) values (9,0,4);
 insert into pedido (id_pedido,estado,id_prov) values (10,0,4);
 
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (1,1,123,1,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (2,1,95,1,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (3,2,32,1,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (4,3,105,1,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (5,4,29,1,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (6,5,140,1,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (7,5,150,1,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (8,6,32,2,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,cantidad_prod,transporte,montaje) values (10,7,105,1,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (1,1,123,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (2,1,95,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (3,2,32,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (4,3,105,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (5,4,29,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (6,5,140,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (7,5,150,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (8,6,32,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (10,7,105,0,0);
 
 
 insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (1,1,123,2);

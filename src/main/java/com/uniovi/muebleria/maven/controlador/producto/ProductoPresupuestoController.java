@@ -66,7 +66,7 @@ public class ProductoPresupuestoController {
 	public void crearSolicitudes(int idPres, ProductoDTO[] ListProductos) {
 		for (ProductoDTO producto : ListProductos) {
 			if(model.existeIdProdIdPres(idPres, producto.getId())) {
-				model.actualizaNumProdIdSol(idPres, producto.getId());
+				//model.actualizaNumProdIdSol(idPres, producto.getId());
 			}else {
 				model.crearSolicitudes(getIdSolicitud()+1, idPres, producto);
 			}
