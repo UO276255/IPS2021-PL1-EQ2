@@ -5,7 +5,9 @@ public class ProductoDTO {
 	private String nombre;
 	private int precio;
 	private String categoria;
+	private int cantidadenAlmacen;
 	public ProductoDTO() {	}
+	
 	public ProductoDTO(int id, String nombre, int precio, String categoria) {
 		this.id = id;
 		this.nombre = nombre;
@@ -13,10 +15,16 @@ public class ProductoDTO {
 		this.categoria = categoria;
 	}
 	
+	public ProductoDTO(String nombre, int cantidad) {
+		this.nombre = nombre;
+		this.cantidadenAlmacen = cantidad;
+	}
+	
 	public int getId() { return this.id; }
 	public String getNombre() { return this.nombre; }
 	public int getPrecio() { return this.precio; }
 	public String getCategoria() { return this.categoria; }
+	public int getCantidadAlmacen() {return this.cantidadenAlmacen;};
 	
 	public void setId(int id) { this.id=id; }
 	public void setNombre(String nombre) { this.nombre=nombre; }

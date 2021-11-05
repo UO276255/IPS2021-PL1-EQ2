@@ -1,6 +1,7 @@
 package com.uniovi.muebleria.maven.vista;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -171,6 +172,8 @@ public class VistaMuebleria extends JFrame {
 		btnVerAlmacenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AlmacenController controller = new AlmacenController(new AlmacenModel(),VIEW_ALMACEN);
+				CardLayout c = (CardLayout) VIEW_ALMACEN.getPanelLista().getLayout();
+				c.show(VIEW_ALMACEN.getPanelLista(), "panelElegirAlmacen");		
 				controller.initView();
 					
 			}

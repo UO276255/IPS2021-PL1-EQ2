@@ -1,13 +1,14 @@
 package com.uniovi.muebleria.maven.vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
+import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -16,36 +17,27 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
-import javax.swing.JList;
+import java.awt.CardLayout;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
 
 public class VistaAlmacenes extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panelTitulo;
-	private JPanel panelSalit;
+	private JPanel panelSalir;
 	private JButton btnSalir;
 	private JLabel lblListaAlmacenes;
 	private JPanel panelLista;
-	private JScrollPane scrollPaneLista;
-	private JList<AlmacenDTO> listAlmacenes;
 	private DefaultListModel<AlmacenDTO> modeloListAlmacen = new DefaultListModel<AlmacenDTO>();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaAlmacenes frame = new VistaAlmacenes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JPanel panelMostrarProductos;
+	private JPanel panelElegirAlmacen;
+	private JPanel panelSeleccion;
+	private JComboBox<AlmacenDTO> comboBoxAlmacenes;
+	private JButton btnElegirAlmacen;
+	private JLabel lblAlmacen;
+	private JScrollPane scrollPane;
+	private JTable table;
 	/**
 	 * Create the frame.
 	 */
@@ -58,7 +50,7 @@ public class VistaAlmacenes extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanelTitulo(), BorderLayout.NORTH);
-		contentPane.add(getPanelSalit(), BorderLayout.SOUTH);
+		contentPane.add(getPanelSalir(), BorderLayout.SOUTH);
 		contentPane.add(getPanelLista(), BorderLayout.CENTER);
 	}
 
@@ -69,12 +61,12 @@ public class VistaAlmacenes extends JFrame {
 		}
 		return panelTitulo;
 	}
-	private JPanel getPanelSalit() {
-		if (panelSalit == null) {
-			panelSalit = new JPanel();
-			panelSalit.add(getBtnSalir());
+	private JPanel getPanelSalir() {
+		if (panelSalir == null) {
+			panelSalir = new JPanel();
+			panelSalir.add(getBtnSalir());
 		}
-		return panelSalit;
+		return panelSalir;
 	}
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
@@ -99,28 +91,14 @@ public class VistaAlmacenes extends JFrame {
 	private void closeWindow() {
 		this.dispose();
 	}
-	private JPanel getPanelLista() {
+	public JPanel getPanelLista() {
 		if (panelLista == null) {
 			panelLista = new JPanel();
-			panelLista.setLayout(new BorderLayout(0, 0));
-			panelLista.add(getScrollPaneLista(), BorderLayout.CENTER);
+			panelLista.setLayout(new CardLayout(0, 0));
+			panelLista.add(getPanelMostrarProductos(), "panelProductos");
+			panelLista.add(getPanelElegirAlmacen(), "panelElegirAlmacen");
 		}
 		return panelLista;
-	}
-	private JScrollPane getScrollPaneLista() {
-		if (scrollPaneLista == null) {
-			scrollPaneLista = new JScrollPane();
-			scrollPaneLista.setViewportView(getListAlmacenes());
-		}
-		return scrollPaneLista;
-	}
-	public JList<AlmacenDTO> getListAlmacenes() {
-		if (listAlmacenes == null) {
-			modeloListAlmacen = new DefaultListModel<AlmacenDTO>();
-			listAlmacenes = new JList<AlmacenDTO>(modeloListAlmacen);
-			listAlmacenes.setFont(new Font("Tahoma", Font.BOLD, 13));
-		}
-		return listAlmacenes;
 	}
 	
 	public void addModeloAlmacen(AlmacenDTO alm){
@@ -129,5 +107,82 @@ public class VistaAlmacenes extends JFrame {
 
 	public void clearModelos() {
 		modeloListAlmacen.clear();
+	}
+	private JPanel getPanelMostrarProductos() {
+		if (panelMostrarProductos == null) {
+			panelMostrarProductos = new JPanel();
+			panelMostrarProductos.setLayout(new BorderLayout(0, 0));
+			panelMostrarProductos.add(getScrollPane(), BorderLayout.CENTER);
+		}
+		return panelMostrarProductos;
+	}
+	private JPanel getPanelElegirAlmacen() {
+		if (panelElegirAlmacen == null) {
+			panelElegirAlmacen = new JPanel();
+			panelElegirAlmacen.setLayout(new BorderLayout(0, 0));
+			panelElegirAlmacen.add(getPanelSeleccion(), BorderLayout.CENTER);
+		}
+		return panelElegirAlmacen;
+	}
+	private JPanel getPanelSeleccion() {
+		if (panelSeleccion == null) {
+			panelSeleccion = new JPanel();
+			panelSeleccion.setLayout(null);
+			panelSeleccion.add(getComboBoxAlmacenes());
+			panelSeleccion.add(getBtnElegirAlmacen());
+			panelSeleccion.add(getLblAlmacen());
+		}
+		return panelSeleccion;
+	}
+	
+	public JComboBox<AlmacenDTO> getComboBoxAlmacenes() {
+		if (comboBoxAlmacenes == null) {
+			comboBoxAlmacenes = new JComboBox<AlmacenDTO>();
+			comboBoxAlmacenes.setFont(new Font("Tahoma", Font.BOLD, 12));
+			comboBoxAlmacenes.setBounds(75, 193, 413, 22);
+		}
+		return comboBoxAlmacenes;
+	}
+	private JButton getBtnElegirAlmacen() {
+		if (btnElegirAlmacen == null) {
+			btnElegirAlmacen = new JButton("Seleccionar");
+			btnElegirAlmacen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ProductoController controller = new ProductoController(new ProductoModel(),VistaMuebleria.VIEW_ALMACEN);
+					AlmacenDTO almacen = (AlmacenDTO) getComboBoxAlmacenes().getSelectedItem();
+					controller.añadirAlmacenes(almacen.getIdAlmacen());
+					CardLayout c = (CardLayout) getPanelLista().getLayout();
+					c.show(getPanelLista(), "panelProductos");	
+				}
+			});
+			btnElegirAlmacen.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnElegirAlmacen.setBounds(532, 194, 104, 23);
+		}
+		return btnElegirAlmacen;
+	}
+	private JLabel getLblAlmacen() {
+		if (lblAlmacen == null) {
+			lblAlmacen = new JLabel("Seleccione el almacen a visualizar");
+			lblAlmacen.setFont(new Font("Tahoma", Font.BOLD, 15));
+			lblAlmacen.setBounds(75, 82, 281, 47);
+		}
+		return lblAlmacen;
+	}
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setViewportView(getTable());
+		}
+		return scrollPane;
+	}
+	public JTable getTable() {
+		if (table == null) {
+			table = new JTable();
+			table.setRowSelectionAllowed(false);
+			table.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			table.setFillsViewportHeight(true);
+			table.setEnabled(false);
+		}
+		return table;
 	}
 }

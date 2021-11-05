@@ -26,7 +26,7 @@ public class AlmacenDTO {
 
 	@Override
 	public String toString() {
-		return "ID del Almacen: " + idAlmacen + " - Nombre: " +getNombre()+ " - Numero productos: " + getProductos();
+		return "ID: " + idAlmacen + " - Nombre: " +getNombre();
 	}
 	
 }

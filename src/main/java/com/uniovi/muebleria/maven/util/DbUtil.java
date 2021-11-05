@@ -1130,8 +1130,33 @@ public abstract class DbUtil {
 		return listaProducto;
 	}
 	
-	public  List<ProductoDTO> productosPorAlmacen(String sql) {
-		return null;
+	public  List<ProductoDTO> productosPorAlmacen(String sql,int idAlmacen) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoDTO prod = null;
+		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,idAlmacen);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				prod = new ProductoDTO(rs.getString(1),rs.getInt(2));
+				
+				if(listaProducto.contains(prod)) {
+					
+				}else {
+					listaProducto.add(prod);
+				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return listaProducto;
 	}
 	
 	public void creaPresupuesto(String sql, int precio) {
