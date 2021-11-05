@@ -29,10 +29,6 @@ public class ProductoVentaDTO {
 	
 	public String toString() {
 		String cadena = "Nombre: " + producto.getNombre();
-		cadena += ", Trp: ";
-		cadena += producto.getTransporte()?"SI":"NO";
-		cadena += ", Montaje: ";
-		cadena += producto.getMontaje()?"SI":"NO";
 		cadena += "   " +"x" + getNumUnidades() + " uds";
 		
 		return cadena;

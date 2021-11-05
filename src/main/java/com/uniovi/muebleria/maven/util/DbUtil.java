@@ -586,7 +586,7 @@ public abstract class DbUtil {
 				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				if(transporte == 0) {
-					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4), false);
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 				}
 				if(listaProducto.contains(prod)) {
 					
@@ -620,7 +620,7 @@ public abstract class DbUtil {
 				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				if(transporte == 1) {
-					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4), true);
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 				}
 				if(listaProducto.contains(prod)) {
 					
@@ -656,7 +656,7 @@ public abstract class DbUtil {
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				if(montaje == 0 && transporte == 1) {
-					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4), false);
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 				}
 				if(listaProducto.contains(prod)) {
 					
@@ -692,7 +692,7 @@ public abstract class DbUtil {
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				if(montaje == 1 && transporte == 1) {
-					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4), true);
+					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 				}
 				if(listaProducto.contains(prod)) {
 					
@@ -1114,7 +1114,7 @@ public abstract class DbUtil {
 			pst.setInt(1,id_pres);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6),rs.getBoolean(4),rs.getBoolean(5));
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
 				if(listaProducto.contains(prod)) {
 					
 				}else {

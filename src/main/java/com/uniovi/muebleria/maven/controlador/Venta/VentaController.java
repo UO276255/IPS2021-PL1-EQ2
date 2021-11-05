@@ -111,8 +111,9 @@ public class VentaController {
 				ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[i]);
 				prodVenta.setNumUnidades(model.contarUnidades(arrayVentas[i].getId_pres(), productos[i].getId()));
 				arrayProdVentas[i] = prodVenta;
-				if (productos[i].getMontaje())
-					arrayVentas[i].setPrecio(arrayVentas[i].getPrecio()+5);
+//				if (productos[i].getMontaje())
+//					arrayVentas[i].setPrecio(arrayVentas[i].getPrecio()+5);
+//			}
 			}
 		}
 		
@@ -130,8 +131,8 @@ public class VentaController {
 			ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[i]);
 			prodVenta.setNumUnidades(model.contarUnidades(venta.getId_pres(), productos[i].getId()));
 			arrayProdVentas[i] = prodVenta;
-			if (productos[i].getMontaje())
-				sumaMontaje += 5;
+//			if (productos[i].getMontaje())
+//				sumaMontaje += 5;
 		}
 		vistaHistorial.getListProductos().clearSelection();
 		vistaHistorial.getListProductos().setListData(arrayProdVentas);
