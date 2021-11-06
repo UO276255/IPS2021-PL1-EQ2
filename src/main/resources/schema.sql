@@ -23,7 +23,7 @@ CREATE TABLE Cliente (
 	Nombre VARCHAR(32) NOT NULL,
 	Apellido VARCHAR(32) NOT NULL,
 	fecha_nac DATETIME,
-	dni INT,
+	dni INT UNIQUE,
 	email VARCHAR(32));
 	
 CREATE TABLE Presupuestos (
@@ -41,7 +41,7 @@ CREATE TABLE PersonalAlmacen(
 	Id_perAlmacen int PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32),
 	Apellido VARCHAR(32),
-	DNI VARCHAR(32),
+	DNI VARCHAR(32) UNIQUE,
 	Telefono INT,
 	Usuario VARCHAR(32),
 	Contraseña VARCHAR(32),
@@ -85,9 +85,9 @@ CREATE TABLE Transportista(
 	hora_entrada TIME,
 	hora_salida TIME,
 	Apellido VARCHAR(32),
-	DNI VARCHAR(32),
+	DNI VARCHAR(32) UNIQUE,
 	USUARIO VARCHAR(32),
-	CONTRAEÑA VARCHAR(32)
+	CONTRASEÑA VARCHAR(32)
 
 );
 
@@ -103,7 +103,7 @@ CREATE TABLE Vendedor(
 	Id_vendedor int PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32),
 	Apellido VARCHAR(32),
-	DNI VARCHAR(32),
+	DNI VARCHAR(32) UNIQUE,
 	Telefono INT,
 	Usuario VARCHAR(32),
 	Contraseña VARCHAR(32),	

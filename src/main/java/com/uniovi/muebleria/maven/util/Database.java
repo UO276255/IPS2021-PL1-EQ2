@@ -3,6 +3,7 @@ package com.uniovi.muebleria.maven.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;

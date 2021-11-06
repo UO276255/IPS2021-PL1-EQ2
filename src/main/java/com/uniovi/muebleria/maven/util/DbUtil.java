@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
@@ -294,7 +297,7 @@ public abstract class DbUtil {
 			pst.setInt(2,idpresupuesto);	
 			pst.executeUpdate();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
@@ -406,7 +409,7 @@ public abstract class DbUtil {
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
@@ -466,7 +469,6 @@ public abstract class DbUtil {
 			}
 			
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
@@ -904,7 +906,7 @@ public abstract class DbUtil {
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
@@ -1152,7 +1154,7 @@ public abstract class DbUtil {
 				}
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			JOptionPane.showMessageDialog(null,"Ha habido algun fallo durante la ejecución");
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
@@ -1334,59 +1336,72 @@ public abstract class DbUtil {
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public void crearPersonalAlmacen(String sqlAñadirPersonalAlmacen, int id, String nombre, String apellido,
+			String DNI, int telefono, String usuario, String contraseña, Time horaEntrada, Time horaSalida) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlAñadirPersonalAlmacen);
+			
+			pst.setInt(1,id);
+			pst.setString(2,nombre);	
+			pst.setString(3,apellido);
+			pst.setString(4,DNI);
+			pst.setInt(5,telefono);
+			pst.setString(6,usuario);
+			pst.setString(7,contraseña);
+			pst.setTime(8,horaEntrada);
+			pst.setTime(9,horaSalida);
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
 		
-		
 	}
 
-//	public void actualizaPresupuesto(String sql, int idPres, int idProd) {
-//		Connection c = null;
-//		PreparedStatement pst = null;
-//		ResultSet rs = null;
-//		
-//			try {
-//			c = getConnection();
-//			pst = c.prepareStatement(sql);
-//			pst.setInt(1,numeroProductosPres("Select cantidad_prod From Solicitudes where id_Pres = ? and id_Prod = ?", idPres, idProd)+1);
-//			pst.setInt(2,idPres);
-//			pst.setInt(3,idProd);
-//			
-//			pst.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			throw new RuntimeException(e);
-//		}
-//		finally {
-//			Jdbc.close(rs, pst, c);
-//		}
-//	}
 
-//	private int numeroProductosPres(String sql, int idPres, int idProd) {
-//		Connection c = null;
-//		PreparedStatement pst = null;
-//		ResultSet rs = null;
-//		int result = 0;
-//		
-//		try {
-//			c = getConnection();
-//			pst = c.prepareStatement(sql);
-//			pst.setInt(1, idPres);
-//			pst.setInt(2, idProd);
-//			rs = pst.executeQuery();
-//			
-//			if (rs.next()) {
-//				result = rs.getInt(1);
-//			}
-//		} catch (SQLException e) {
-//			throw new RuntimeException(e);
-//		}
-//		finally {
-//			Jdbc.close(rs, pst, c);
-//		}
-//		return result;
-//	}
+	public void añadirTransportista(String sqlAñadirTransp, int id, String nombre, int numero_tel, Time hora_entrada,
+			Time hora_salida, String apellido, String DNI, String usuario, String contraseña) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlAñadirTransp);
+			
+			pst.setInt(1,id);
+			pst.setString(2,nombre);
+			pst.setInt(3,numero_tel);
+			pst.setTime(4,hora_entrada);
+			pst.setTime(5,hora_salida);
+			pst.setString(6,apellido);
+			pst.setString(7,DNI);
+			pst.setString(8,usuario);
+			pst.setString(9,contraseña);
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Error al consultar la BD");
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
 }

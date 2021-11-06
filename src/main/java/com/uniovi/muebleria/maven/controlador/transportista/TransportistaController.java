@@ -1,5 +1,7 @@
 package com.uniovi.muebleria.maven.controlador.transportista;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
@@ -18,10 +20,23 @@ public class TransportistaController {
 		this.model = m;
 	}
 	
+	public TransportistaController(TransportistaModel m) {
+		model = m;
+	}
+
 	public void initView() {
 		vista.setVisible(true);
 		getListaTransportistas();
 		getListaVentas();
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void crearTrabajador(String nombre,int numero_tel,Date horaEntrada, Date horaSalida, String apellido,String DNI, String usuario,String contraseña) {
+		
+		Time hora_entrada = new Time(horaEntrada.getHours(),horaEntrada.getMinutes(),0);
+		Time hora_salida = new Time(horaSalida.getHours(),horaSalida.getMinutes(),0);
+		
+		model.crearTrabajador(nombre,numero_tel,hora_entrada,hora_salida,apellido,DNI,usuario,contraseña);
 	}
 	
 	public void getListaTransportistas() {

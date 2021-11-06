@@ -1,16 +1,18 @@
-package com.uniovi.muebleria.maven.controlador.Vendedor;
+package com.uniovi.muebleria.maven.controlador.PersonalAlmacen;
 
-import java.util.Date;
 import java.sql.Time;
+import java.util.Date;
 
-import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorModel;
+import com.uniovi.muebleria.maven.modelo.PersonalAlmacen.PersonalAlmacenModel;
 import com.uniovi.muebleria.maven.vista.VistaCrearEmpleado;
 
-public class VendedorController {
-	private VistaCrearEmpleado vista;
-	private VendedorModel model;
+public class PersonalAlmacenController {
 	
-	public VendedorController(VendedorModel m, VistaCrearEmpleado v) {
+	
+	private VistaCrearEmpleado vista;
+	private PersonalAlmacenModel model;
+	
+	public PersonalAlmacenController(PersonalAlmacenModel m, VistaCrearEmpleado v) {
 		this.vista = v;
 		this.model = m;
 	}

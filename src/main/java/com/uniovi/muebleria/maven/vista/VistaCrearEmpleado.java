@@ -3,11 +3,18 @@ package com.uniovi.muebleria.maven.vista;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.uniovi.muebleria.maven.controlador.PersonalAlmacen.PersonalAlmacenController;
 import com.uniovi.muebleria.maven.controlador.Vendedor.VendedorController;
+import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
+import com.uniovi.muebleria.maven.modelo.PersonalAlmacen.PersonalAlmacenModel;
 import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorModel;
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -19,6 +26,7 @@ import java.sql.Time;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
+import javax.management.RuntimeErrorException;
 import javax.swing.BoxLayout;
 
 public class VistaCrearEmpleado extends JFrame {
@@ -45,7 +53,6 @@ public class VistaCrearEmpleado extends JFrame {
 	private JTextField textFieldApellido;
 	private JTextField textFieldNombre;
 	private JButton btnAñadir;
-	private JSpinner spEntrada;
 	private JLabel lblHoraEntrada;
 	private JLabel lblHorarioSalida;
 	private JSpinner spinnerEntrada;
@@ -223,13 +230,12 @@ public class VistaCrearEmpleado extends JFrame {
 			btnAñadir.setBounds(422, 335, 89, 23);
 			btnAñadir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(getComboBoxPerfil().getSelectedItem().equals("VENDEDOR")) {
-					VendedorController controllerV = new VendedorController(new VendedorModel(), VistaMuebleria.VIEW_CREAR_EMPLEADO);
-					controllerV.crearTrabajador(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
-							Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),
-							(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue());
-					}
-					
+					try {
+						añadirEmpleado();
+						JOptionPane.showMessageDialog(null,"Empleado añadido con exito");
+					}catch (Exception ex) {
+						JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
+					}				
 				}
 			});
 			btnAñadir.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -294,5 +300,24 @@ public class VistaCrearEmpleado extends JFrame {
 	
 	private void closeWindow() {
 		this.dispose();
+	}
+	
+	private void añadirEmpleado() {
+		if(getComboBoxPerfil().getSelectedItem().equals("VENDEDOR")) {
+		VendedorController controllerV = new VendedorController(new VendedorModel(), VistaMuebleria.VIEW_CREAR_EMPLEADO);
+		controllerV.crearTrabajador(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
+				Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),
+				(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue());
+		} else if(getComboBoxPerfil().getSelectedItem().equals("PERSONAL ALMACEN")) {
+			PersonalAlmacenController controllerM = new PersonalAlmacenController(new PersonalAlmacenModel(), VistaMuebleria.VIEW_CREAR_EMPLEADO);
+			controllerM.crearTrabajador(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
+					Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),
+					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue());
+		} else {
+			TransportistaController controllerT = new TransportistaController(new TransportistaModel());
+			controllerT.crearTrabajador(getTextFieldNombre().getText(),Integer.parseInt(getTextFieldTelefono().getText()),
+					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
+					getTextFieldUsuario().getText(),getTextFieldContraseña().getText());
+		}	
 	}
 }
