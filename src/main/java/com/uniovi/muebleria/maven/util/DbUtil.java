@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -1307,6 +1308,39 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return result;
+	}
+	
+
+	public void crearVendedor(String sqlAñadirVendedor, int id, String nombre, String apellido, String DNI,
+			int telefono, String usuario, String contraseña, Time hora_entrada, Time hora_salida) {	
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlAñadirVendedor);
+			
+			pst.setInt(1,id);
+			pst.setString(2,nombre);	
+			pst.setString(3,apellido);
+			pst.setString(4,DNI);
+			pst.setInt(5,telefono);
+			pst.setString(6,usuario);
+			pst.setString(7,contraseña);
+			pst.setTime(8,hora_entrada);
+			pst.setTime(9,hora_salida);
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		
+		
 	}
 
 //	public void actualizaPresupuesto(String sql, int idPres, int idProd) {

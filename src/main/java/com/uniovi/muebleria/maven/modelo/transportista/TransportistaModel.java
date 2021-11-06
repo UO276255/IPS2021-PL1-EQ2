@@ -12,6 +12,7 @@ public class TransportistaModel {
 	private static final String SQL_VENTAS = "SELECT * FROM Venta";
 	private static final String SQL_ASIGNAR = "UPDATE Venta set id_transp = ?";
 	private static final String SQL_ID_TRANSP = "SELECT id_transp FROM Venta WHERE id_venta = ?";
+	private static final String SQL_AÑADIR_TRANSP ="insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida,Apellido,DNI,Usuario,Contraseña) values (?,?,?,?,?,?,?,?,?)";
 	
 	public List<TransportistaDTO> getListaTransportistas(){
 		return db.recogerTransportistas(SQL_TRABAJADORES);

@@ -50,6 +50,7 @@ public class VistaMuebleria extends JFrame {
 	public static final VistaHistorial VIEW_HISTORIAL = new VistaHistorial();
 	public static final VistaAlmacenes VIEW_ALMACEN = new VistaAlmacenes();
 	public static final VistaCrearPresupuesto VIEW_PRODPRES = new VistaCrearPresupuesto();
+	public static final VistaCrearEmpleado VIEW_CREAR_EMPLEADO = new VistaCrearEmpleado();
 
 	protected static final VistaCrearPedido VIEW_PEDIDO = new VistaCrearPedido();
 
@@ -64,18 +65,19 @@ public class VistaMuebleria extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 647, 442);
 		PanelInicio = new JPanel();
+		PanelInicio.setBackground(new Color(255, 239, 213));
 		PanelInicio.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(PanelInicio);
 		PanelInicio.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 222, 173));
+		panel.setBackground(new Color(255, 239, 213));
 		PanelInicio.add(panel, BorderLayout.CENTER);
 		
 		db=new Database();
 		
 		JButton btnCargarBaseDatos = new JButton("Crear la base de datos");
-		btnCargarBaseDatos.setFont(new Font("Tahoma", Font.ITALIC, 12));
+		btnCargarBaseDatos.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		btnCargarBaseDatos.setBounds(117, 28, 170, 23);
 		btnCargarBaseDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,7 +87,7 @@ public class VistaMuebleria extends JFrame {
 		});
 		
 		JButton btnLoadDB = new JButton("Cargar la base de datos");
-		btnLoadDB.setFont(new Font("Tahoma", Font.ITALIC, 12));
+		btnLoadDB.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		btnLoadDB.setBounds(325, 28, 196, 23);
 		btnLoadDB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -97,9 +99,8 @@ public class VistaMuebleria extends JFrame {
 		panel.add(btnLoadDB);
 		
 		JPanel PanelBotones = new JPanel();
-		PanelBotones.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
-		PanelBotones.setBackground(new Color(255, 218, 185));
-		PanelBotones.setBounds(10, 97, 601, 285);
+		PanelBotones.setBackground(new Color(255, 239, 213));
+		PanelBotones.setBounds(10, 101, 601, 281);
 		panel.add(PanelBotones);
 		PanelBotones.setLayout(new GridLayout(8, 1, 0, 0));
 		
@@ -212,6 +213,15 @@ public class VistaMuebleria extends JFrame {
 		});
 		btCrearPedido.setFont(new Font("Tahoma", Font.BOLD, 12));
 		PanelBotones.add(btCrearPedido);
+		
+		JButton btnAñadirEmpleado = new JButton("Añadir nuevo empleado");
+		btnAñadirEmpleado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VIEW_CREAR_EMPLEADO.setVisible(true);
+			}
+		});
+		btnAñadirEmpleado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		PanelBotones.add(btnAñadirEmpleado);
 	}
 
 	public JFrame getFrame() { return this.getFrame(); }

@@ -50,6 +50,7 @@ public class VistaHistorial extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 801, 516);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -60,6 +61,7 @@ public class VistaHistorial extends JFrame {
 		pnVentas.setLayout(new BorderLayout(0, 0));
 		
 		listVentas = new JList();
+		listVentas.setBackground(new Color(255, 239, 213));
 		listVentas.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		pnVentas.add(listVentas);
 		
@@ -95,6 +97,7 @@ public class VistaHistorial extends JFrame {
 		pnDetalles.add(lblNewLabel, BorderLayout.NORTH);
 		
 		JPanel pnCentro = new JPanel();
+		pnCentro.setBackground(new Color(255, 239, 213));
 		pnDetalles.add(pnCentro, BorderLayout.CENTER);
 		pnCentro.setLayout(null);
 		
@@ -104,11 +107,13 @@ public class VistaHistorial extends JFrame {
 		pnProductos.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lbProductos = new JLabel("Productos");
+		lbProductos.setBackground(new Color(255, 239, 213));
 		lbProductos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		lbProductos.setFont(new Font("Tahoma", Font.BOLD, 13));
 		pnProductos.add(lbProductos, BorderLayout.NORTH);
 		
 		listaProductos = new JList();
+		listaProductos.setBackground(new Color(255, 239, 213));
 		pnProductos.add(listaProductos, BorderLayout.CENTER);
 		
 		JLabel lbSumaMontaje = new JLabel("Suma Montaje : ");

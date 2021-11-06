@@ -51,6 +51,7 @@ public class VistaSeguimientoPedido extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 662, 410);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -95,6 +96,7 @@ public class VistaSeguimientoPedido extends JFrame {
 	private JTextPane getTextPanePedido() {
 		if (textPanePedido == null) {
 			textPanePedido = new JTextPane();
+			textPanePedido.setBackground(new Color(255, 239, 213));
 			textPanePedido.setDisabledTextColor(Color.BLACK);
 			textPanePedido.setVisible(false);
 			textPanePedido.setForeground(Color.BLACK);

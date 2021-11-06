@@ -28,6 +28,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
+import java.awt.Color;
 
 public class VistaCrearPresupuesto extends JFrame {
 
@@ -76,6 +77,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 759, 515);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
@@ -86,6 +88,7 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JPanel getPanelCrearPresupuesto() {
 		if (panelCrearPresupuesto == null) {
 			panelCrearPresupuesto = new JPanel();
+			panelCrearPresupuesto.setBackground(new Color(255, 239, 213));
 			panelCrearPresupuesto.setLayout(null);
 			panelCrearPresupuesto.add(getScrollPaneProductos());
 			panelCrearPresupuesto.add(getScrollPanePresupuesto());
@@ -243,6 +246,7 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JPanel getPanelFiltrar() {
 		if (panelFiltrar == null) {
 			panelFiltrar = new JPanel();
+			panelFiltrar.setBackground(new Color(255, 239, 213));
 			panelFiltrar.setLayout(null);
 			panelFiltrar.add(getSpinnerPrecio());
 			panelFiltrar.add(getLblSeleccionarPrecio());
@@ -288,6 +292,7 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JRadioButton getRdbtnPorEncimaDelPrecio() {
 		if (rdbtnPorEncimaDelPrecio == null) {
 			rdbtnPorEncimaDelPrecio = new JRadioButton("Productos con precio mayor ");
+			rdbtnPorEncimaDelPrecio.setBackground(new Color(255, 239, 213));
 			rdbtnPorEncimaDelPrecio.setSelected(true);
 			buttonGroup.add(rdbtnPorEncimaDelPrecio);
 			rdbtnPorEncimaDelPrecio.setBounds(38, 139, 198, 23);
@@ -297,6 +302,7 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JRadioButton getRdbtnPorDebajoDelPrecio() {
 		if (rdbtnPorDebajoDelPrecio == null) {
 			rdbtnPorDebajoDelPrecio = new JRadioButton("Productos con precio menor");
+			rdbtnPorDebajoDelPrecio.setBackground(new Color(255, 239, 213));
 			buttonGroup.add(rdbtnPorDebajoDelPrecio);
 			rdbtnPorDebajoDelPrecio.setBounds(38, 165, 198, 23);
 		}

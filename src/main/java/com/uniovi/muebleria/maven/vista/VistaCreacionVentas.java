@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class VistaCreacionVentas extends JFrame {
 
@@ -44,6 +45,7 @@ public class VistaCreacionVentas extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 707, 383);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
@@ -53,6 +55,7 @@ public class VistaCreacionVentas extends JFrame {
 	private JPanel getPanelGeneral() {
 		if (panelGeneral == null) {
 			panelGeneral = new JPanel();
+			panelGeneral.setBackground(new Color(255, 239, 213));
 			panelGeneral.setLayout(new CardLayout(0, 0));
 			panelGeneral.add(getPanelInicio(), "PanelInicio");
 		}
@@ -61,6 +64,7 @@ public class VistaCreacionVentas extends JFrame {
 	private JPanel getPanelInicio() {
 		if (panelInicio == null) {
 			panelInicio = new JPanel();
+			panelInicio.setBackground(new Color(255, 239, 213));
 			panelInicio.setLayout(null);
 			panelInicio.add(getLblNTituloInicio());
 			panelInicio.add(getComboBoxPresupuestoSinAceptar());

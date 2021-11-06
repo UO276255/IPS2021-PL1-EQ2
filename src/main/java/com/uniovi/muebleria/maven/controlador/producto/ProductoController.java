@@ -2,7 +2,6 @@ package com.uniovi.muebleria.maven.controlador.producto;
 
 import java.util.List;
 
-import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;

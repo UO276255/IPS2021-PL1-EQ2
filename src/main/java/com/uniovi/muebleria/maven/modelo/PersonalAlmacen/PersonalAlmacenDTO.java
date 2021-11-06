@@ -1,10 +1,10 @@
-package com.uniovi.muebleria.maven.modelo.transportista;
+package com.uniovi.muebleria.maven.modelo.PersonalAlmacen;
 
 import java.sql.Time;
 import java.util.Date;
 
-public class TransportistaDTO {
-	private int idTransp;
+public class PersonalAlmacenDTO {
+	private int idPerAlmacen;
 	private String nombre;
 	private String apellido;
 	private String DNI;
@@ -14,17 +14,10 @@ public class TransportistaDTO {
 	private Time horarioInicio;
 	private Time horarioFin;
 	
-	public TransportistaDTO() {}
-	public TransportistaDTO(int idTransp, String nombre, int numTelefono, Time horarioInicio, Time horarioFin) {
-		this.idTransp = idTransp;
-		this.nombre = nombre;
-		this.numTelefono = numTelefono;
-		this.horarioInicio = horarioInicio;
-		this.horarioFin = horarioFin;
-	}
+	public PersonalAlmacenDTO() {}
 	
-	public TransportistaDTO(int idTransp, String nombre, int numTelefono, Time horarioInicio, Time horarioFin,String apellido,String DNI,String usuario, String contraseña) {
-		this.idTransp = idTransp;
+	public PersonalAlmacenDTO(int idPerAlmacen, String nombre, int numTelefono, Time horarioInicio, Time horarioFin,String apellido,String DNI,String usuario, String contraseña) {
+		this.idPerAlmacen = idPerAlmacen;
 		this.nombre = nombre;
 		this.numTelefono = numTelefono;
 		this.horarioInicio = horarioInicio;
@@ -40,7 +33,7 @@ public class TransportistaDTO {
 	public String getUsuario() {return usuario;}
 	public String getContraseña() {return contraseña;}
 	public Time getHorarioInicio() {return horarioInicio;}
-	public int getIdTransp() { return this.idTransp; }
+	public int getIdPersonalAlmacen() { return this.idPerAlmacen; }
 	public String getNombre() { return this.nombre; }
 	public int getNumTelefono() { return this.numTelefono; }
 	public Date getHorarioIn() { return this.horarioInicio; }
@@ -51,7 +44,7 @@ public class TransportistaDTO {
 	public void setUsuario(String usuario) {this.usuario = usuario;}
 	public void setDNI(String dNI) {DNI = dNI;}
 	public void setApellido(String apellido) {this.apellido = apellido;}
-	public void setIdTransp(int idTransp) { this.idTransp=idTransp; }
+	public void setIdPersonalAlmacen(int idPerAlmacen) { this.idPerAlmacen=idPerAlmacen; }
 	public void setNombre(String nombre) { this.nombre=nombre; }
 	public void setNumTelefono(int numTelefono) { this.numTelefono=numTelefono; }
 	public void setHorarioIn(Time horarioInicio) { this.horarioInicio=horarioInicio; }

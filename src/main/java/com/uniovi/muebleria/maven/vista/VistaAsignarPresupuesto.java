@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Color;
 
 public class VistaAsignarPresupuesto extends JFrame {
 
@@ -63,6 +64,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 635, 328);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
@@ -72,6 +74,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	public JPanel getPanelGeneral() {
 		if (panelGeneral == null) {
 			panelGeneral = new JPanel();
+			panelGeneral.setBackground(new Color(255, 239, 213));
 			panelGeneral.setLayout(new CardLayout(0, 0));
 			panelGeneral.add(getPanelInicial(), "PanelInicial");
 			panelGeneral.add(getPanelNuevoCliente(), "PanelNuevoCliente");
@@ -82,6 +85,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	public JPanel getPanelInicial() {
 		if (panelInicial == null) {
 			panelInicial = new JPanel();
+			panelInicial.setBackground(new Color(255, 239, 213));
 			panelInicial.setLayout(null);
 			panelInicial.add(getBtnAsignarExistente());
 			panelInicial.add(getBtnAsignarNuevo());
@@ -129,6 +133,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	private JPanel getPanelNuevoCliente() {
 		if (panelNuevoCliente == null) {
 			panelNuevoCliente = new JPanel();
+			panelNuevoCliente.setBackground(new Color(255, 239, 213));
 			panelNuevoCliente.setLayout(null);
 			panelNuevoCliente.add(getTextFieldNombre());
 			panelNuevoCliente.add(getTextFieldApellido());
@@ -163,6 +168,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	private JPanel getPanelClienteExistente() {
 		if (panelClienteExistente == null) {
 			panelClienteExistente = new JPanel();
+			panelClienteExistente.setBackground(new Color(255, 239, 213));
 			panelClienteExistente.setLayout(null);
 			panelClienteExistente.add(getComboBoxClientesExistentes());
 			panelClienteExistente.add(getBtnAsignarCliente());

@@ -10,9 +10,13 @@ DROP TABLE IF EXISTS Solicitudes;
 DROP TABLE IF EXISTS Cliente;
 DROP TABLE IF EXISTS Pedido;
 DROP TABLE IF EXISTS Repuesto;
-DROP TABLE IF EXISTS Almacen;
 DROP TABLE IF EXISTS Proveedor;
 DROP TABLE IF EXISTS Registrado;
+DROP TABLE IF EXISTS Vender;
+DROP TABLE IF EXISTS Vendedor;
+DROP TABLE IF EXISTS PersonalAlmacen;
+DROP TABLE IF EXISTS Almacen;
+DROP TABLE IF EXISTS GestionaAlmacen;
 
 CREATE TABLE Cliente (
 	Id INT PRIMARY KEY NOT NULL,
@@ -32,8 +36,27 @@ CREATE TABLE Presupuestos (
 CREATE TABLE Almacen(
 	Id_almacen int PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32));
+	
+CREATE TABLE PersonalAlmacen(
+	Id_perAlmacen int PRIMARY KEY NOT NULL,
+	Nombre VARCHAR(32),
+	Apellido VARCHAR(32),
+	DNI VARCHAR(32),
+	Telefono INT,
+	Usuario VARCHAR(32),
+	Contraseña VARCHAR(32),
+	hora_entrada TIME,
+	hora_salida TIME
+);
 
-CREATE TABLE Productos (
+
+CREATE TABLE GestionaAlmacen(
+	Id_Gestion int PRIMARY KEY NOT NULL,
+	Id_almacen INT REFERENCES Almacen(Id_almacen),
+	Id_perAlmacen INT REFERENCES PersonalAlmacen(Id_perAlmacen)
+);
+
+CREATE TABLE Productos(
 	Id_prod INT PRIMARY KEY NOT NULL,
 	Nombre_prod VARCHAR(32) NOT NULL,
 	Precio_prod INT NOT NULL,
@@ -55,12 +78,18 @@ CREATE TABLE Solicitudes (
 	Transporte BIT,
 	Montaje BIT);
 
-CREATE TABLE Transportista (
+CREATE TABLE Transportista(
 	id_transp int PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32) NOT NULL,
 	Numero_tel INT NOT NULL,
 	hora_entrada TIME,
-	hora_salida TIME);
+	hora_salida TIME,
+	Apellido VARCHAR(32),
+	DNI VARCHAR(32),
+	USUARIO VARCHAR(32),
+	CONTRAEÑA VARCHAR(32)
+
+);
 
 CREATE TABLE Venta (
 	Id_venta INT PRIMARY KEY NOT NULL,
@@ -69,6 +98,24 @@ CREATE TABLE Venta (
 	Transporte BIT,
 	Id_pres INT REFERENCES Presupuestos(Id_pres),
 	Id_transp INT REFERENCES Transportista(Id_transp));
+	
+CREATE TABLE Vendedor(
+	Id_vendedor int PRIMARY KEY NOT NULL,
+	Nombre VARCHAR(32),
+	Apellido VARCHAR(32),
+	DNI VARCHAR(32),
+	Telefono INT,
+	Usuario VARCHAR(32),
+	Contraseña VARCHAR(32),	
+	hora_entrada TIME,
+	hora_salida TIME
+);
+
+CREATE TABLE Vender(
+	Id_Vender int PRIMARY KEY NOT NULL,
+	Id_venta INT REFERENCES Venta(Id_venta),
+	Id_perAlmacen INT REFERENCES Vendedor(Id_vendedor)
+);
 	
 CREATE TABLE Repuesto (
 	Id_repuesto INT PRIMARY KEY NOT NULL,
@@ -81,4 +128,3 @@ CREATE TABLE Registrado(
 	Id_prod INT REFERENCES Productos(Id_prod),
 	Id_almacen INT REFERENCES Almacen(Id_almacen),
 	cantidad INT);
-)

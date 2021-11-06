@@ -42,7 +42,7 @@ public class VistaCrearPedido extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 716, 515);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 222, 173));
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

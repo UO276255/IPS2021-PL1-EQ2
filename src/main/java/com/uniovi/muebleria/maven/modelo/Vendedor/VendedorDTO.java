@@ -1,10 +1,11 @@
-package com.uniovi.muebleria.maven.modelo.transportista;
+package com.uniovi.muebleria.maven.modelo.Vendedor;
 
 import java.sql.Time;
 import java.util.Date;
 
-public class TransportistaDTO {
-	private int idTransp;
+public class VendedorDTO {
+	
+	private int idVend;
 	private String nombre;
 	private String apellido;
 	private String DNI;
@@ -14,17 +15,10 @@ public class TransportistaDTO {
 	private Time horarioInicio;
 	private Time horarioFin;
 	
-	public TransportistaDTO() {}
-	public TransportistaDTO(int idTransp, String nombre, int numTelefono, Time horarioInicio, Time horarioFin) {
-		this.idTransp = idTransp;
-		this.nombre = nombre;
-		this.numTelefono = numTelefono;
-		this.horarioInicio = horarioInicio;
-		this.horarioFin = horarioFin;
-	}
+	public VendedorDTO() {}
 	
-	public TransportistaDTO(int idTransp, String nombre, int numTelefono, Time horarioInicio, Time horarioFin,String apellido,String DNI,String usuario, String contraseña) {
-		this.idTransp = idTransp;
+	public VendedorDTO(int idVend, String nombre, int numTelefono, Time horarioInicio, Time horarioFin,String apellido,String DNI,String usuario, String contraseña) {
+		this.idVend = idVend;
 		this.nombre = nombre;
 		this.numTelefono = numTelefono;
 		this.horarioInicio = horarioInicio;
@@ -40,7 +34,7 @@ public class TransportistaDTO {
 	public String getUsuario() {return usuario;}
 	public String getContraseña() {return contraseña;}
 	public Time getHorarioInicio() {return horarioInicio;}
-	public int getIdTransp() { return this.idTransp; }
+	public int getIdVendedor() { return this.idVend; }
 	public String getNombre() { return this.nombre; }
 	public int getNumTelefono() { return this.numTelefono; }
 	public Date getHorarioIn() { return this.horarioInicio; }
@@ -51,7 +45,7 @@ public class TransportistaDTO {
 	public void setUsuario(String usuario) {this.usuario = usuario;}
 	public void setDNI(String dNI) {DNI = dNI;}
 	public void setApellido(String apellido) {this.apellido = apellido;}
-	public void setIdTransp(int idTransp) { this.idTransp=idTransp; }
+	public void setIdVendedor(int idVend) { this.idVend=idVend; }
 	public void setNombre(String nombre) { this.nombre=nombre; }
 	public void setNumTelefono(int numTelefono) { this.numTelefono=numTelefono; }
 	public void setHorarioIn(Time horarioInicio) { this.horarioInicio=horarioInicio; }

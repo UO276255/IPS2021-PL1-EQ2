@@ -58,6 +58,7 @@ public class VistaDeterminaFecha extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 773, 620);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -76,6 +77,7 @@ public class VistaDeterminaFecha extends JFrame {
 		panelRecoger.add(lbProductos, BorderLayout.NORTH);
 		
 		listaProductos = new List();
+		listaProductos.setBackground(new Color(255, 239, 213));
 		panelRecoger.add(listaProductos, BorderLayout.CENTER);
 		
 		JPanel panelTransporte = new JPanel();
@@ -89,6 +91,7 @@ public class VistaDeterminaFecha extends JFrame {
 		panelTransporte.add(lbTransportista, BorderLayout.NORTH);
 		
 		 listaTransportista = new List();
+		 listaTransportista.setBackground(new Color(255, 239, 213));
 		panelTransporte.add(listaTransportista, BorderLayout.CENTER);
 		contentPane.add(getCbSeleccionarVenta());
 		
@@ -104,6 +107,7 @@ public class VistaDeterminaFecha extends JFrame {
 		contentPane.add(btnNewButton_2);
 		
 		spTimer = new JSpinner(new SpinnerDateModel());
+		spTimer.setBackground(new Color(255, 239, 213));
 		spTimer.setFont(new Font("Tahoma", Font.BOLD, 14));
 		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spTimer, "HH:mm");
 		spTimer.setEditor(timeEditor);
@@ -145,6 +149,7 @@ public class VistaDeterminaFecha extends JFrame {
 	private JPanel getPnAsignarCancelar() {
 		if (pnAsignarCancelar == null) {
 			pnAsignarCancelar = new JPanel();
+			pnAsignarCancelar.setBackground(new Color(255, 239, 213));
 			pnAsignarCancelar.setBounds(252, 488, 277, 58);
 			pnAsignarCancelar.setLayout(new GridLayout(1, 0, 0, 0));
 			pnAsignarCancelar.add(getBtAsignar());

@@ -28,6 +28,7 @@ import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import java.awt.Cursor;
+import java.awt.Color;
 
 public class VistaAsignaTransporte extends JFrame{
 	
@@ -77,6 +78,7 @@ public class VistaAsignaTransporte extends JFrame{
 	private JComboBox<VentaDTO> comboBoxListaVentas;
 	
 	public VistaAsignaTransporte() {
+		getContentPane().setBackground(new Color(255, 239, 213));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -95,6 +97,7 @@ public class VistaAsignaTransporte extends JFrame{
 	private JPanel getPanelGeneral() {
 		if (panelGeneral == null) {
 			panelGeneral = new JPanel();
+			panelGeneral.setBackground(new Color(255, 239, 213));
 			panelGeneral.setBounds(0, 0, 745, 478);
 			panelGeneral.setLayout(new CardLayout(0, 0));
 			panelGeneral.add(getPanelTransportados(), "PanelTransporte");
@@ -105,6 +108,7 @@ public class VistaAsignaTransporte extends JFrame{
 	private JPanel getPanelTransportados() {
 		if (panelTransportados == null) {
 			panelTransportados = new JPanel();
+			panelTransportados.setBackground(new Color(255, 239, 213));
 			panelTransportados.setLayout(null);
 			panelTransportados.add(getComboBoxListaTransportistas());
 			panelTransportados.add(getBtnAceptaTransp());

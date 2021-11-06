@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import java.awt.CardLayout;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import java.awt.Color;
 
 public class VistaAlmacenes extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -46,6 +47,7 @@ public class VistaAlmacenes extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 742, 500);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -57,6 +59,7 @@ public class VistaAlmacenes extends JFrame {
 	private JPanel getPanelTitulo() {
 		if (panelTitulo == null) {
 			panelTitulo = new JPanel();
+			panelTitulo.setBackground(new Color(255, 239, 213));
 			panelTitulo.add(getLblListaAlmacenes());
 		}
 		return panelTitulo;
@@ -64,6 +67,7 @@ public class VistaAlmacenes extends JFrame {
 	private JPanel getPanelSalir() {
 		if (panelSalir == null) {
 			panelSalir = new JPanel();
+			panelSalir.setBackground(new Color(255, 239, 213));
 			panelSalir.add(getBtnSalir());
 		}
 		return panelSalir;
@@ -94,6 +98,7 @@ public class VistaAlmacenes extends JFrame {
 	public JPanel getPanelLista() {
 		if (panelLista == null) {
 			panelLista = new JPanel();
+			panelLista.setBackground(new Color(255, 239, 213));
 			panelLista.setLayout(new CardLayout(0, 0));
 			panelLista.add(getPanelMostrarProductos(), "panelProductos");
 			panelLista.add(getPanelElegirAlmacen(), "panelElegirAlmacen");
@@ -178,6 +183,7 @@ public class VistaAlmacenes extends JFrame {
 	public JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			table.setBackground(new Color(255, 239, 213));
 			table.setRowSelectionAllowed(false);
 			table.setFont(new Font("Tahoma", Font.PLAIN, 15));
 			table.setFillsViewportHeight(true);
