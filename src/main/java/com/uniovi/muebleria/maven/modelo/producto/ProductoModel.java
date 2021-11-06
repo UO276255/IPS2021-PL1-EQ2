@@ -16,6 +16,7 @@ private Database db = new Database();
 	public static final String SQL_ACTUALIZA_TRANSPORTE = "UPDATE Solicitudes set Transporte = ? where id_prod = ? and id_pres = ?";
 	public static final String SQL_ACTUALIZA_MONTAJE = "UPDATE Solicitudes set Montaje = ? where id_prod = ? and id_pres = ?";
 	private static final String SQL_MAXIMO_ID = "SELECT MAX(id_venta) max_id_venta FROM Venta";
+	private static final String SQL_PRODUCTOS = "SELECT * FROM Productos";
 	
 	private static final String SQL_PRODUCTOS_POR_ALMACEN = "select t.nombre_prod,r.cantidad from productos t, registrado r where r.id_almacen = ? and r.id_prod = t.id_prod";
 	
@@ -50,5 +51,8 @@ private Database db = new Database();
 	public int getMaxId() {
 		return db.recogerMaxValorIdProv(SQL_MAXIMO_ID);
 	}
-
+	
+	public List<ProductoDTO> getProductos(){
+		return db.productos(SQL_PRODUCTOS);
+	}
 }

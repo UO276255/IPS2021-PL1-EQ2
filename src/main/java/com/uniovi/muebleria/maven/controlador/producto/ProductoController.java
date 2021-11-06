@@ -2,6 +2,7 @@ package com.uniovi.muebleria.maven.controlador.producto;
 
 import java.util.List;
 
+import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -10,11 +11,13 @@ import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.vista.VistaAlmacenes;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
+import com.uniovi.muebleria.maven.vista.VistaCrearPedido;
 
 public class ProductoController {
 	private VistaAsignaTransporte vista;
 	private VistaAlmacenes vistaAlm;
 	private ProductoModel model;
+	private VistaCrearPedido vistaPedido;
 	
 	public ProductoController(ProductoModel m, VistaAsignaTransporte v) {
 		this.vista = v;
@@ -24,6 +27,18 @@ public class ProductoController {
 	public ProductoController(ProductoModel m, VistaAlmacenes v) {
 		this.vistaAlm = v;
 		this.model = m;
+	}
+	
+	public ProductoController(ProductoModel m, VistaCrearPedido v) {
+		this.vistaPedido = v;
+		this.model = m;
+		initView();
+	}
+	
+	public void initView() {
+		vistaPedido.setVisible(true);
+		vistaPedido.setLocationRelativeTo(null);
+		añadirProductos();
 	}
 	
 	public ProductoDTO[] getListaProductosVentaNoTransp(int id) {
@@ -130,6 +145,14 @@ public class ProductoController {
 
 	public int getMaxId() {
 		return model.getMaxId();
+	}
+	
+	public void añadirProductos() {
+		List<ProductoDTO> listaProd = model.getProductos();
+		ProductoDTO[] prod = toArray(listaProd);
+		for (int i=0; i<prod.length;i++) {
+			vistaPedido.getListProducts().add(prod[i].getNombre() + ", " + prod[i].getPrecio() + "€ ," + prod[i].getCategoria());
+		}
 	}
 
 }
