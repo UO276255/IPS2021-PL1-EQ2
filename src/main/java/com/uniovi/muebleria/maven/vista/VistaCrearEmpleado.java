@@ -172,6 +172,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JComboBox<String> getComboBoxPerfil() {
 		if (comboBoxPerfil == null) {
 			comboBoxPerfil = new JComboBox<String>();
+			comboBoxPerfil.setBackground(new Color(255, 239, 213));
 			comboBoxPerfil.setBounds(205, 290, 153, 22);
 		}
 		return comboBoxPerfil;
@@ -179,6 +180,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JTextField getTextFieldContraseña() {
 		if (textFieldContraseña == null) {
 			textFieldContraseña = new JTextField();
+			textFieldContraseña.setBackground(new Color(255, 239, 213));
 			textFieldContraseña.setBounds(205, 266, 153, 20);
 			textFieldContraseña.setColumns(10);
 		}
@@ -187,6 +189,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JTextField getTextFieldUsuario() {
 		if (textFieldUsuario == null) {
 			textFieldUsuario = new JTextField();
+			textFieldUsuario.setBackground(new Color(255, 239, 213));
 			textFieldUsuario.setBounds(205, 241, 153, 20);
 			textFieldUsuario.setColumns(10);
 		}
@@ -195,6 +198,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JTextField getTextFieldTelefono() {
 		if (textFieldTelefono == null) {
 			textFieldTelefono = new JTextField();
+			textFieldTelefono.setBackground(new Color(255, 239, 213));
 			textFieldTelefono.setBounds(205, 216, 153, 20);
 			textFieldTelefono.setColumns(10);
 		}
@@ -203,6 +207,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JTextField getTextFieldDNI() {
 		if (textFieldDNI == null) {
 			textFieldDNI = new JTextField();
+			textFieldDNI.setBackground(new Color(255, 239, 213));
 			textFieldDNI.setBounds(205, 191, 153, 20);
 			textFieldDNI.setColumns(10);
 		}
@@ -211,6 +216,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JTextField getTextFieldApellido() {
 		if (textFieldApellido == null) {
 			textFieldApellido = new JTextField();
+			textFieldApellido.setBackground(new Color(255, 239, 213));
 			textFieldApellido.setBounds(205, 166, 153, 20);
 			textFieldApellido.setColumns(10);
 		}
@@ -219,6 +225,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JTextField getTextFieldNombre() {
 		if (textFieldNombre == null) {
 			textFieldNombre = new JTextField();
+			textFieldNombre.setBackground(new Color(255, 239, 213));
 			textFieldNombre.setBounds(205, 141, 153, 20);
 			textFieldNombre.setColumns(10);
 		}
@@ -233,6 +240,8 @@ public class VistaCrearEmpleado extends JFrame {
 					try {
 						añadirEmpleado();
 						JOptionPane.showMessageDialog(null,"Empleado añadido con exito");
+						closeWindow();
+						inicializar();
 					}catch (Exception ex) {
 						JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
 					}				
@@ -263,6 +272,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JSpinner getSpinnerEntrada() {
 		if (spinnerEntrada == null) {
 			spinnerEntrada = new JSpinner(new SpinnerDateModel());
+			spinnerEntrada.setBackground(new Color(255, 239, 213));
 			spinnerEntrada.setBounds(422, 163, 131, 25);
 			spinnerEntrada.setFont(new Font("Tahoma", Font.BOLD, 13));
 			JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spinnerEntrada, "HH:mm");
@@ -276,6 +286,7 @@ public class VistaCrearEmpleado extends JFrame {
 	private JSpinner getSpinnerSalida() {
 		if (spinnerSalida == null) {
 			spinnerSalida = new JSpinner(new SpinnerDateModel());
+			spinnerSalida.setBackground(new Color(255, 239, 213));
 			spinnerSalida.setBounds(422, 238, 131, 25);
 			spinnerSalida.setFont(new Font("Tahoma", Font.BOLD, 13));
 			JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(spinnerSalida, "HH:mm");
@@ -290,6 +301,7 @@ public class VistaCrearEmpleado extends JFrame {
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					closeWindow();
+					inicializar();
 				}
 			});
 			btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -300,6 +312,20 @@ public class VistaCrearEmpleado extends JFrame {
 	
 	private void closeWindow() {
 		this.dispose();
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void inicializar() {
+		getTextFieldApellido().setText("");
+		getTextFieldNombre().setText("");
+		getTextFieldContraseña().setText("");
+		getTextFieldDNI().setText("");
+		getTextFieldUsuario().setText("");
+		getTextFieldTelefono().setText("");
+		getSpinnerSalida().setValue(new Time(0,0,0));
+		getSpinnerEntrada().setValue(new Time(0,0,0));
+		
+		
 	}
 	
 	private void añadirEmpleado() {
@@ -318,6 +344,7 @@ public class VistaCrearEmpleado extends JFrame {
 			controllerT.crearTrabajador(getTextFieldNombre().getText(),Integer.parseInt(getTextFieldTelefono().getText()),
 					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
 					getTextFieldUsuario().getText(),getTextFieldContraseña().getText());
-		}	
+		}
+		
 	}
 }

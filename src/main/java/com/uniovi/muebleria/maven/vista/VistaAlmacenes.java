@@ -124,6 +124,7 @@ public class VistaAlmacenes extends JFrame {
 	private JPanel getPanelElegirAlmacen() {
 		if (panelElegirAlmacen == null) {
 			panelElegirAlmacen = new JPanel();
+			panelElegirAlmacen.setBackground(new Color(255, 239, 213));
 			panelElegirAlmacen.setLayout(new BorderLayout(0, 0));
 			panelElegirAlmacen.add(getPanelSeleccion(), BorderLayout.CENTER);
 		}
@@ -132,6 +133,7 @@ public class VistaAlmacenes extends JFrame {
 	private JPanel getPanelSeleccion() {
 		if (panelSeleccion == null) {
 			panelSeleccion = new JPanel();
+			panelSeleccion.setBackground(new Color(255, 239, 213));
 			panelSeleccion.setLayout(null);
 			panelSeleccion.add(getComboBoxAlmacenes());
 			panelSeleccion.add(getBtnElegirAlmacen());
@@ -143,6 +145,7 @@ public class VistaAlmacenes extends JFrame {
 	public JComboBox<AlmacenDTO> getComboBoxAlmacenes() {
 		if (comboBoxAlmacenes == null) {
 			comboBoxAlmacenes = new JComboBox<AlmacenDTO>();
+			comboBoxAlmacenes.setBackground(new Color(255, 239, 213));
 			comboBoxAlmacenes.setFont(new Font("Tahoma", Font.BOLD, 12));
 			comboBoxAlmacenes.setBounds(75, 193, 413, 22);
 		}
