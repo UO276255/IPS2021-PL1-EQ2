@@ -1117,7 +1117,7 @@ public abstract class DbUtil {
 			pst.setInt(1,id_pres);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(6));
+				prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
 				if(listaProducto.contains(prod)) {
 					
 				}else {
@@ -1397,6 +1397,120 @@ public abstract class DbUtil {
 			
 			pst.executeUpdate();
 			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Error al consultar la BD");
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	public AlmacenDTO almacenActivo(String sql) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		AlmacenDTO almacen=null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				almacen = new AlmacenDTO(rs.getString(2),rs.getInt(1),0);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return almacen;
+	}
+	public int crearPedido(String sql) {
+		String sqlId = "SELECT MAX(Id_Pedido) FROM Pedido";
+
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int id=0;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlId);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+				id++;
+			}
+			pst.close();
+			
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Error al consultar la BD");
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		
+		return id;
+	}
+	
+	public void crearRepuesto(String sql, int idPedidoCreado, int idProducto, int cantidad) {
+		String sqlId = "SELECT MAX(Id_Repuesto) FROM Repuesto";
+
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int id=0;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlId);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+				id++;
+			}
+			pst.close();
+			
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.setInt(2, idPedidoCreado);
+			pst.setInt(3, idProducto);
+			pst.setInt(4, cantidad);
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Error al consultar la BD");
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	public void crearRegistrado(String sql, int idProducto, int idAlmacen, int nUnidades) {
+		String sqlId = "SELECT MAX(Id_Reg) FROM Registrado";
+
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int id=0;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlId);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+				id++;
+			}
+			pst.close();
+			
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.setInt(2, idProducto);
+			pst.setInt(3, idAlmacen);
+			pst.setInt(4, nUnidades);
+			pst.executeUpdate();
+		
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,"Error al consultar la BD");
 		}

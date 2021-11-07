@@ -52,7 +52,7 @@ public class VistaMuebleria extends JFrame {
 	public static final VistaCrearPresupuesto VIEW_PRODPRES = new VistaCrearPresupuesto();
 	public static final VistaCrearEmpleado VIEW_CREAR_EMPLEADO = new VistaCrearEmpleado();
 
-	protected static final VistaCrearPedido VIEW_PEDIDO = new VistaCrearPedido();
+	public static final VistaCrearPedido VIEW_PEDIDO = new VistaCrearPedido();
 
 	private Database db=null;
 	
@@ -76,25 +76,34 @@ public class VistaMuebleria extends JFrame {
 		
 		db=new Database();
 		
+		JButton btnBorrarBaseDatos = new JButton("Borrar la base de datos");
+		btnBorrarBaseDatos.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		btnBorrarBaseDatos.setBounds(10, 28, 185, 23);
+		btnBorrarBaseDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				db.removeDatabase();
+			}
+		});
+		
 		JButton btnCargarBaseDatos = new JButton("Crear la base de datos");
 		btnCargarBaseDatos.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-		btnCargarBaseDatos.setBounds(117, 28, 170, 23);
+		btnCargarBaseDatos.setBounds(219, 39, 170, 23);
 		btnCargarBaseDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				db.createDatabase(true);
-				//db.loadDatabase();
 			}
 		});
 		
 		JButton btnLoadDB = new JButton("Cargar la base de datos");
 		btnLoadDB.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-		btnLoadDB.setBounds(325, 28, 196, 23);
+		btnLoadDB.setBounds(415, 28, 196, 23);
 		btnLoadDB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				db.loadDatabase();
 			}
 		});
 		panel.setLayout(null);
+		panel.add(btnBorrarBaseDatos);
 		panel.add(btnCargarBaseDatos);
 		panel.add(btnLoadDB);
 		

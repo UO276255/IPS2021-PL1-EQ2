@@ -1,13 +1,21 @@
 package com.uniovi.muebleria.maven.controlador.producto;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
+import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
+import com.uniovi.muebleria.maven.modelo.producto.AddProductoDTO;
+import com.uniovi.muebleria.maven.modelo.producto.CrearProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
+import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.vista.VistaAlmacenes;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
 import com.uniovi.muebleria.maven.vista.VistaCrearPedido;
@@ -38,8 +46,14 @@ public class ProductoController {
 		vistaPedido.setVisible(true);
 		vistaPedido.setLocationRelativeTo(null);
 		añadirProductos();
+		seleccionarAlmacen();
 	}
 	
+	private void seleccionarAlmacen() {
+		AlmacenDTO almacen = model.getAlmacenActivo();
+		vistaPedido.getTxAlmacen().setText(almacen.getNombre());
+	}
+
 	public ProductoDTO[] getListaProductosVentaNoTransp(int id) {
 		List<ProductoDTO> listProductosNoTransp = model.getListaProductosVentaNoTransp(id);
 		ProductoDTO[] arrayProductosNoTransp = toArray(listProductosNoTransp);
@@ -70,13 +84,6 @@ public class ProductoController {
 			vista.addModeloListProdNoTransp(arrayProductos[i]);
 		}
 	}
-	
-//	private void setListProductosTransp() {
-//		ProductoDTO[] arrayProductos = getListaProductosTransp();
-//		for(int i=0;i<arrayProductos.length;i++) {
-//			vista.addModeloListProdTransp(arrayProductos[i]);
-//		}
-//	}
 	
 	private void setListProductosNoMontar(ProductoDTO[] arrayProductos) {
 		for(int i=0;i<arrayProductos.length;i++) {
@@ -146,12 +153,74 @@ public class ProductoController {
 		return model.getMaxId();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void añadirProductos() {
 		List<ProductoDTO> listaProd = model.getProductos();
 		ProductoDTO[] prod = toArray(listaProd);
+		CrearProductoDTO[] crearProd = new CrearProductoDTO[prod.length];
 		for (int i=0; i<prod.length;i++) {
-			vistaPedido.getListProducts().add(prod[i].getNombre() + ", " + prod[i].getPrecio() + "€ ," + prod[i].getCategoria());
+			crearProd[i] = new CrearProductoDTO(prod[i], 0);
 		}
+	
+		vistaPedido.getListProducts().setListData(crearProd);
+	}
+
+	public boolean seleccionarProducto(CrearProductoDTO prodSelec) {
+		boolean added = false;
+		int nUds = Integer.valueOf(vistaPedido.getTxUnidades().getText());
+		
+		if (nUds <= 0)
+			return false;
+	
+		List<AddProductoDTO> lista = new ArrayList<AddProductoDTO>();
+		for (int i=0; i<vistaPedido.getListProductosAñadidos().getModel().getSize();i++) {
+			lista.add((AddProductoDTO) vistaPedido.getListProductosAñadidos().getModel().getElementAt(i));
+			if (lista.get(i).getProd().getId()==prodSelec.getProd().getId()) {
+				lista.get(i).addUnidades(nUds);
+				added=true;
+			}
+		}
+		if (!added) 
+			lista.add(new AddProductoDTO(prodSelec.getProd(), nUds));
+		
+		vistaPedido.getListProductosAñadidos().setListData(lista.toArray());
+		return true;
+	}
+
+	public boolean eliminarProducto(AddProductoDTO prodToDelete) {
+		int nUds = Integer.valueOf(vistaPedido.getTxUnidades().getText());
+	
+		if (nUds <= 0)
+			return false;
+		
+		List<AddProductoDTO> lista = new ArrayList<AddProductoDTO>();
+		for (int i=0; i < vistaPedido.getListProductosAñadidos().getModel().getSize();i++)
+			lista.add((AddProductoDTO) vistaPedido.getListProductosAñadidos().getModel().getElementAt(i));
+		
+		for (int i=0; i<lista.size();i++) {
+			if (lista.get(i).getProd().getId()==prodToDelete.getProd().getId()) {
+				lista.get(i).removeUnidades(nUds);
+				if (lista.get(i).getnUnidades()<=0)
+					lista.remove(i);
+			}
+		}
+		vistaPedido.getListProductosAñadidos().setListData(lista.toArray());
+		
+		return true;
+	}
+
+	public boolean crearPedido() {
+		List<AddProductoDTO> lista = new ArrayList<AddProductoDTO>();
+		for (int i=0; i < vistaPedido.getListProductosAñadidos().getModel().getSize();i++)
+			lista.add((AddProductoDTO) vistaPedido.getListProductosAñadidos().getModel().getElementAt(i));
+		
+		int idPedidoCreado = model.crearPedido();
+		for (int i=0; i < lista.size();i++) {
+			model.crearRepuesto(idPedidoCreado, lista.get(i).getProd().getId(), lista.get(i).getnUnidades());
+			model.crearRegistrado(lista.get(i).getProd().getId(), 1, lista.get(i).getnUnidades());
+		}
+		
+		return true;
 	}
 
 }

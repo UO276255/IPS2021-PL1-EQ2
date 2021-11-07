@@ -2,6 +2,8 @@ package com.uniovi.muebleria.maven.modelo.producto;
 
 import java.util.List;
 
+import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
+import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.util.Database;
 
 public class ProductoModel {
@@ -19,6 +21,15 @@ private Database db = new Database();
 	private static final String SQL_PRODUCTOS = "SELECT * FROM Productos";
 	
 	private static final String SQL_PRODUCTOS_POR_ALMACEN = "select t.nombre_prod,r.cantidad from productos t, registrado r where r.id_almacen = ? and r.id_prod = t.id_prod";
+	
+	private static final String SQL_ALMACEN_ACTIVO = "select * from almacen where id_almacen=1";
+	
+	private static final String SQL_CREAR_PEDIDO = "INSERT INTO Pedido(Id_Pedido, Estado, Id_Prov) VALUES (?, 0, 1)";
+	
+	private static final String SQL_CREAR_REPUESTO = "INSERT INTO Repuesto(ID_REPUESTO, ID_PEDIDO, ID_PROD, CANTIDAD_PROD) VALUES (?,?,?,?)";
+	
+	private static final String SQL_CREAR_REGISTRADO = "INSERT INTO Registrado(ID_REG, ID_PROD, ID_ALMACEN, CANTIDAD) VALUES (?,?,?,?)";
+	
 	
 	public List<ProductoDTO> getListaProductosVentaNoTransp(int id_venta) {
 		return db.recogerProductosVentaNoTransp(SQL_PRODUCTO_VENTA, id_venta);
@@ -54,5 +65,24 @@ private Database db = new Database();
 	
 	public List<ProductoDTO> getProductos(){
 		return db.productos(SQL_PRODUCTOS);
+	}
+
+	public AlmacenDTO getAlmacenActivo() {
+		return db.almacenActivo(SQL_ALMACEN_ACTIVO);
+	}
+
+	public int crearPedido() {
+		int idPedido = db.crearPedido(SQL_CREAR_PEDIDO);
+		
+		return idPedido;
+	}
+
+	public void crearRepuesto(int idPedidoCreado, int idProducto, int cantidad) {
+		db.crearRepuesto(SQL_CREAR_REPUESTO, idPedidoCreado, idProducto, cantidad);
+	}
+
+	public void crearRegistrado(int idProducto, int idAlmacen, int nUnidades) {
+		db.crearRegistrado(SQL_CREAR_REGISTRADO, idProducto,idAlmacen,nUnidades);
+		
 	}
 }

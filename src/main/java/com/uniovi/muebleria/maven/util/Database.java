@@ -6,12 +6,15 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
 
+import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
+import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 
 
 public class Database extends DbUtil {
 
 	private static final String SQL_SCHEMA = "src/main/resources/schema.sql";
+	private static final String SQL_SCHEMA_REMOVEDB = "src/main/resources/schemaDelete.sql";
 	private static final String SQL_LOAD = "src/main/resources/data.sql";
 	private static final String URL = "jdbc:hsqldb:hsql://localhost/muebleria";
 	
@@ -31,7 +34,12 @@ public class Database extends DbUtil {
 			e.printStackTrace();//
 		}
 	}
-	
+	public void removeDatabase() {
+		// TODO Auto-generated method stub
+		executeScript(SQL_SCHEMA_REMOVEDB);
+	}
+
+
 	public void createDatabase(boolean onlyOnce) {
 		//actua como singleton si onlyOnce=true: solo la primera vez que se instancia para mejorar rendimiento en pruebas
 		if (!databaseCreated || !onlyOnce) { 
@@ -52,5 +60,11 @@ public class Database extends DbUtil {
 	public String getUrl() {
 		return URL;
 	}
+
+
+
+
+
+
 
 }

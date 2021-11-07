@@ -108,9 +108,9 @@ public class VentaController {
 			ProductoDTO[] productos = getListaProductos(arrayVentas[i]);
 			ProductoVentaDTO[] arrayProdVentas = new ProductoVentaDTO[productos.length];
 			for (int j=0; j<productos.length;j++) {
-				ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[i]);
-				prodVenta.setNumUnidades(model.contarUnidades(arrayVentas[i].getId_pres(), productos[i].getId()));
-				arrayProdVentas[i] = prodVenta;
+				ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[j]);
+				prodVenta.setNumUnidades(model.contarUnidades(arrayVentas[i].getId_pres(), productos[j].getId()));
+				arrayProdVentas[j] = prodVenta;
 //				if (productos[i].getMontaje())
 //					arrayVentas[i].setPrecio(arrayVentas[i].getPrecio()+5);
 //			}
@@ -131,8 +131,6 @@ public class VentaController {
 			ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[i]);
 			prodVenta.setNumUnidades(model.contarUnidades(venta.getId_pres(), productos[i].getId()));
 			arrayProdVentas[i] = prodVenta;
-//			if (productos[i].getMontaje())
-//				sumaMontaje += 5;
 		}
 		vistaHistorial.getListProductos().clearSelection();
 		vistaHistorial.getListProductos().setListData(arrayProdVentas);
