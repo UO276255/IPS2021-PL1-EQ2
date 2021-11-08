@@ -189,12 +189,15 @@ public class VistaAsignarPresupuesto extends JFrame {
 			btnAsignarCliente = new JButton("Asignar Cliente");
 			btnAsignarCliente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+						PresupuestoDTO dto = ((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem());
+						System.out.println("BATATA: " + dto.getIdPresupuesto());
+						
 						PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_PRESUPUESTO);
 						controller.asignarClienteAPresupuesto(((ClienteDTO) getComboBoxClientesExistentes().getSelectedItem()).getIdCliente(),
-							((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem()).getIdPresupuesto());
+							dto.getIdPresupuesto());
 						CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 						c.show(getPanelGeneral(), "PanelInicial");	
-						JOptionPane.showMessageDialog(null, "presupuesto con id : " + ((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem()).getIdPresupuesto()  + 
+						JOptionPane.showMessageDialog(null, "presupuesto con id : " + dto.getIdPresupuesto()  + 
 								" asociado con exito al cliente con id:  " + ((ClienteDTO) getComboBoxClientesExistentes().getSelectedItem()).getIdCliente());
 						closeWindow();
 					}
