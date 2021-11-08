@@ -41,7 +41,10 @@ public class ProductoController {
 		this.model = m;
 		initView();
 	}
-	
+	public ProductoController(ProductoModel m, VistaCrearPedido v, boolean noInit) {
+		this.vistaPedido = v;
+		this.model = m;
+	}
 	public void initView() {
 		vistaPedido.setVisible(true);
 		vistaPedido.setLocationRelativeTo(null);
@@ -210,10 +213,15 @@ public class ProductoController {
 	}
 
 	public boolean crearPedido() {
-		List<AddProductoDTO> lista = new ArrayList<AddProductoDTO>();
+		ArrayList<AddProductoDTO> lista = new ArrayList<AddProductoDTO>();
 		for (int i=0; i < vistaPedido.getListProductosAñadidos().getModel().getSize();i++)
 			lista.add((AddProductoDTO) vistaPedido.getListProductosAñadidos().getModel().getElementAt(i));
 		
+		return crearPedido(lista);
+	}
+	
+	public boolean crearPedido(ArrayList<AddProductoDTO> lista)
+	{
 		int idPedidoCreado = model.crearPedido();
 		for (int i=0; i < lista.size();i++) {
 			model.crearRepuesto(idPedidoCreado, lista.get(i).getProd().getId(), lista.get(i).getnUnidades());

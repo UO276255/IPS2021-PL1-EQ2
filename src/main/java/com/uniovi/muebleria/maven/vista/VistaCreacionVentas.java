@@ -7,9 +7,12 @@ import javax.swing.border.EmptyBorder;
 
 import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
+import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
+import com.uniovi.muebleria.maven.modelo.producto.AddProductoDTO;
+import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 
 import javax.swing.BoxLayout;
@@ -22,6 +25,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -96,11 +100,12 @@ public class VistaCreacionVentas extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTAS);
 					PresupuestoController controllerP = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_VENTAS);
+					ProductoController prodController = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_PEDIDO, false);
 					PresupuestoVentaDTO dto = (PresupuestoVentaDTO) getComboBoxPresupuestoSinAceptar().getSelectedItem();
 					controllerP.removePresupuesto(dto.getIdPresupuesto());
-					controller.cearVenta((new Date(System.currentTimeMillis())),dto.getPrecio(),dto.getIdPresupuesto());
-					
-					JOptionPane.showMessageDialog(null,"La venta se ha creado con exito");
+					ArrayList<AddProductoDTO> listaProd = controller.crearVenta((new Date(System.currentTimeMillis())),dto.getPrecio(),dto.getIdPresupuesto());
+					prodController.crearPedido(listaProd);
+					JOptionPane.showMessageDialog(null,"La venta se ha creado con exito y se han actualizado los productos en los almacenes");
 					closeWindow();
 				}
 			});

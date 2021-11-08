@@ -35,6 +35,10 @@ public class VentaModel {
 			+ "JOIN Productos prod ON sol.id_prod = prod.id_prod "
 			+ "WHERE id_pres = ? and id_prod=?";
 	
+	public static final String SQL_VENTA = "SELECT * FROM Venta WHERE Id_Venta = ?";
+	public static final String SQL_ALMACEN_VENTAS = "UPDATE Registrado SET cantidad = ? WHERE Id_Almacen=? AND Id_Prod=?";
+	public static final String SQL_CANT_PROD_ALM = "SELECT Cantidad FROM Registrado WHERE Id_Almacen=? AND Id_Prod=?";
+	
 	public VentaModel() {
 		
 	}
@@ -53,9 +57,10 @@ public class VentaModel {
 		return listaProductos;
 	}
 	
-	public void CrearVenta(Date fecha,int precio,int idPresupuesto) {
+	public int CrearVenta(Date fecha,int precio,int idPresupuesto) {
 		int id = contarVentas() + 1;
-		db.CrearVenta(SQL_CREAR_VENTA,id,fecha,precio,idPresupuesto);	
+		db.CrearVenta(SQL_CREAR_VENTA,id,fecha,precio,idPresupuesto);
+		return id;
 	}
 	
 	public int contarVentas() {
@@ -89,6 +94,20 @@ public class VentaModel {
 			arrayProductos[i] = listProductos.get(i);
 		}
 		return arrayProductos;
+	}
+
+	public VentaDTO getVenta(int idVenta) {
+		VentaDTO venta = db.getVenta(SQL_VENTA, idVenta);
+		return venta;
+	}
+
+	public int actualizaAlmacen(ProductoDTO producto, int idAlmacen) {
+		int cantidad = db.getCantidadProdAlmacen(SQL_CANT_PROD_ALM, idAlmacen, producto.getId());
+		cantidad--;
+		if (cantidad < 0)
+			return 1;
+		db.actualizaAlmacen(SQL_ALMACEN_VENTAS, idAlmacen, producto.getId(), cantidad);
+		return 0;
 	}
 	
 	

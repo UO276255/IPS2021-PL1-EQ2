@@ -1,10 +1,13 @@
 package com.uniovi.muebleria.maven.controlador.Venta;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
+import com.uniovi.muebleria.maven.modelo.producto.AddProductoDTO;
+import com.uniovi.muebleria.maven.modelo.producto.CrearProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.ProductoVentaDTO;
@@ -51,8 +54,23 @@ public class VentaController {
 		vistaFecha.getCbSeleccionarVenta().setModel(new DefaultComboBoxModel<VentaDTO>(arrayVentas));
 	}
 	
-	public void cearVenta(Date fecha,int precio,int idPresupuesto) {
-		model.CrearVenta(fecha,precio,idPresupuesto);
+	public ArrayList<AddProductoDTO> crearVenta(Date fecha,int precio,int idPresupuesto) {
+		int idVenta = model.CrearVenta(fecha,precio,idPresupuesto);
+		int idAlmacen = 1;
+		
+		VentaDTO venta = model.getVenta(idVenta);
+		ProductoDTO[] productos = getListaProductos(venta);
+		ArrayList<AddProductoDTO> listaProductosNueva = new ArrayList<AddProductoDTO>();
+		for (int i=0; i < productos.length;i++) {
+			if (model.actualizaAlmacen(productos[i], idAlmacen) > 0) {
+				AddProductoDTO nuevoProd = new AddProductoDTO(productos[i],1);
+				if (listaProductosNueva.contains(nuevoProd))
+					listaProductosNueva.get(listaProductosNueva.indexOf(nuevoProd)).addUnidades(1);
+				else
+					listaProductosNueva.add(nuevoProd);
+			}
+		}
+		return listaProductosNueva;
 	}
 	
 	public VentaDTO[] toArray(List<VentaDTO> listVentas) {
@@ -84,7 +102,7 @@ public class VentaController {
 		
 		if (hora.getTime()<horaEntrada.getTime() || hora.getTime() > horaSalida.getTime())
 			return false;
-		java.util.Date fecha = new java.util.Date(date.getYear(),date.getMonth(),date.getDay(), time.getHours(), time.getMinutes());
+		java.util.Date fecha = new java.util.Date(date.getYear(),date.getMonth(),date.getDate(), time.getHours(), time.getMinutes());
 		model.asignaFechaVentas(venta, fecha);
 		return true;
 	}

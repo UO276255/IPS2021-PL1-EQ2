@@ -211,6 +211,71 @@ public abstract class DbUtil {
 		return list;
 	}
 	
+	public VentaDTO getVenta(String sqlVenta, int idVenta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		VentaDTO venta = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlVenta);
+			pst.setInt(1, idVenta);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				venta = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return venta;
+	}
+
+	public int getCantidadProdAlmacen(String sql, int idAlmacen, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int cantidad = 0;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, idAlmacen);
+			pst.setInt(2, id);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				cantidad = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return cantidad;
+	}
+	
+	public void actualizaAlmacen(String sql, int idAlmacen, int id, int cantidad) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,cantidad);
+			pst.setInt(2,idAlmacen);
+			pst.setInt(3,  id);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+
+	
 	public ArrayList<PresupuestoDTO> recogerPresupuestos(String sql){
 		Connection c = null;
 		PreparedStatement pst = null;
@@ -1490,27 +1555,48 @@ public abstract class DbUtil {
 	public void crearRegistrado(String sql, int idProducto, int idAlmacen, int nUnidades) {
 		String sqlId = "SELECT MAX(Id_Reg) FROM Registrado";
 
+		String sqlExiste = "SELECT * FROM Registrado WHERE Id_Prod=? and Id_Almacen=?";
+		
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		int id=0;
 		try {
 			c = getConnection();
-			pst = c.prepareStatement(sqlId);
+			
+			pst = c.prepareStatement(sqlExiste);
+			pst.setInt(1, idProducto);
+			pst.setInt(2, idAlmacen);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				id = rs.getInt(1);
-				id++;
+				int cantidad = rs.getInt(4);
+				cantidad += nUnidades;
+				pst.close();
+				
+				String sqlUpdate = "UPDATE Registrado SET cantidad = ? WHERE  Id_Prod=? and Id_Almacen=?";
+				pst = c.prepareStatement(sqlUpdate);
+				pst.setInt(1, cantidad);
+				pst.setInt(2,  idProducto);
+				pst.setInt(3, idAlmacen);
+				pst.executeUpdate();
+				pst.close();
 			}
-			pst.close();
-			
-			pst = c.prepareStatement(sql);
-			pst.setInt(1, id);
-			pst.setInt(2, idProducto);
-			pst.setInt(3, idAlmacen);
-			pst.setInt(4, nUnidades);
-			pst.executeUpdate();
-		
+			else {
+				pst = c.prepareStatement(sqlId);
+				rs = pst.executeQuery();
+				if (rs.next()) {
+					id = rs.getInt(1);
+					id++;
+				}
+				pst.close();
+				
+				pst = c.prepareStatement(sql);
+				pst.setInt(1, id);
+				pst.setInt(2, idProducto);
+				pst.setInt(3, idAlmacen);
+				pst.setInt(4, nUnidades);
+				pst.executeUpdate();
+			}
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,"Error al consultar la BD");
 		}
