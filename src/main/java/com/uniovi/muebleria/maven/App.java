@@ -18,5 +18,9 @@ public class App
 			}
 		});
 		
+//		String texto="Saludos desde Apuntesdejava.com";
+//        String encriptMD5=DigestUtils.md5Hex(texto);
+//        System.out.println("md5:"+encriptMD5);
+		
     }
 }
