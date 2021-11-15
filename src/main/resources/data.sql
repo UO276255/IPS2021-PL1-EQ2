@@ -51,19 +51,14 @@ insert into proveedor(id_prov) values (1);
 insert into proveedor(id_prov) values (2);
 insert into proveedor(id_prov) values (3);
 insert into proveedor(id_prov) values (4);
-insert into proveedor(id_prov) values (5);
-insert into proveedor(id_prov) values (6);
 
 insert into pedido (id_pedido,estado,id_prov) values (1,0,1);
 insert into pedido (id_pedido,estado,id_prov) values (2,0,1);
 insert into pedido (id_pedido,estado,id_prov) values (3,0,1);
 insert into pedido (id_pedido,estado,id_prov) values (4,0,2);
 insert into pedido (id_pedido,estado,id_prov) values (5,0,2);
-insert into pedido (id_pedido,estado,id_prov) values (6,0,2);
-insert into pedido (id_pedido,estado,id_prov) values (7,0,3);
-insert into pedido (id_pedido,estado,id_prov) values (8,0,3);
-insert into pedido (id_pedido,estado,id_prov) values (9,0,4);
-insert into pedido (id_pedido,estado,id_prov) values (10,0,4);
+insert into pedido (id_pedido,estado,id_prov) values (6,0,3);
+insert into pedido (id_pedido,estado,id_prov) values (7,0,4);
 
 insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (1,1,123,0,0);
 insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (2,1,95,0,0);
@@ -86,6 +81,14 @@ insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (7,3,2
 insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (8,4,105,8);
 insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (9,4,45,10);
 insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (10,5,32,4);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (11,5,124,2);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (12,5,140,1);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (13,6,123,4);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (14,6,124,5);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (15,6,105,7);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (16,7,150,2);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (17,7,140,3);
+insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (18,7,111,1);
 
 insert into Registrado(Id_reg,Id_prod,Id_almacen,cantidad) values (1,123,1,5);
 insert into Registrado(Id_reg,Id_prod,Id_almacen,cantidad) values (2,150,1,4);

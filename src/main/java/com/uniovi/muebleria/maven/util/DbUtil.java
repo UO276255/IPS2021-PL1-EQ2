@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
@@ -565,7 +564,7 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public int recogerMaxValorIdProv(String sqlMaximoId) {
+	public int recogerMaxValorIdPedido(String sqlMaximoId) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -1439,6 +1438,51 @@ public abstract class DbUtil {
 		
 	}
 
+	public void añadirAlmacen(String sqlAñadeProductos, ProductoDTO producto, int num) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlAñadeProductos);
+			
+			pst.setInt(1,getCantidadDeProducto(producto.getId()) + num);
+			pst.setInt(2,producto.getId());	
+			
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	private int getCantidadDeProducto(int cant) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement("SELECT cantidad FROM Registrado where id_prod = ?");
+			pst.setInt(1, cant);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
 
 	public void añadirTransportista(String sqlAñadirTransp, int id, String nombre, int numero_tel, Time hora_entrada,
 			Time hora_salida, String apellido, String DNI, String usuario, String contraseña) {
