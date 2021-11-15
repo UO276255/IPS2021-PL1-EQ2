@@ -29,6 +29,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JFormattedTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.SwingConstants;
+import javax.swing.ListSelectionModel;
+import javax.swing.ListModel;
+import javax.swing.border.BevelBorder;
 
 public class VistaCrearPresupuesto extends JFrame {
 
@@ -62,7 +69,12 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JComboBox<String> comboBoxCategorias;
 	private JButton btnCancelar;
 	private JButton btnFiltrarProductos;
+	private ArrayList<Integer> uds;
+	private JFormattedTextField txUnidades;
+	private DefaultListModel<String> listUds = new DefaultListModel<String>();
+	private JLabel lbUds;
 
+	
 	/**
 	 * Create the frame.
 	 */
@@ -75,7 +87,7 @@ public class VistaCrearPresupuesto extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 759, 515);
+		setBounds(100, 100, 911, 535);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -83,6 +95,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		contentPane.setLayout(new CardLayout(0, 0));
 		contentPane.add(getPanelCrearPresupuesto(), "PanelPresupuestos");
 		contentPane.add(getPanelFiltrar(), "PanelFiltrar");
+		uds = new ArrayList<Integer>();
 	}
 
 	private JPanel getPanelCrearPresupuesto() {
@@ -101,6 +114,17 @@ public class VistaCrearPresupuesto extends JFrame {
 		
 			panelCrearPresupuesto.add(getLblCoste());
 			panelCrearPresupuesto.add(getBtnFiltrar());
+			
+			JLabel lbUnidades = new JLabel("UNIDADES");
+			lbUnidades.setHorizontalAlignment(SwingConstants.CENTER);
+			lbUnidades.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lbUnidades.setBounds(378, 153, 89, 34);
+			panelCrearPresupuesto.add(lbUnidades);
+			panelCrearPresupuesto.add(getTxUnidades());
+	//		panelCrearPresupuesto.add(getListUds());
+			panelCrearPresupuesto.add(getLbUds());
+			
+			
 		}
 		return panelCrearPresupuesto;
 	}
@@ -112,10 +136,11 @@ public class VistaCrearPresupuesto extends JFrame {
 		}
 		return scrollPaneProductos;
 	}
+
 	private JScrollPane getScrollPanePresupuesto() {
 		if (scrollPanePresupuesto == null) {
 			scrollPanePresupuesto = new JScrollPane();
-			scrollPanePresupuesto.setBounds(375, 88, 322, 273);
+			scrollPanePresupuesto.setBounds(485, 88, 322, 273);
 			scrollPanePresupuesto.setViewportView(getListPresupuesto());
 		}
 		return scrollPanePresupuesto;
@@ -123,12 +148,18 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JButton getBtnAñadirPresupuesto() {
 		if (btnAñadirPresupuesto == null) {
 			btnAñadirPresupuesto = new JButton("Añadir");
+			btnAñadirPresupuesto.setBackground(new Color(173, 255, 47));
+			btnAñadirPresupuesto.setFont(new Font("Tahoma", Font.BOLD, 11));
 			btnAñadirPresupuesto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
 					for (int i=0;i<getListProductos().getSelectedValuesList().size();i++) {
 						modeloListPresupuesto.addElement(getListProductos().getSelectedValuesList().get(i));
-						sumarPrecio(controller.getPrecioProducto(getListProductos().getSelectedValuesList().get(i).getId()));
+						uds.add(Integer.valueOf(getTxUnidades().getText()));
+						listUds.addElement(Integer.valueOf(getTxUnidades().getText()) + "uds");
+						for (int j=0; j<Integer.valueOf(getTxUnidades().getText());j++) {
+							sumarPrecio(controller.getPrecioProducto(getListProductos().getSelectedValuesList().get(i).getId()));
+						}
 					}
 				}
 			});
@@ -139,16 +170,27 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JButton getBtnRetirarPresupuesto() {
 		if (btnRetirarPresupuesto == null) {
 			btnRetirarPresupuesto = new JButton("Retirar");
+			btnRetirarPresupuesto.setBackground(new Color(250, 128, 114));
+			btnRetirarPresupuesto.setFont(new Font("Tahoma", Font.BOLD, 11));
 			btnRetirarPresupuesto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
 					for (int i=0;i<getListPresupuesto().getSelectedValuesList().size();i++) {
-						modeloListPresupuesto.removeElement(getListPresupuesto().getSelectedValuesList().get(i));
-						restarPrecio(controller.getPrecioProducto(getListProductos().getSelectedValuesList().get(i).getId()));
+						if (uds.get(i) <= Integer.valueOf(getTxUnidades().getText())) {
+							modeloListPresupuesto.removeElement(getListPresupuesto().getSelectedValuesList().get(i));
+							uds.remove(Integer.valueOf(getTxUnidades().getText()));
+						}
+						else {
+							uds.set(i, uds.get(i) - Integer.valueOf(getTxUnidades().getText()));
+						}
+						
+						for (int j=0; j<Integer.valueOf(getTxUnidades().getText());j++) {
+							restarPrecio(controller.getPrecioProducto(getListProductos().getSelectedValuesList().get(i).getId()));
+						}
 					}
 				}
 			});
-			btnRetirarPresupuesto.setBounds(375, 372, 322, 23);
+			btnRetirarPresupuesto.setBounds(485, 372, 322, 23);
 		}
 		return btnRetirarPresupuesto;
 	}
@@ -162,13 +204,15 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JLabel getLblPresupuesto() {
 		if (lblPresupuesto == null) {
 			lblPresupuesto = new JLabel("Productos del presupuesto:");
-			lblPresupuesto.setBounds(375, 63, 322, 14);
+			lblPresupuesto.setBounds(485, 63, 322, 14);
 		}
 		return lblPresupuesto;
 	}
 	private JButton getBtnCreaPresupuesto() {
 		if (btnCreaPresupuesto == null) {
 			btnCreaPresupuesto = new JButton("Crear presupuesto");
+			btnCreaPresupuesto.setBackground(Color.GREEN);
+			btnCreaPresupuesto.setFont(new Font("Tahoma", Font.BOLD, 12));
 			btnCreaPresupuesto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
@@ -207,6 +251,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		if (listProductos == null) {
 			modeloListProductos = new DefaultListModel<ProductoDTO>();
 			listProductos = new JList<ProductoDTO>(modeloListProductos);
+			listProductos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return listProductos;
 	}
@@ -214,6 +259,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		if (listPresupuesto == null) {
 			modeloListPresupuesto = new DefaultListModel<ProductoDTO>();
 			listPresupuesto = new JList<ProductoDTO>(modeloListPresupuesto);
+			listPresupuesto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return listPresupuesto;
 	}
@@ -366,5 +412,26 @@ public class VistaCrearPresupuesto extends JFrame {
 		categorias[3] = "mesa";
 		categorias[4] = "estanteria";
 		getComboBoxCategorias().setModel(new DefaultComboBoxModel<String>(categorias));
+	}
+	private JFormattedTextField getTxUnidades() {
+		if (txUnidades == null) {
+			txUnidades = new JFormattedTextField(new Integer(0));
+			txUnidades.setFont(new Font("Tahoma", Font.BOLD, 14));
+			txUnidades.setHorizontalAlignment(SwingConstants.CENTER);
+			txUnidades.setBackground(new Color(250, 235, 215));
+			txUnidades.setBounds(378, 189, 89, 29);
+		}
+		return txUnidades;
+	}
+	private DefaultListModel<String> getListUds() {
+
+		return listUds;
+	}
+	private JLabel getLbUds() {
+		if (lbUds == null) {
+			lbUds = new JLabel("Uds:");
+			lbUds.setBounds(819, 63, 46, 14);
+		}
+		return lbUds;
 	}
 }
