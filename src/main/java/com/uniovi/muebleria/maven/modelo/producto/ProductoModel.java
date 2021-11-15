@@ -60,7 +60,7 @@ private Database db = new Database();
 	}
 
 	public int getMaxId() {
-		return db.recogerMaxValorIdProv(SQL_MAXIMO_ID);
+		return db.recogerMaxValorIdPedido(SQL_MAXIMO_ID);
 	}
 	
 	public List<ProductoDTO> getProductos(){

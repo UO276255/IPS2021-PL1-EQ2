@@ -196,7 +196,7 @@ public class VistaMuebleria extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				PedidoController controller = new PedidoController(new PedidoModel(), VIEW_SEGUIMIENTO);
 				controller.initView();
-				VIEW_SEGUIMIENTO.getSpinnerIdProd().setModel(new SpinnerNumberModel(1, 1, VIEW_SEGUIMIENTO.getMaxIdProv(), 1));
+				VIEW_SEGUIMIENTO.getSpinnerIdPed().setModel(new SpinnerNumberModel(1, 1, VIEW_SEGUIMIENTO.getMaxIdPedido(), 1));
 			}
 		});
 		PanelBotones.add(btnSeguimientoPedido);
