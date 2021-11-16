@@ -15,6 +15,7 @@ import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.vista.VistaCreacionVentas;
 import com.uniovi.muebleria.maven.vista.VistaDeterminaFecha;
+import com.uniovi.muebleria.maven.vista.VistaEntregarPedido;
 import com.uniovi.muebleria.maven.vista.VistaHistorial;
 
 public class VentaController {
@@ -24,6 +25,7 @@ public class VentaController {
 	private VistaCreacionVentas vistaVenta;
 	private VentaModel model;
 	private VistaHistorial vistaHistorial;
+	private VistaEntregarPedido vistaEntregarPedido;
 	
 	public VentaController(VentaModel m, VistaDeterminaFecha v) {
 		this.vistaFecha = v;
@@ -41,6 +43,11 @@ public class VentaController {
 		this.model = m;
 	}
 	
+	public VentaController(VentaModel m, VistaEntregarPedido v) {
+		this.vistaEntregarPedido = v;
+		this.model = m;
+	}
+	
 	public void initView() {
 		vistaFecha.setVisible(true);
 		vistaFecha.setLocationRelativeTo(null);
@@ -52,6 +59,13 @@ public class VentaController {
 		List<VentaDTO> listVentas = model.getListaVentas();
 		VentaDTO[] arrayVentas = toArray(listVentas);
 		vistaFecha.getCbSeleccionarVenta().setModel(new DefaultComboBoxModel<VentaDTO>(arrayVentas));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void getListaVentasConTransporte() {
+		List<VentaDTO> listVentas = model.getListaVentasConTransporte();
+		VentaDTO[] arrayVentas = toArray(listVentas);
+		vistaEntregarPedido.getListVentas().setModel(new DefaultComboBoxModel<VentaDTO>(arrayVentas));
 	}
 	
 	public ArrayList<AddProductoDTO> crearVenta(Date fecha,int precio,int idPresupuesto) {
@@ -117,6 +131,14 @@ public class VentaController {
 		
 		
 	}
+	
+	public void initViewEntregaPedido() {
+		vistaEntregarPedido.setVisible(true);
+		vistaEntregarPedido.setLocationRelativeTo(null);
+		getListaVentasConTransporte();
+		
+		
+	}
 
 	@SuppressWarnings("unchecked")
 	public void historialVentas(java.util.Date date, java.util.Date date2) {
@@ -129,9 +151,6 @@ public class VentaController {
 				ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[j]);
 				prodVenta.setNumUnidades(model.contarUnidades(arrayVentas[i].getId_pres(), productos[j].getId()));
 				arrayProdVentas[j] = prodVenta;
-//				if (productos[i].getMontaje())
-//					arrayVentas[i].setPrecio(arrayVentas[i].getPrecio()+5);
-//			}
 			}
 		}
 		

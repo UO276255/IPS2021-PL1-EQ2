@@ -63,12 +63,13 @@ public class ProductoPresupuestoController {
 		return model.idSolicitud();
 	}
 
-	public void crearSolicitudes(int idPres, ProductoDTO[] ListProductos) {
-		for (ProductoDTO producto : ListProductos) {
-			if(model.existeIdProdIdPres(idPres, producto.getId())) {
+	public void crearSolicitudes(int idPres, ProductoDTO[] ListProductos, int[] unidades) {
+		for (int i=0; i<ListProductos.length;i++) {
+			if(model.existeIdProdIdPres(idPres, ListProductos[i].getId())) {
 				//model.actualizaNumProdIdSol(idPres, producto.getId());
 			}else {
-				model.crearSolicitudes(getIdSolicitud()+1, idPres, producto);
+				for (int j=0; j<unidades[i];j++)
+					model.crearSolicitudes(getIdSolicitud()+1, idPres, ListProductos[i]);
 			}
 		}
 	}

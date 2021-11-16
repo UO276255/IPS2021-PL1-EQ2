@@ -73,6 +73,8 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JFormattedTextField txUnidades;
 	private DefaultListModel<String> listUds = new DefaultListModel<String>();
 	private JLabel lbUds;
+	private JList<String> listUnidades;
+	private int numOfProducts;
 
 	
 	/**
@@ -84,6 +86,8 @@ public class VistaCrearPresupuesto extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				inicializar();
 				modeloListProductos.clear();
+				listUnidades.removeAll();
+				listUds.clear();
 			}
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -96,6 +100,8 @@ public class VistaCrearPresupuesto extends JFrame {
 		contentPane.add(getPanelCrearPresupuesto(), "PanelPresupuestos");
 		contentPane.add(getPanelFiltrar(), "PanelFiltrar");
 		uds = new ArrayList<Integer>();
+		numOfProducts = 0;
+
 	}
 
 	private JPanel getPanelCrearPresupuesto() {
@@ -121,8 +127,8 @@ public class VistaCrearPresupuesto extends JFrame {
 			lbUnidades.setBounds(378, 153, 89, 34);
 			panelCrearPresupuesto.add(lbUnidades);
 			panelCrearPresupuesto.add(getTxUnidades());
-	//		panelCrearPresupuesto.add(getListUds());
 			panelCrearPresupuesto.add(getLbUds());
+			panelCrearPresupuesto.add(getListUnidades());
 			
 			
 		}
@@ -155,6 +161,7 @@ public class VistaCrearPresupuesto extends JFrame {
 					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
 					for (int i=0;i<getListProductos().getSelectedValuesList().size();i++) {
 						modeloListPresupuesto.addElement(getListProductos().getSelectedValuesList().get(i));
+						numOfProducts++;
 						uds.add(Integer.valueOf(getTxUnidades().getText()));
 						listUds.addElement(Integer.valueOf(getTxUnidades().getText()) + "uds");
 						for (int j=0; j<Integer.valueOf(getTxUnidades().getText());j++) {
@@ -176,18 +183,34 @@ public class VistaCrearPresupuesto extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
 					for (int i=0;i<getListPresupuesto().getSelectedValuesList().size();i++) {
-						if (uds.get(i) <= Integer.valueOf(getTxUnidades().getText())) {
+						int id =controller.getPrecioProducto(getListPresupuesto().getSelectedValuesList().get(i).getId());
+						int index = indexOf(getListPresupuesto().getSelectedValuesList().get(i));
+						int dif = 0;
+						if (uds.get(index) <= Integer.valueOf(getTxUnidades().getText())) {
+							dif = Integer.valueOf(getTxUnidades().getText()) - uds.get(index);
 							modeloListPresupuesto.removeElement(getListPresupuesto().getSelectedValuesList().get(i));
-							uds.remove(Integer.valueOf(getTxUnidades().getText()));
+							numOfProducts--;
+							uds.remove(index);
+							listUds.remove(index);
 						}
 						else {
-							uds.set(i, uds.get(i) - Integer.valueOf(getTxUnidades().getText()));
+							listUds.set(index, (uds.get(index) - Integer.valueOf(getTxUnidades().getText())) + " uds");
+							uds.set(index, uds.get(index) - Integer.valueOf(getTxUnidades().getText()));												
 						}
-						
+						for (int x=0; x<dif;x++)
+							sumarPrecio(id);
 						for (int j=0; j<Integer.valueOf(getTxUnidades().getText());j++) {
-							restarPrecio(controller.getPrecioProducto(getListProductos().getSelectedValuesList().get(i).getId()));
+							restarPrecio(id);
 						}
 					}
+				}
+
+				private int indexOf(ProductoDTO productoDTO) {
+					for (int i=0; i<numOfProducts;i++) {
+						if (getListPresupuesto().getModel().getElementAt(i) == productoDTO)
+							return i;
+					}
+					return -1;
 				}
 			});
 			btnRetirarPresupuesto.setBounds(485, 372, 322, 23);
@@ -221,7 +244,8 @@ public class VistaCrearPresupuesto extends JFrame {
 					for(int i=0; i<modeloListPresupuesto.getSize(); i++) {
 						productos.add(modeloListPresupuesto.getElementAt(i));
 					}
-					controller.crearSolicitudes(controller.getIdPres(), toArray(productos));
+					
+					controller.crearSolicitudes(controller.getIdPres(), toArray(productos), toArrayUds(uds));
 					JOptionPane.showMessageDialog(null, "Se ha creado el presupuesto de id: " + controller.getIdPres());
 					inicializar();
 				}
@@ -274,7 +298,10 @@ public class VistaCrearPresupuesto extends JFrame {
 	
 	public void restarPrecio(int prod) {
 		int actual = Integer.parseInt(textCoste.getText());
-		textCoste.setText("" + (actual - prod));
+		if (actual - prod <= 0)
+			textCoste.setText("0");
+		else
+			textCoste.setText("" + (actual - prod));
 	}
 	
 	private ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
@@ -285,8 +312,18 @@ public class VistaCrearPresupuesto extends JFrame {
 		return arrayProductos;
 	}
 	
+	private int[] toArrayUds(ArrayList<Integer> listUds) {
+		int[] arrayUds = new int[listUds.size()];
+		for(int i=0;i<listUds.size();i++) {
+			arrayUds[i] = listUds.get(i);
+		}
+		return arrayUds;
+	}
+	
 	private void inicializar() {
 		modeloListPresupuesto.clear();
+		listUds.clear();
+		listUnidades.removeAll();
 		getTextCoste().setText("0");
 	}
 	private JPanel getPanelFiltrar() {
@@ -423,15 +460,23 @@ public class VistaCrearPresupuesto extends JFrame {
 		}
 		return txUnidades;
 	}
-	private DefaultListModel<String> getListUds() {
 
-		return listUds;
-	}
 	private JLabel getLbUds() {
 		if (lbUds == null) {
 			lbUds = new JLabel("Uds:");
 			lbUds.setBounds(819, 63, 46, 14);
 		}
 		return lbUds;
+	}
+	private JList<String> getListUnidades() {
+		if (listUnidades == null) {
+			listUds = new DefaultListModel<String>();
+			listUds.removeAllElements();
+			listUnidades = new JList<String>(listUds);
+			listUnidades.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			listUnidades.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			listUnidades.setBounds(817, 89, 48, 271);
+		}
+		return listUnidades;
 	}
 }

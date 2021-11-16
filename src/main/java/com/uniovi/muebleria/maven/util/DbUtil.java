@@ -210,6 +210,30 @@ public abstract class DbUtil {
 		return list;
 	}
 	
+	public ArrayList<VentaDTO> recogerVentasTransporte(String sql){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		VentaDTO tra = null;
+		ArrayList<VentaDTO> list = new ArrayList<VentaDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				list.add(tra);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+	
 	public VentaDTO getVenta(String sqlVenta, int idVenta) {
 		Connection c = null;
 		PreparedStatement pst = null;

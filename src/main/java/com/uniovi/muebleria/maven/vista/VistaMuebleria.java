@@ -51,6 +51,7 @@ public class VistaMuebleria extends JFrame {
 	public static final VistaAlmacenes VIEW_ALMACEN = new VistaAlmacenes();
 	public static final VistaCrearPresupuesto VIEW_PRODPRES = new VistaCrearPresupuesto();
 	public static final VistaCrearEmpleado VIEW_CREAR_EMPLEADO = new VistaCrearEmpleado();
+	public static final VistaEntregarPedido VIEW_ENTREGAR_PEDIDO = new VistaEntregarPedido();
 
 	public static final VistaCrearPedido VIEW_PEDIDO = new VistaCrearPedido();
 
@@ -220,6 +221,16 @@ public class VistaMuebleria extends JFrame {
 				ProductoController controller = new ProductoController(new ProductoModel(), VIEW_PEDIDO);
 			}
 		});
+		
+		JButton btnNewButton = new JButton("Entregar Pedido");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentaController controller = new VentaController(new VentaModel(), VIEW_ENTREGAR_PEDIDO);
+				controller.initViewEntregaPedido();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		PanelBotones.add(btnNewButton);
 		btCrearPedido.setFont(new Font("Tahoma", Font.BOLD, 12));
 		PanelBotones.add(btCrearPedido);
 		

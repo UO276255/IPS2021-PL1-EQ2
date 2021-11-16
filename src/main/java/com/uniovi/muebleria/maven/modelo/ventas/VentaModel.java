@@ -36,6 +36,7 @@ public class VentaModel {
 			+ "WHERE id_pres = ? and id_prod=?";
 	
 	public static final String SQL_VENTA = "SELECT * FROM Venta WHERE Id_Venta = ?";
+	public static final String SQL_VENTAS_TRP = "SELECT * FROM Venta WHERE transporte = 1";
 	public static final String SQL_ALMACEN_VENTAS = "UPDATE Registrado SET cantidad = ? WHERE Id_Almacen=? AND Id_Prod=?";
 	public static final String SQL_CANT_PROD_ALM = "SELECT Cantidad FROM Registrado WHERE Id_Almacen=? AND Id_Prod=?";
 	
@@ -45,6 +46,10 @@ public class VentaModel {
 	
 	public List<VentaDTO> getListaVentas(){
 		return db.recogerVentas(SQL_VENTAS);
+	}
+	
+	public List<VentaDTO> getListaVentasConTransporte(){
+		return db.recogerVentasTransporte(SQL_VENTAS_TRP);
 	}
 
 	public ProductoDTO[] getListaProductos(int id_pres, boolean conTransporte) {
