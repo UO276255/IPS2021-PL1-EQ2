@@ -6,10 +6,10 @@ import javax.swing.border.EmptyBorder;
 
 import com.uniovi.muebleria.maven.controlador.PersonalAlmacen.PersonalAlmacenController;
 import com.uniovi.muebleria.maven.controlador.Vendedor.VendedorController;
-import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
+import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.PersonalAlmacen.PersonalAlmacenModel;
 import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorModel;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
+import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
 
 import java.awt.Color;
 import javax.swing.JLabel;

@@ -1,4 +1,4 @@
-package com.uniovi.muebleria.maven.modelo.transportista;
+package com.uniovi.muebleria.maven.modelo.empleado;
 
 import java.sql.Time;
 import java.util.List;
@@ -9,23 +9,25 @@ public class TransportistaModel {
 	
 	private Database db = new Database();
 	
-	private static final String SQL_TRABAJADORES = "SELECT * FROM Transportista";
+	private static final String SQL_TRANSPORTISTAS = "SELECT * FROM Transportista";
 	private static final String SQL_VENTAS = "SELECT * FROM Venta";
-	private static final String SQL_ASIGNAR = "UPDATE Venta set id_transp = ?";
+	private static final String SQL_ASIGNAR = "UPDATE Venta set id_transp = ? where id_venta = ?";
+	private static final String SQL_ACTUALIZA = "UPDATE Venta set transporte = 1 where id_venta = ?";
 	private static final String SQL_ID_TRANSP = "SELECT id_transp FROM Venta WHERE id_venta = ?";
 	public static final String SQL_CONTAR_TRANSPORTISTAS = "SELECT count(*) FROM Transportista";
 	private static final String SQL_AÑADIR_TRANSP ="insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida,Apellido,DNI,Usuario,Contraseña) values (?,?,?,?,?,?,?,?,?)";
 	
-	public List<TransportistaDTO> getListaTransportistas(){
-		return db.recogerTransportistas(SQL_TRABAJADORES);
+	public List<EmpleadoDTO> getListaTransportistas(){
+		return db.recogerEmpleados(SQL_TRANSPORTISTAS);
 	}
 	
 	public List<VentaDTO> getListaVentas(){
 		return db.recogerVentas(SQL_VENTAS);
 	}
 
-	public void asignaTransportista(int idTransp) {
-		db.asignaTransportistaVenta(SQL_ASIGNAR, idTransp);
+	public void asignaTransportista(int idTransp, int idVenta) {
+		db.asignaTransportistaVenta(SQL_ASIGNAR, idTransp, idVenta);
+		db.actualiceTransporteVenta(SQL_ACTUALIZA, idVenta);
 	}
 
 	public int getIdTransp(int idVenta) {

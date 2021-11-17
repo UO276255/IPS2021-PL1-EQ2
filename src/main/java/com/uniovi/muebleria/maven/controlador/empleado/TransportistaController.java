@@ -1,12 +1,12 @@
-package com.uniovi.muebleria.maven.controlador.transportista;
+package com.uniovi.muebleria.maven.controlador.empleado;
 
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
+import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
 
@@ -40,9 +40,9 @@ public class TransportistaController {
 	}
 	
 	public void getListaTransportistas() {
-		List<TransportistaDTO> listTransportistas = model.getListaTransportistas();
-		TransportistaDTO[] arrayTransportistas = toArray(listTransportistas);
-		vista.getComboBoxListaTransportistas().setModel(new DefaultComboBoxModel<TransportistaDTO>(arrayTransportistas));
+		List<EmpleadoDTO> listTransportistas = model.getListaTransportistas();
+		EmpleadoDTO[] arrayTransportistas = toArray(listTransportistas);
+		vista.getComboBoxListaTransportistas().setModel(new DefaultComboBoxModel<EmpleadoDTO>(arrayTransportistas));
 	}
 	
 	public void getListaVentas() {
@@ -51,15 +51,15 @@ public class TransportistaController {
 		vista.getComboBoxListaVentas().setModel(new DefaultComboBoxModel<VentaDTO>(arrayVentas));
 	}
 	
-	public TransportistaDTO[] toArray(List<TransportistaDTO> listTransportistas) {
-		TransportistaDTO[] arrayTransportistas = new TransportistaDTO[listTransportistas.size()];
+	public EmpleadoDTO[] toArray(List<EmpleadoDTO> listTransportistas) {
+		EmpleadoDTO[] arrayTransportistas = new EmpleadoDTO[listTransportistas.size()];
 		for(int i=0;i<listTransportistas.size();i++) {
 			arrayTransportistas[i] = listTransportistas.get(i);
 		}
 		return arrayTransportistas;
 	}
 	
-	public VentaDTO[] toArrayVentas(List<VentaDTO> listVenta) {
+	private VentaDTO[] toArrayVentas(List<VentaDTO> listVenta) {
 		VentaDTO[] arrayVentas = new VentaDTO[listVenta.size()];
 		for(int i=0;i<listVenta.size();i++) {
 			arrayVentas[i] = listVenta.get(i);
@@ -67,8 +67,8 @@ public class TransportistaController {
 		return arrayVentas;
 	}
 
-	public void asignaTransportista(int idTransp) {
-		model.asignaTransportista(idTransp);
+	public void asignaTransportista(int idTransp, int idVenta) {
+		model.asignaTransportista(idTransp, idVenta);
 	}
 
 	public int getTransportistaPorVenta(int idVenta) {

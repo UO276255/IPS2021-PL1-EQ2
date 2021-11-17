@@ -20,12 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 
+import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
-import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
+import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import java.awt.Cursor;
 import java.awt.Color;
@@ -37,7 +37,8 @@ public class VistaAsignaTransporte extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private TransportistaDTO transpElegido;
+	private EmpleadoDTO transpElegido;
+	private VentaDTO ventaElegida;
 	private JPanel panelGeneral;
 	private DefaultListModel<ProductoDTO> modeloListRecoger = new DefaultListModel<ProductoDTO>();
 	private DefaultListModel<ProductoDTO> modeloListTransp = new DefaultListModel<ProductoDTO>();
@@ -45,7 +46,7 @@ public class VistaAsignaTransporte extends JFrame{
 	private DefaultListModel<ProductoDTO> modeloListNoMontar = new DefaultListModel<ProductoDTO>();
 	private JPanel panelInicial;
 	private JPanel panelTransportados;
-	private JComboBox<TransportistaDTO> comboBoxListaTransportistas;
+	private JComboBox<EmpleadoDTO> comboBoxListaTransportistas;
 	private JButton btnAceptaTransp;
 	private JLabel lblRecoger;
 	private JButton btnParaTransportar;
@@ -122,9 +123,9 @@ public class VistaAsignaTransporte extends JFrame{
 		}
 		return panelTransportados;
 	}
-	public JComboBox<TransportistaDTO> getComboBoxListaTransportistas() {
+	public JComboBox<EmpleadoDTO> getComboBoxListaTransportistas() {
 		if (comboBoxListaTransportistas == null) {
-			comboBoxListaTransportistas = new JComboBox<TransportistaDTO>();
+			comboBoxListaTransportistas = new JComboBox<EmpleadoDTO>();
 			comboBoxListaTransportistas.setBounds(20, 91, 703, 22);
 		}
 		return comboBoxListaTransportistas;
@@ -144,7 +145,8 @@ public class VistaAsignaTransporte extends JFrame{
 					for (int i=0;i<productosMon.length;i++) {
 						addModeloListProdMontar(productosMon[i]);						
 					}
-					setTransportista((TransportistaDTO) getComboBoxListaTransportistas().getSelectedItem());
+					setTransportista((EmpleadoDTO) getComboBoxListaTransportistas().getSelectedItem());
+					setVenta((VentaDTO) getComboBoxListaVentas().getSelectedItem());
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 					c.show(getPanelGeneral(), "PanelMontados");
 				}
@@ -397,7 +399,7 @@ public class VistaAsignaTransporte extends JFrame{
 			btnFinalizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					TransportistaController controller = new TransportistaController(new TransportistaModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					controller.asignaTransportista(getTransportista().getIdTransp());
+					controller.asignaTransportista(getTransportista().getIdTransp(), getVenta().getId_venta());
 					JOptionPane.showMessageDialog(null, "Se ha seleccionado al transportista: " 
 								+ transpElegido.getNombre()  +  " para la venta de id: "
 								+ ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
@@ -483,12 +485,20 @@ public class VistaAsignaTransporte extends JFrame{
 		return controller.getMaxId();
 	}
 	
-	public TransportistaDTO getTransportista() {
+	public EmpleadoDTO getTransportista() {
 		return transpElegido;
 	}
 	
-	public void setTransportista(TransportistaDTO transpElegido) {
+	public VentaDTO getVenta() {
+		return ventaElegida;
+	}
+	
+	public void setTransportista(EmpleadoDTO transpElegido) {
 		this.transpElegido = transpElegido;
+	}
+	
+	public void setVenta(VentaDTO ventaElegida) {
+		this.ventaElegida = ventaElegida;
 	}
 	private JLabel getLblVenta() {
 		if (lblVenta == null) {

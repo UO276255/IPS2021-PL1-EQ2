@@ -10,12 +10,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.AddProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.CrearProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.vista.VistaAlmacenes;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
 import com.uniovi.muebleria.maven.vista.VistaCrearPedido;

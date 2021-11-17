@@ -22,10 +22,10 @@ insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (6,84,0,to_date('2021-10-28','yyyy-mm-dd'),65842623);
 insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (7,140,1,to_date('2021-10-25','yyyy-mm-dd'),21489632);
 
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (1,'Juan',647571418,to_date('06:00','HH:MM'),to_date('18:00','HH:MM'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (2,'Lorena',642518935,to_date('07:00','HH:MM'),to_date('20:00','HH:MM'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (3,'Luis',639293514,to_date('08:00','HH:MM'),to_date('22:00','HH:MM'));
-insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida) values (4,'Victor',64918327,to_date('09:00','HH:MM'),to_date('23:59','HH:MM'));
+insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (1,'Juan','Fernández','54827144G',647571418,'JuanFer','1234',to_date('06:00','HH:MM'),to_date('18:00','HH:MM'),to_date('2022-04-12','yyyy-mm-dd'),to_date('2022-04-27','yyyy-mm-dd'));
+insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (2,'Lorena','Romero','46281747K',642518935,'LoreRome','1234',to_date('07:00','HH:MM'),to_date('20:00','HH:MM'),to_date('2022-07-01','yyyy-mm-dd'),to_date('2022-07-16','yyyy-mm-dd'));
+insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (3,'Luis','Torres','56938577Z',639293514,'LuisTor','1234',to_date('08:00','HH:MM'),to_date('22:00','HH:MM'),to_date('2022-08-15','yyyy-mm-dd'),to_date('2022-08-31','yyyy-mm-dd'));
+insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (4,'Victoria','Sánchez','42155995M',64918327,'VicSan','1234',to_date('09:00','HH:MM'),to_date('23:59','HH:MM'),to_date('2021-12-20','yyyy-mm-dd'),to_date('2022-01-04','yyyy-mm-dd'));
 
 insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5,null);
 insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) values (2,to_date('2021-09-28','yyyy-mm-dd'),140,0,7,null);
@@ -101,3 +101,13 @@ insert into Registrado(Id_reg,Id_prod,Id_almacen,cantidad) values (8,140,3,7);
 insert into Registrado(Id_reg,Id_prod,Id_almacen,cantidad) values (9,111,3,9);
 insert into Registrado(Id_reg,Id_prod,Id_almacen,cantidad) values (10,105,3,11);
 insert into Registrado(Id_reg,Id_prod,Id_almacen,cantidad) values (11,29,1,21);
+
+insert into Vendedor(Id_vendedor,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (1,'Alfonso','Gutierrez','28451263B',648182252,'AlfonGuti',1234,to_date('08:00','HH:MM'),to_date('14:00','HH:MM'),to_date('2022-04-12','yyyy-mm-dd'),to_date('2022-04-27','yyyy-mm-dd'));
+insert into Vendedor(Id_vendedor,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (2,'Julieta','Venegas','14852217C',614178923,'JuliVene',1234,to_date('08:00','HH:MM'),to_date('14:00','HH:MM'),to_date('2022-07-01','yyyy-mm-dd'),to_date('2022-07-16','yyyy-mm-dd'));
+insert into Vendedor(Id_vendedor,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (3,'Bruno','Gonsalves','35269686F',678495217,'BrunoGonsa',1234,to_date('15:00','HH:MM'),to_date('21:00','HH:MM'),to_date('2022-08-15','yyyy-mm-dd'),to_date('2022-08-31','yyyy-mm-dd'));
+insert into Vendedor(Id_vendedor,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (4,'Ruperta','Santos','35497124H',695839411,'RupeSantos',1234,to_date('15:00','HH:MM'),to_date('21:00','HH:MM'),to_date('2021-12-20','yyyy-mm-dd'),to_date('2022-01-04','yyyy-mm-dd'));
+
+insert into PersonalAlmacen(Id_perAlmacen,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (1,'Esteban','Costa','45426393N',645142796,'EsteCosta',1234,to_date('08:00','HH:MM'),to_date('14:00','HH:MM'),to_date('2022-04-12','yyyy-mm-dd'),to_date('2022-04-27','yyyy-mm-dd'));
+insert into PersonalAlmacen(Id_perAlmacen,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (2,'Rosa','López','42154484L',695839533,'RosaLopez',1234,to_date('08:00','HH:MM'),to_date('14:00','HH:MM'),to_date('2022-07-01','yyyy-mm-dd'),to_date('2022-07-16','yyyy-mm-dd'));
+insert into PersonalAlmacen(Id_perAlmacen,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (3,'Pablo','Duro','33584771P',662415157,'PabloDuro',1234,to_date('15:00','HH:MM'),to_date('21:00','HH:MM'),to_date('2022-08-15','yyyy-mm-dd'),to_date('2022-08-31','yyyy-mm-dd'));
+insert into PersonalAlmacen(Id_perAlmacen,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones) values (4,'Nuria','Álvarez','59194727O',665424965,'NuriaAlva',1234,to_date('15:00','HH:MM'),to_date('21:00','HH:MM'),to_date('2021-12-20','yyyy-mm-dd'),to_date('2022-01-04','yyyy-mm-dd'));

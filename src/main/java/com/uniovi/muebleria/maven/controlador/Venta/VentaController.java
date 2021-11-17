@@ -6,10 +6,10 @@ import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.AddProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.CrearProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.ProductoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
@@ -109,7 +109,7 @@ public class VentaController {
 	public boolean asignaFechaVenta(VentaDTO venta, java.util.Date date, java.util.Date time) {
 		java.util.Date horaEntrada = new java.util.Date(0,0,0,6,0);
 		java.util.Date horaSalida = new java.util.Date(0,0,0,14,0);
-		TransportistaDTO transp = model.getTransportista(venta.getIdTransp());
+		EmpleadoDTO transp = model.getTransportista(venta.getIdTransp());
 		horaEntrada = new java.util.Date(0,0,0,transp.getHorarioIn().getHours(),transp.getHorarioIn().getMinutes());
 		horaSalida = new java.util.Date(0,0,0,transp.getHorarioFin().getHours(),transp.getHorarioFin().getMinutes());
 		java.util.Date hora = new java.util.Date(0,0,0,time.getHours(), time.getMinutes());
@@ -121,7 +121,7 @@ public class VentaController {
 		return true;
 	}
 
-	public TransportistaDTO getTransportista(VentaDTO venta) {
+	public EmpleadoDTO getTransportista(VentaDTO venta) {
 		return model.getTransportista(venta.getIdTransp());
 	}
 

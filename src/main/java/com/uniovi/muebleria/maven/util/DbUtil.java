@@ -21,9 +21,9 @@ import javax.swing.JOptionPane;
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 
 public abstract class DbUtil {
@@ -139,19 +139,19 @@ public abstract class DbUtil {
 		}		
 	}
 	
-	public ArrayList<TransportistaDTO> recogerTransportistas(String sql){
+	public ArrayList<EmpleadoDTO> recogerEmpleados(String sql){
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		TransportistaDTO tra = null;
-		ArrayList<TransportistaDTO> list = new ArrayList<TransportistaDTO>();
+		EmpleadoDTO tra = null;
+		ArrayList<EmpleadoDTO> list = new ArrayList<EmpleadoDTO>();
 		
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new TransportistaDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getTime(4), rs.getTime(5));
+				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5),rs.getTime(8), rs.getTime(9));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -163,11 +163,11 @@ public abstract class DbUtil {
 		return list;
 	}
 	
-	public TransportistaDTO recogerTransportista(String sql, int idTransp){
+	public EmpleadoDTO recogerTransportista(String sql, int idTransp){
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		TransportistaDTO tra = null;
+		EmpleadoDTO tra = null;
 		
 		try {
 			c = getConnection();
@@ -175,7 +175,7 @@ public abstract class DbUtil {
 			pst.setInt(1, idTransp);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				tra = new TransportistaDTO(rs.getInt(1), rs.getString(2), rs.getInt(3),rs.getTime(4), rs.getTime(5));
+				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5),rs.getTime(8), rs.getTime(9));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -1074,7 +1074,7 @@ public abstract class DbUtil {
 	}
 	
 	
-	public void asignaTransportistaVenta(String sqlAsignar, int idTransp) {
+	public void asignaTransportistaVenta(String sqlAsignar, int idTransp, int idVenta) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -1082,6 +1082,24 @@ public abstract class DbUtil {
 			c = getConnection();
 			pst = c.prepareStatement(sqlAsignar);
 			pst.setInt(1,idTransp);
+			pst.setInt(2,idVenta);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public void actualiceTransporteVenta(String sqlAsignar, int idVenta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlAsignar);
+			pst.setInt(1,idVenta);
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

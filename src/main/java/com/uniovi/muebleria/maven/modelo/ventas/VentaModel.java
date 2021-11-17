@@ -2,8 +2,9 @@ package com.uniovi.muebleria.maven.modelo.ventas;
 
 import java.sql.Date;
 import java.util.List;
+
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.util.Database;
 
 public class VentaModel {
@@ -78,7 +79,7 @@ public class VentaModel {
 		
 	}
 
-	public TransportistaDTO getTransportista(int idTransp) {
+	public EmpleadoDTO getTransportista(int idTransp) {
 		return db.recogerTransportista(SQL_TRANSPORTISTA, idTransp);
 	}
 

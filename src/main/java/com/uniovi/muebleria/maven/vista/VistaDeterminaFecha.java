@@ -10,8 +10,8 @@ import java.awt.Font;
 
 import com.toedter.calendar.JCalendar;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 
@@ -127,7 +127,7 @@ public class VistaDeterminaFecha extends JFrame {
 		for(int i=0; i< productos.length; i++)
 			listaProductos.add(productos[i].toString());
 			
-		TransportistaDTO transportista = controller.getTransportista(venta);
+		EmpleadoDTO transportista = controller.getTransportista(venta);
 		if (transportista==null) {
 			JOptionPane.showMessageDialog(null, "La venta no tiene transportista asignado");
 		}

@@ -30,7 +30,9 @@ CREATE TABLE PersonalAlmacen(
 	Usuario VARCHAR(32),
 	Contraseña VARCHAR(32),
 	hora_entrada TIME,
-	hora_salida TIME
+	hora_salida TIME,
+	inicio_vacaciones DATETIME,
+	fin_vacaciones DATETIME
 );
 
 
@@ -65,14 +67,15 @@ CREATE TABLE Solicitudes (
 CREATE TABLE Transportista(
 	id_transp int PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32) NOT NULL,
+	Apellido VARCHAR(32) NOT NULL,
+	DNI VARCHAR(32) UNIQUE,
 	Numero_tel INT NOT NULL,
+	USUARIO VARCHAR(32),
+	CONTRASEÑA VARCHAR(32),
 	hora_entrada TIME,
 	hora_salida TIME,
-	Apellido VARCHAR(32),
-	DNI VARCHAR(32) UNIQUE,
-	USUARIO VARCHAR(32),
-	CONTRASEÑA VARCHAR(32)
-
+	inicio_vacaciones DATETIME,
+	fin_vacaciones DATETIME
 );
 
 CREATE TABLE Venta (
@@ -92,7 +95,9 @@ CREATE TABLE Vendedor(
 	Usuario VARCHAR(32),
 	Contraseña VARCHAR(32),	
 	hora_entrada TIME,
-	hora_salida TIME
+	hora_salida TIME,
+	inicio_vacaciones DATETIME,
+	fin_vacaciones DATETIME
 );
 
 CREATE TABLE Vender(

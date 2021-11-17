@@ -16,16 +16,16 @@ import javax.swing.border.EmptyBorder;
 import com.uniovi.muebleria.maven.controlador.Almacen.AlmacenController;
 import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
+import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
 import com.uniovi.muebleria.maven.controlador.pedidos.PedidoController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoPresupuestoController;
-import com.uniovi.muebleria.maven.controlador.transportista.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenModel;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
+import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoModel;
-import com.uniovi.muebleria.maven.modelo.transportista.TransportistaModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.util.Database;
 import java.awt.Color;
@@ -52,10 +52,11 @@ public class VistaMuebleria extends JFrame {
 	public static final VistaCrearPresupuesto VIEW_PRODPRES = new VistaCrearPresupuesto();
 	public static final VistaCrearEmpleado VIEW_CREAR_EMPLEADO = new VistaCrearEmpleado();
 	public static final VistaEntregarPedido VIEW_ENTREGAR_PEDIDO = new VistaEntregarPedido();
-
 	public static final VistaCrearPedido VIEW_PEDIDO = new VistaCrearPedido();
+	public static final VistaGestionaVacaciones VIEW_GESTIONA_VACACIONES = new VistaGestionaVacaciones();
 
 	private Database db=null;
+	private JButton btnGestionaVacaciones;
 	
 	/**
 	 * Create the frame.
@@ -242,9 +243,20 @@ public class VistaMuebleria extends JFrame {
 		});
 		btnAñadirEmpleado.setFont(new Font("Tahoma", Font.BOLD, 12));
 		PanelBotones.add(btnAñadirEmpleado);
+		PanelBotones.add(getBtnGestionaVacaciones());
 	}
 
 	public JFrame getFrame() { return this.getFrame(); }
-
-
+	private JButton getBtnGestionaVacaciones() {
+		if (btnGestionaVacaciones == null) {
+			btnGestionaVacaciones = new JButton("Gestionar Vacaciones");
+			btnGestionaVacaciones.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VIEW_GESTIONA_VACACIONES.setVisible(true);
+				}
+			});
+			btnGestionaVacaciones.setFont(new Font("Tahoma", Font.BOLD, 12));
+		}
+		return btnGestionaVacaciones;
+	}
 }
