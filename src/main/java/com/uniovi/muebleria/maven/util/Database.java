@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
@@ -61,5 +62,4 @@ public class Database extends DbUtil {
 	public String getUrl() {
 		return URL;
 	}
-
 }

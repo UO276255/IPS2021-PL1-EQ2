@@ -8,7 +8,6 @@ import javax.swing.DefaultComboBoxModel;
 
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.AddProductoDTO;
-import com.uniovi.muebleria.maven.modelo.producto.CrearProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.ProductoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;

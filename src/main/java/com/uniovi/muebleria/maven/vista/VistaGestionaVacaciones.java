@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +14,13 @@ import com.toedter.calendar.JCalendar;
 import com.uniovi.muebleria.maven.controlador.empleado.VacacionesController;
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.empleado.VacacionesModel;
+
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class VistaGestionaVacaciones extends JFrame {
 
@@ -105,6 +113,37 @@ public class VistaGestionaVacaciones extends JFrame {
 	private JButton getBtnAsignar() {
 		if (btnAsignar == null) {
 			btnAsignar = new JButton("Asignar");
+			btnAsignar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Date dateInicio = (Date) getCalendarFechaInicio().getDate();
+					Date dateFinal = (Date) getCalendarFechaFin().getDate();
+					Date actual = (Date) Calendar.getInstance().getTime();
+					VacacionesController controller = new VacacionesController(new VacacionesModel(),  VistaMuebleria.VIEW_GESTIONA_VACACIONES);
+					Date dateInicioActual = controller.getDiaInicioVacaciones(listEmpleados.getSelectedValue());
+					Date fechaAComparar = new Date(actual.getTime() + 1296000000);
+					if(dateInicioActual.compareTo(fechaAComparar)<0) {
+						JOptionPane.showMessageDialog(null, "No se puede poner una fecha de vacaciones nueva a 15 dias de la actual");
+					} else {
+						if (dateInicio.compareTo(actual)<0) {
+							JOptionPane.showMessageDialog(null, "La fecha asignada debe ser posterior a la actual");
+						} else if (dateFinal.compareTo(dateInicio)<0){
+							JOptionPane.showMessageDialog(null, "La fecha final debe ser posterior a la fecha inicial");
+						} else {
+							if(listEmpleados.getSelectedValue().getOficio().equals("t")) {
+								controller.asignaFechaInicioTransportista(listEmpleados.getSelectedValue().getId(), dateInicio);
+								controller.asignaFechaFinalTransportista(listEmpleados.getSelectedValue().getId(), dateFinal);
+							}else if(listEmpleados.getSelectedValue().getOficio().equals("v")) {
+								controller.asignaFechaInicioVendedor(listEmpleados.getSelectedValue().getId(), dateInicio);
+								controller.asignaFechaFinalVendedor(listEmpleados.getSelectedValue().getId(), dateFinal);
+							}else if(listEmpleados.getSelectedValue().getOficio().equals("pa")) {
+								controller.asignaFechaInicioPersonalAlmacen(listEmpleados.getSelectedValue().getId(), dateInicio);
+								controller.asignaFechaFinalPersonalAlmacen(listEmpleados.getSelectedValue().getId(), dateFinal);
+							}
+							JOptionPane.showMessageDialog(null, "Vacaciones asignadas a " + listEmpleados.getSelectedValue().getNombre() + " " + listEmpleados.getSelectedValue().getApellido() + " correctamente");
+						}
+					}
+				}
+			});
 			btnAsignar.setBounds(338, 496, 89, 23);
 		}
 		return btnAsignar;
@@ -112,9 +151,18 @@ public class VistaGestionaVacaciones extends JFrame {
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
+			btnCancelar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					closeWindow();
+				}
+			});
 			btnCancelar.setBounds(437, 496, 89, 23);
 		}
 		return btnCancelar;
+	}
+	
+	private void closeWindow() {
+		this.dispose();
 	}
 	
 	private void iniciar() {

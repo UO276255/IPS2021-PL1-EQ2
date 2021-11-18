@@ -399,7 +399,7 @@ public class VistaAsignaTransporte extends JFrame{
 			btnFinalizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					TransportistaController controller = new TransportistaController(new TransportistaModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					controller.asignaTransportista(getTransportista().getIdTransp(), getVenta().getId_venta());
+					controller.asignaTransportista(getTransportista().getId(), getVenta().getId_venta());
 					JOptionPane.showMessageDialog(null, "Se ha seleccionado al transportista: " 
 								+ transpElegido.getNombre()  +  " para la venta de id: "
 								+ ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());

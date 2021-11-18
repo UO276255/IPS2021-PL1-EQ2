@@ -32,7 +32,8 @@ CREATE TABLE PersonalAlmacen(
 	hora_entrada TIME,
 	hora_salida TIME,
 	inicio_vacaciones DATETIME,
-	fin_vacaciones DATETIME
+	fin_vacaciones DATETIME,
+	oficio VARCHAR(32)
 );
 
 
@@ -75,7 +76,8 @@ CREATE TABLE Transportista(
 	hora_entrada TIME,
 	hora_salida TIME,
 	inicio_vacaciones DATETIME,
-	fin_vacaciones DATETIME
+	fin_vacaciones DATETIME,
+	oficio VARCHAR(32)
 );
 
 CREATE TABLE Venta (
@@ -97,7 +99,8 @@ CREATE TABLE Vendedor(
 	hora_entrada TIME,
 	hora_salida TIME,
 	inicio_vacaciones DATETIME,
-	fin_vacaciones DATETIME
+	fin_vacaciones DATETIME,
+	oficio VARCHAR(32)
 );
 
 CREATE TABLE Vender(

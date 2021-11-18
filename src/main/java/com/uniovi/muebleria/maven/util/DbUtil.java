@@ -151,7 +151,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5),rs.getTime(8), rs.getTime(9));
+				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5), rs.getTime(8), rs.getTime(9), rs.getString(12));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -175,7 +175,7 @@ public abstract class DbUtil {
 			pst.setInt(1, idTransp);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5),rs.getTime(8), rs.getTime(9));
+				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5),rs.getTime(8), rs.getTime(9), rs.getString(12));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -1689,5 +1689,49 @@ public abstract class DbUtil {
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
+	}
+	
+	public void asignaFecha(String sql, Date date, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+			try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setDate(1, date);
+			pst.setInt(2,id);
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public Date inicioVacacional(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Date fecha = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				fecha = rs.getDate(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return fecha;
 	}
 }
