@@ -24,6 +24,10 @@ public class VacacionesModel {
 	private static final String SQL_INICIO_VACACIONAL_VEND = "SELECT inicio_vacaciones FROM Vendedor where Id_vendedor = ?";
 	private static final String SQL_INICIO_VACACIONAL_PERSAL = "SELECT inicio_vacaciones FROM PersonalAlmacen where Id_perAlmacen = ?";
 	
+	private static final String SQL_FINAL_VACACIONAL_TRANSP = "SELECT fin_vacaciones FROM Transportista where id_transp = ?";
+	private static final String SQL_FINAL_VACACIONAL_VEND = "SELECT fin_vacaciones FROM Vendedor where Id_vendedor = ?";
+	private static final String SQL_FINAL_VACACIONAL_PERSAL = "SELECT fin_vacaciones FROM PersonalAlmacen where Id_perAlmacen = ?";
+	
 	public List<EmpleadoDTO> getListaEmpleadosTransportistas() {
 		return db.recogerEmpleados(SQL_TRANSPORTISTAS);
 	}
@@ -82,5 +86,17 @@ public class VacacionesModel {
 
 	public Date getDiaInicioVacacionesPerAl(int id) {
 		return db.inicioVacacional(SQL_INICIO_VACACIONAL_PERSAL, id);
+	}
+	
+	public Date getDiaFinalVacacionesTransp(int id) {
+		return db.inicioVacacional(SQL_FINAL_VACACIONAL_TRANSP, id);
+	}
+
+	public Date getDiaFinalVacacionesVend(int id) {
+		return db.inicioVacacional(SQL_FINAL_VACACIONAL_VEND, id);
+	}
+
+	public Date getDiaFinalVacacionesPerAl(int id) {
+		return db.inicioVacacional(SQL_FINAL_VACACIONAL_PERSAL, id);
 	}
 }

@@ -237,14 +237,14 @@ public class VistaCrearEmpleado extends JFrame {
 			btnAñadir.setBounds(422, 335, 89, 23);
 			btnAñadir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					try {
+					//try {
 						añadirEmpleado();
 						JOptionPane.showMessageDialog(null,"Empleado añadido con exito");
 						closeWindow();
 						inicializar();
-					}catch (Exception ex) {
-						JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
-					}				
+//					}catch (Exception ex) {
+//						JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
+//					}				
 				}
 			});
 			btnAñadir.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -333,17 +333,17 @@ public class VistaCrearEmpleado extends JFrame {
 		VendedorController controllerV = new VendedorController(new VendedorModel(), VistaMuebleria.VIEW_CREAR_EMPLEADO);
 		controllerV.crearTrabajador(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
 				Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),
-				(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue());
+				(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),"v");
 		} else if(getComboBoxPerfil().getSelectedItem().equals("PERSONAL ALMACEN")) {
 			PersonalAlmacenController controllerM = new PersonalAlmacenController(new PersonalAlmacenModel(), VistaMuebleria.VIEW_CREAR_EMPLEADO);
 			controllerM.crearTrabajador(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
 					Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),
-					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue());
+					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),"pa");
 		} else {
 			TransportistaController controllerT = new TransportistaController(new TransportistaModel());
 			controllerT.crearTrabajador(getTextFieldNombre().getText(),Integer.parseInt(getTextFieldTelefono().getText()),
 					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
-					getTextFieldUsuario().getText(),getTextFieldContraseña().getText());
+					getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),"t");
 		}
 		
 	}

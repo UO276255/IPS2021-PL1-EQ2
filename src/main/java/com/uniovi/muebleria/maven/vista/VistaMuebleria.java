@@ -253,6 +253,7 @@ public class VistaMuebleria extends JFrame {
 			btnGestionaVacaciones.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					VIEW_GESTIONA_VACACIONES.setVisible(true);
+					VIEW_GESTIONA_VACACIONES.iniciar();
 				}
 			});
 			btnGestionaVacaciones.setFont(new Font("Tahoma", Font.BOLD, 12));

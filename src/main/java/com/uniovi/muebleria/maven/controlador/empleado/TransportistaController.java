@@ -31,12 +31,12 @@ public class TransportistaController {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void crearTrabajador(String nombre,int numero_tel,Date horaEntrada, Date horaSalida, String apellido,String DNI, String usuario,String contraseña) {
+	public void crearTrabajador(String nombre,int numero_tel,Date horaEntrada, Date horaSalida, String apellido,String DNI, String usuario,String contraseña,String oficio) {
 		
 		Time hora_entrada = new Time(horaEntrada.getHours(),horaEntrada.getMinutes(),0);
 		Time hora_salida = new Time(horaSalida.getHours(),horaSalida.getMinutes(),0);
 		
-		model.crearTrabajador(nombre,numero_tel,hora_entrada,hora_salida,apellido,DNI,usuario,contraseña);
+		model.crearTrabajador(nombre,numero_tel,hora_entrada,hora_salida,apellido,DNI,usuario,contraseña,oficio);
 	}
 	
 	public void getListaTransportistas() {

@@ -1420,7 +1420,7 @@ public abstract class DbUtil {
 	
 
 	public void crearVendedor(String sqlAñadirVendedor, int id, String nombre, String apellido, String DNI,
-			int telefono, String usuario, String contraseña, Time hora_entrada, Time hora_salida) {	
+			int telefono, String usuario, String contraseña, Time hora_entrada, Time hora_salida, String oficio) {	
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -1438,11 +1438,15 @@ public abstract class DbUtil {
 			pst.setString(7,contraseña);
 			pst.setTime(8,hora_entrada);
 			pst.setTime(9,hora_salida);
+			Date date = new Date(0);
+			pst.setDate(10,date);
+			pst.setDate(11,date);
+			pst.setString(12, oficio);
 			
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
+			throw new RuntimeException(e);
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
@@ -1450,7 +1454,7 @@ public abstract class DbUtil {
 	}
 	
 	public void crearPersonalAlmacen(String sqlAñadirPersonalAlmacen, int id, String nombre, String apellido,
-			String DNI, int telefono, String usuario, String contraseña, Time horaEntrada, Time horaSalida) {
+			String DNI, int telefono, String usuario, String contraseña, Time horaEntrada, Time horaSalida, String oficio) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -1468,11 +1472,15 @@ public abstract class DbUtil {
 			pst.setString(7,contraseña);
 			pst.setTime(8,horaEntrada);
 			pst.setTime(9,horaSalida);
+			Date date = new Date(0);
+			pst.setDate(10,date);
+			pst.setDate(11,date);
+			pst.setString(12, oficio);
 			
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,"Alguno de los campos esta vació o no es correcto");
+			throw new RuntimeException(e);
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
@@ -1527,7 +1535,7 @@ public abstract class DbUtil {
 	}
 
 	public void añadirTransportista(String sqlAñadirTransp, int id, String nombre, int numero_tel, Time hora_entrada,
-			Time hora_salida, String apellido, String DNI, String usuario, String contraseña) {
+			Time hora_salida, String apellido, String DNI, String usuario, String contraseña,String oficio) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -1537,19 +1545,23 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sqlAñadirTransp);
 			
 			pst.setInt(1,id);
-			pst.setString(2,nombre);
-			pst.setInt(3,numero_tel);
-			pst.setTime(4,hora_entrada);
-			pst.setTime(5,hora_salida);
-			pst.setString(6,apellido);
-			pst.setString(7,DNI);
-			pst.setString(8,usuario);
-			pst.setString(9,contraseña);
+			pst.setString(2,nombre);	
+			pst.setString(3,apellido);
+			pst.setString(4,DNI);
+			pst.setInt(5,numero_tel);
+			pst.setString(6,usuario);
+			pst.setString(7,contraseña);
+			pst.setTime(8,hora_entrada);
+			pst.setTime(9,hora_salida);
+			Date date = new Date(0);
+			pst.setDate(10,date);
+			pst.setDate(11,date);
+			pst.setString(12, oficio);
 			
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,"Error al consultar la BD");
+			throw new RuntimeException(e);
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
@@ -1712,6 +1724,30 @@ public abstract class DbUtil {
 	}
 	
 	public Date inicioVacacional(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Date fecha = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				fecha = rs.getDate(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return fecha;
+	}
+	
+	public Date getFecha(String sql, int id) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;

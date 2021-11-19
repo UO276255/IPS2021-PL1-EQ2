@@ -1,9 +1,9 @@
 package com.uniovi.muebleria.maven.modelo.producto;
 
+import java.util.Date;
 import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
-import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.util.Database;
 
 public class ProductoModel {
@@ -29,6 +29,9 @@ private Database db = new Database();
 	private static final String SQL_CREAR_REPUESTO = "INSERT INTO Repuesto(ID_REPUESTO, ID_PEDIDO, ID_PROD, CANTIDAD_PROD) VALUES (?,?,?,?)";
 	
 	private static final String SQL_CREAR_REGISTRADO = "INSERT INTO Registrado(ID_REG, ID_PROD, ID_ALMACEN, CANTIDAD) VALUES (?,?,?,?)";
+	
+	private static final String SQL_FECHA_INICIO = "SELECT inicio_vacaciones FROM Transportista where id_transp = ?";
+	private static final String SQL_FECHA_FINAL = "SELECT fin_vacaciones FROM Transportista where id_transp = ?";
 	
 	
 	public List<ProductoDTO> getListaProductosVentaNoTransp(int id_venta) {
@@ -84,5 +87,13 @@ private Database db = new Database();
 	public void crearRegistrado(int idProducto, int idAlmacen, int nUnidades) {
 		db.crearRegistrado(SQL_CREAR_REGISTRADO, idProducto,idAlmacen,nUnidades);
 		
+	}
+
+	public Date getDateInicioTransportista(int id) {
+		return db.getFecha(SQL_FECHA_INICIO, id);
+	}
+	
+	public Date getDateFinalTransportista(int id) {
+		return db.getFecha(SQL_FECHA_FINAL, id);
 	}
 }

@@ -16,9 +16,9 @@ public class VendedorController {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void crearTrabajador(String nombre, String apellido,String DNI, int telefono,String usuario,String contraseña,Date hora_entrada, Date hora_salida) {
+	public void crearTrabajador(String nombre, String apellido,String DNI, int telefono,String usuario,String contraseña,Date hora_entrada, Date hora_salida, String oficio) {
 		Time horaEntrada = new Time(hora_entrada.getHours(),hora_entrada.getMinutes(),0);
 		Time horaSalida = new Time(hora_salida.getHours(),hora_salida.getMinutes(),0);
-		model.crearVendedor(nombre,apellido,DNI,telefono,usuario,contraseña,horaEntrada,horaSalida);
+		model.crearVendedor(nombre,apellido,DNI,telefono,usuario,contraseña,horaEntrada,horaSalida,oficio);
 	}
 }

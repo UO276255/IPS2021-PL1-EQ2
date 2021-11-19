@@ -96,4 +96,16 @@ public class VacacionesController {
 			return null;
 		}
 	}
+	
+	public Date getDiaFinalVacaciones(EmpleadoDTO empl) {
+		if(empl.getOficio().equals("t")) {
+			return model.getDiaFinalVacacionesTransp(empl.getId());
+		}else if(empl.getOficio().equals("v")) {
+			return model.getDiaFinalVacacionesVend(empl.getId());
+		}else if(empl.getOficio().equals("pa")) {
+			return model.getDiaFinalVacacionesPerAl(empl.getId());
+		}else {
+			return null;
+		}
+	}
 }

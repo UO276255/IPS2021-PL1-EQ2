@@ -15,7 +15,7 @@ public class TransportistaModel {
 	private static final String SQL_ACTUALIZA = "UPDATE Venta set transporte = 1 where id_venta = ?";
 	private static final String SQL_ID_TRANSP = "SELECT id_transp FROM Venta WHERE id_venta = ?";
 	public static final String SQL_CONTAR_TRANSPORTISTAS = "SELECT count(*) FROM Transportista";
-	private static final String SQL_AÑADIR_TRANSP ="insert into Transportista (id_transp,Nombre,Numero_tel,hora_entrada,hora_salida,Apellido,DNI,Usuario,Contraseña) values (?,?,?,?,?,?,?,?,?)";
+	private static final String SQL_AÑADIR_TRANSP ="insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	public List<EmpleadoDTO> getListaTransportistas(){
 		return db.recogerEmpleados(SQL_TRANSPORTISTAS);
@@ -34,9 +34,9 @@ public class TransportistaModel {
 		return db.buscaIdTranspPorIdVenta(SQL_ID_TRANSP, idVenta);
 	}
 
-	public void crearTrabajador(String nombre,int numero_tel,Time hora_entrada, Time hora_salida, String apellido,String DNI, String usuario,String contraseña) {
+	public void crearTrabajador(String nombre,int numero_tel,Time hora_entrada, Time hora_salida, String apellido,String DNI, String usuario,String contraseña,String oficio) {
 		int id = contarTransportista() + 1;
-		db.añadirTransportista(SQL_AÑADIR_TRANSP,id,nombre,numero_tel,hora_entrada,hora_salida,apellido,DNI,usuario,contraseña);
+		db.añadirTransportista(SQL_AÑADIR_TRANSP,id,nombre,numero_tel,hora_entrada,hora_salida,apellido,DNI,usuario,contraseña,oficio);
 		
 	}
 	

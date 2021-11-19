@@ -44,6 +44,12 @@ public class VistaGestionaVacaciones extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaGestionaVacaciones() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				modeloListEmpleados.clear();
+			}
+		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 746, 590);
 		contentPane = new JPanel();
@@ -58,7 +64,6 @@ public class VistaGestionaVacaciones extends JFrame {
 		contentPane.add(getCalendarFechaFin());
 		contentPane.add(getBtnAsignar());
 		contentPane.add(getBtnCancelar());
-		iniciar();
 	}
 	private JScrollPane getScrollPaneEmpleados() {
 		if (scrollPaneEmpleados == null) {
@@ -120,15 +125,18 @@ public class VistaGestionaVacaciones extends JFrame {
 					Date actual = (Date) Calendar.getInstance().getTime();
 					VacacionesController controller = new VacacionesController(new VacacionesModel(),  VistaMuebleria.VIEW_GESTIONA_VACACIONES);
 					Date dateInicioActual = controller.getDiaInicioVacaciones(listEmpleados.getSelectedValue());
+					Date dateFinaloActual = controller.getDiaFinalVacaciones(listEmpleados.getSelectedValue());
 					Date fechaAComparar = new Date(actual.getTime() + 1296000000);
-					if(dateInicioActual.compareTo(fechaAComparar)<0) {
+					if(dateInicioActual.compareTo(fechaAComparar)<0 && actual.compareTo(dateInicioActual)<0) {
 						JOptionPane.showMessageDialog(null, "No se puede poner una fecha de vacaciones nueva a 15 dias de la actual");
 					} else {
 						if (dateInicio.compareTo(actual)<0) {
 							JOptionPane.showMessageDialog(null, "La fecha asignada debe ser posterior a la actual");
 						} else if (dateFinal.compareTo(dateInicio)<0){
 							JOptionPane.showMessageDialog(null, "La fecha final debe ser posterior a la fecha inicial");
-						} else {
+						} else if(dateInicioActual.compareTo(actual)<0 && actual.compareTo(dateFinaloActual)<0) {
+							JOptionPane.showMessageDialog(null, "Este empleado ya esta en periodo vacacional.");
+						}else {
 							if(listEmpleados.getSelectedValue().getOficio().equals("t")) {
 								controller.asignaFechaInicioTransportista(listEmpleados.getSelectedValue().getId(), dateInicio);
 								controller.asignaFechaFinalTransportista(listEmpleados.getSelectedValue().getId(), dateFinal);
@@ -165,7 +173,7 @@ public class VistaGestionaVacaciones extends JFrame {
 		this.dispose();
 	}
 	
-	private void iniciar() {
+	public void iniciar() {
 		VacacionesController controller = new VacacionesController(new VacacionesModel(),  VistaMuebleria.VIEW_GESTIONA_VACACIONES);
 		EmpleadoDTO[] empleados = controller.getListaEmpleados();
 		for (int i=0;i<empleados.length;i++) {

@@ -1,6 +1,7 @@
 package com.uniovi.muebleria.maven.controlador.producto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -229,6 +230,14 @@ public class ProductoController {
 		}
 		
 		return true;
+	}
+
+	public Date getDateInicioTransportista(int id) {
+		return model.getDateInicioTransportista(id);
+	}
+
+	public Date getDateFinalTransportista(int id) {
+		return model.getDateFinalTransportista(id);
 	}
 
 }
