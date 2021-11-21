@@ -1,6 +1,7 @@
 package com.uniovi.muebleria.maven.modelo.PersonalAlmacen;
 
 import java.sql.Time;
+import java.util.List;
 
 import com.uniovi.muebleria.maven.util.Database;
 
@@ -9,6 +10,7 @@ public class PersonalAlmacenModel {
 	private Database db = new Database();
 	private static final String SQL_AÑADIR_PERSONAL_ALMACEN ="insert into PersonalAlmacen (id_perAlmacen,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 	public static final String SQL_CONTAR_PERSONAL_ALMACEN = "SELECT count(*) FROM PersonalAlmacen";
+	public static final String SQL_USUARIO_CONTRASEÑA_ALMACEN = "SELECT usuario,contraseña FROM personalAlmacen";
 	
 	public void crearPersonalAlmacen(String nombre, String apellido, String DNI, int telefono, String usuario,
 			String contraseña, Time horaEntrada, Time horaSalida, String oficio) {	
@@ -18,6 +20,10 @@ public class PersonalAlmacenModel {
 	
 	public int contarPersonalAlmacen() {
 		return db.contarDatos(SQL_CONTAR_PERSONAL_ALMACEN);
+	}
+
+	public List<PersonalAlmacenDTO> getPersonalLogin() {
+		return db.getAlmacenLogin(SQL_USUARIO_CONTRASEÑA_ALMACEN);
 	}
 
 }

@@ -29,7 +29,6 @@ import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.util.Database;
 import java.awt.Color;
-import javax.swing.border.EtchedBorder;
 import java.awt.Font;
 
 
@@ -57,6 +56,22 @@ public class VistaMuebleria extends JFrame {
 
 	private Database db=null;
 	private JButton btnGestionaVacaciones;
+	private JButton btnBorrarBaseDatos;
+	private JButton btnCargarBaseDatos;
+	private JButton btnLoadDB;
+	private JButton btnAsignarPresupuesto;
+	private JButton btnAsignarTransporte;
+	private JButton btnFechaEntrega;
+	private JButton btnCrearVenta;
+	private JButton btnVisualizarHistorial;
+	private JButton btnSeguimientoPedido;
+	private JButton btnVerAlmacenes;
+	private JButton btCrearPedido;
+	private JButton btnNewButton;
+	private JButton btnAñadirEmpleado;
+	private JButton btnCreaPresupuesto;
+	private JPanel PanelBotones;
+	private JPanel  panel;
 	
 	/**
 	 * Create the frame.
@@ -72,13 +87,13 @@ public class VistaMuebleria extends JFrame {
 		setContentPane(PanelInicio);
 		PanelInicio.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
+		 panel = new JPanel();
 		panel.setBackground(new Color(255, 239, 213));
 		PanelInicio.add(panel, BorderLayout.CENTER);
 		
 		db=new Database();
 		
-		JButton btnBorrarBaseDatos = new JButton("Borrar la base de datos");
+		btnBorrarBaseDatos = new JButton("Borrar la base de datos");
 		btnBorrarBaseDatos.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		btnBorrarBaseDatos.setBounds(10, 28, 185, 23);
 		btnBorrarBaseDatos.addActionListener(new ActionListener() {
@@ -87,7 +102,7 @@ public class VistaMuebleria extends JFrame {
 			}
 		});
 		
-		JButton btnCargarBaseDatos = new JButton("Crear la base de datos");
+		btnCargarBaseDatos = new JButton("Crear la base de datos");
 		btnCargarBaseDatos.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		btnCargarBaseDatos.setBounds(219, 39, 170, 23);
 		btnCargarBaseDatos.addActionListener(new ActionListener() {
@@ -96,7 +111,7 @@ public class VistaMuebleria extends JFrame {
 			}
 		});
 		
-		JButton btnLoadDB = new JButton("Cargar la base de datos");
+		btnLoadDB = new JButton("Cargar la base de datos");
 		btnLoadDB.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
 		btnLoadDB.setBounds(415, 28, 196, 23);
 		btnLoadDB.addActionListener(new ActionListener() {
@@ -109,13 +124,13 @@ public class VistaMuebleria extends JFrame {
 		panel.add(btnCargarBaseDatos);
 		panel.add(btnLoadDB);
 		
-		JPanel PanelBotones = new JPanel();
+		PanelBotones = new JPanel();
 		PanelBotones.setBackground(new Color(255, 239, 213));
 		PanelBotones.setBounds(10, 101, 601, 281);
 		panel.add(PanelBotones);
 		PanelBotones.setLayout(new GridLayout(8, 1, 0, 0));
 		
-		JButton btnAsignarPresupuesto = new JButton("Asignar Presupuesto");
+		btnAsignarPresupuesto = new JButton("Asignar Presupuesto");
 		btnAsignarPresupuesto.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAsignarPresupuesto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,7 +148,7 @@ public class VistaMuebleria extends JFrame {
 		});
 		PanelBotones.add(btnAsignarPresupuesto);
 		
-		JButton btnAsignarTransporte = new JButton("Asignar Transporte");
+		btnAsignarTransporte = new JButton("Asignar Transporte");
 		btnAsignarTransporte.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAsignarTransporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -143,18 +158,17 @@ public class VistaMuebleria extends JFrame {
 		});
 		PanelBotones.add(btnAsignarTransporte);
 		
-		JButton btnFechaEntrega = new JButton("Determinar fecha de entrega");
+		btnFechaEntrega = new JButton("Determinar fecha de entrega");
 		btnFechaEntrega.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnFechaEntrega.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 				VentaController controllerF = new VentaController(new VentaModel(), VIEW_VENTA);
 			}
-
 		});
 
 		PanelBotones.add(btnFechaEntrega);
 		
-		JButton btnCrearVenta = new JButton("Crear una venta");
+		btnCrearVenta = new JButton("Crear una venta");
 		btnCrearVenta.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCrearVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,7 +186,7 @@ public class VistaMuebleria extends JFrame {
 		});
 		PanelBotones.add(btnCrearVenta);
 		
-		JButton btnVisualizarHistorial = new JButton("Visualizar historial de ventas");
+		btnVisualizarHistorial = new JButton("Visualizar historial de ventas");
 		btnVisualizarHistorial.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVisualizarHistorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -181,7 +195,7 @@ public class VistaMuebleria extends JFrame {
 			}
 		});
 		
-		JButton btnCreaPresupuesto = new JButton("Crear un presupuesto");
+		btnCreaPresupuesto = new JButton("Crear un presupuesto");
 		btnCreaPresupuesto.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCreaPresupuesto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -192,7 +206,7 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.add(btnCreaPresupuesto);
 		PanelBotones.add(btnVisualizarHistorial);
 		
-		JButton btnSeguimientoPedido = new JButton("Seguimiento de pedidos");
+		btnSeguimientoPedido = new JButton("Seguimiento de pedidos");
 		btnSeguimientoPedido.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnSeguimientoPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -203,7 +217,7 @@ public class VistaMuebleria extends JFrame {
 		});
 		PanelBotones.add(btnSeguimientoPedido);
 		
-		JButton btnVerAlmacenes = new JButton("Visualizar Almacenes");
+		btnVerAlmacenes = new JButton("Visualizar Almacenes");
 		btnVerAlmacenes.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnVerAlmacenes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -216,14 +230,14 @@ public class VistaMuebleria extends JFrame {
 		});
 		PanelBotones.add(btnVerAlmacenes);
 		
-		JButton btCrearPedido = new JButton("Crear Pedido");
+		btCrearPedido = new JButton("Crear Pedido");
 		btCrearPedido.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProductoController controller = new ProductoController(new ProductoModel(), VIEW_PEDIDO);
 			}
 		});
 		
-		JButton btnNewButton = new JButton("Entregar Pedido");
+		btnNewButton = new JButton("Entregar Pedido");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentaController controller = new VentaController(new VentaModel(), VIEW_ENTREGAR_PEDIDO);
@@ -235,7 +249,7 @@ public class VistaMuebleria extends JFrame {
 		btCrearPedido.setFont(new Font("Tahoma", Font.BOLD, 12));
 		PanelBotones.add(btCrearPedido);
 		
-		JButton btnAñadirEmpleado = new JButton("Añadir nuevo empleado");
+		btnAñadirEmpleado = new JButton("Añadir nuevo empleado");
 		btnAñadirEmpleado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VIEW_CREAR_EMPLEADO.setVisible(true);
@@ -259,5 +273,64 @@ public class VistaMuebleria extends JFrame {
 			btnGestionaVacaciones.setFont(new Font("Tahoma", Font.BOLD, 12));
 		}
 		return btnGestionaVacaciones;
+	}
+
+	public void bloquearVendedor() {
+		PanelBotones.remove(btnAsignarTransporte);
+		PanelBotones.remove(btnFechaEntrega);
+		PanelBotones.remove(btnAñadirEmpleado);
+		PanelBotones.remove(btnGestionaVacaciones);
+		PanelBotones.remove(btnVerAlmacenes);
+		panel.remove(btnBorrarBaseDatos);
+		panel.remove(btnCargarBaseDatos);
+		panel.remove(btnLoadDB);
+	}
+	
+	public void bloquearAlmacen() {
+		PanelBotones.remove(btnAsignarTransporte);
+		PanelBotones.remove(btnFechaEntrega);
+		PanelBotones.remove(btnAñadirEmpleado);
+		PanelBotones.remove(btnGestionaVacaciones);
+		PanelBotones.remove(btCrearPedido);
+		PanelBotones.remove(btnVisualizarHistorial);
+		PanelBotones.remove(btnCreaPresupuesto);
+		PanelBotones.remove(btnCrearVenta);
+		PanelBotones.remove(btnAsignarPresupuesto);
+		PanelBotones.remove(btnSeguimientoPedido);
+		PanelBotones.remove(btnNewButton);
+		panel.remove(btnBorrarBaseDatos);
+		panel.remove(btnCargarBaseDatos);
+		panel.remove(btnLoadDB);
+	}
+	
+	public void bloquearTransportista() {
+		PanelBotones.remove(btnAsignarTransporte);
+		PanelBotones.remove(btnFechaEntrega);
+		PanelBotones.remove(btnAñadirEmpleado);
+		PanelBotones.remove(btnGestionaVacaciones);
+		PanelBotones.remove(btnVerAlmacenes);
+		PanelBotones.remove(btCrearPedido);
+		PanelBotones.remove(btnVisualizarHistorial);
+		PanelBotones.remove(btnVerAlmacenes);
+		PanelBotones.remove(btnCreaPresupuesto);
+		PanelBotones.remove(btnCrearVenta);
+		PanelBotones.remove(btnAsignarPresupuesto);
+		PanelBotones.remove(btnSeguimientoPedido);
+		PanelBotones.remove(btnNewButton);
+		panel.remove(btnBorrarBaseDatos);
+		panel.remove(btnCargarBaseDatos);
+		panel.remove(btnLoadDB);
+	}
+
+	public void ventanaAdministrador() {
+		PanelBotones.remove(btCrearPedido);
+		PanelBotones.remove(btnVisualizarHistorial);
+		PanelBotones.remove(btnVerAlmacenes);
+		PanelBotones.remove(btnCreaPresupuesto);
+		PanelBotones.remove(btnCrearVenta);
+		PanelBotones.remove(btnAsignarPresupuesto);
+		PanelBotones.remove(btnSeguimientoPedido);
+		PanelBotones.remove(btnNewButton);
+
 	}
 }

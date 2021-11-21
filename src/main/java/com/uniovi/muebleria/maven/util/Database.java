@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
+import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;

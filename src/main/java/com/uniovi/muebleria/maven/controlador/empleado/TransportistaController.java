@@ -74,4 +74,14 @@ public class TransportistaController {
 	public int getTransportistaPorVenta(int idVenta) {
 		return model.getIdTransp(idVenta);
 	}
+
+	public boolean LoginDeTransportista(String usuario, String contraseña) {
+		List<EmpleadoDTO> lista = model.getTransportistasLogin();
+		for(int i=0; i<lista.size();i++) {
+			if(lista.get(i).getUsuario().equals(usuario) && lista.get(i).getContraseña().equals(contraseña)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

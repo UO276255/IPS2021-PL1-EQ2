@@ -20,7 +20,9 @@ import javax.swing.JOptionPane;
 
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
+import com.uniovi.muebleria.maven.modelo.PersonalAlmacen.PersonalAlmacenDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
+import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorDTO;
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
@@ -1769,5 +1771,83 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return fecha;
+	}
+	
+	public List<VendedorDTO> getVendedores(String query){
+		List<VendedorDTO> lista = new ArrayList<VendedorDTO>();
+		VendedorDTO dto = null;		
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(query);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				dto = new VendedorDTO();
+				dto.setUsuario(rs.getString(1));
+				dto.setContraseña(rs.getString(2));				
+				lista.add(dto);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return lista;
+	}
+	
+	public List<PersonalAlmacenDTO> getAlmacenLogin(String query){
+		List<PersonalAlmacenDTO> lista = new ArrayList<PersonalAlmacenDTO>();
+		PersonalAlmacenDTO dto = null;		
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(query);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				dto = new PersonalAlmacenDTO();
+				dto.setUsuario(rs.getString(1));
+				dto.setContraseña(rs.getString(2));				
+				lista.add(dto);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return lista;
+	}
+	
+	public List<EmpleadoDTO> getTransportistasLogin(String query){
+		List<EmpleadoDTO> lista = new ArrayList<EmpleadoDTO>();
+		EmpleadoDTO dto = null;		
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(query);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				dto = new EmpleadoDTO();
+				dto.setUsuario(rs.getString(1));
+				dto.setContraseña(rs.getString(2));				
+				lista.add(dto);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return lista;
 	}
 }

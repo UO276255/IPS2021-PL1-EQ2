@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.uniovi.muebleria.maven.controlador.PersonalAlmacen.PersonalAlmacenController;
 import com.uniovi.muebleria.maven.controlador.Vendedor.VendedorController;
 import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
@@ -327,23 +329,29 @@ public class VistaCrearEmpleado extends JFrame {
 		
 		
 	}
+//	String texto="Saludos desde Apuntesdejava.com";
+//  String encriptMD5=DigestUtils.md5Hex(texto);
+//  System.out.println("md5:"+encriptMD5);
 	
 	private void añadirEmpleado() {
 		if(getComboBoxPerfil().getSelectedItem().equals("VENDEDOR")) {
 		VendedorController controllerV = new VendedorController(new VendedorModel(), VistaMuebleria.VIEW_CREAR_EMPLEADO);
+		String contraseñaencriptada = DigestUtils.md5Hex(getTextFieldContraseña().getText());
 		controllerV.crearTrabajador(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
-				Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),
+				Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),contraseñaencriptada,
 				(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),"v");
 		} else if(getComboBoxPerfil().getSelectedItem().equals("PERSONAL ALMACEN")) {
 			PersonalAlmacenController controllerM = new PersonalAlmacenController(new PersonalAlmacenModel(), VistaMuebleria.VIEW_CREAR_EMPLEADO);
+			String contraseñaencriptada = DigestUtils.md5Hex(getTextFieldContraseña().getText());
 			controllerM.crearTrabajador(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
-					Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),
+					Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),contraseñaencriptada,
 					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),"pa");
 		} else {
 			TransportistaController controllerT = new TransportistaController(new TransportistaModel());
+			String contraseñaencriptada = DigestUtils.md5Hex(getTextFieldContraseña().getText());
 			controllerT.crearTrabajador(getTextFieldNombre().getText(),Integer.parseInt(getTextFieldTelefono().getText()),
 					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),
-					getTextFieldUsuario().getText(),getTextFieldContraseña().getText(),"t");
+					getTextFieldUsuario().getText(),contraseñaencriptada,"t");
 		}
 		
 	}

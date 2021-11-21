@@ -28,7 +28,7 @@ public class VendedorDTO {
 		this.usuario = usuario;
 		this.contraseña = contraseña;
 	}
-	
+
 	public String getApellido() {return apellido;}
 	public String getDNI() {return DNI;}
 	public String getUsuario() {return usuario;}

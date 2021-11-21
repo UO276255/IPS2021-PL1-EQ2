@@ -16,6 +16,7 @@ public class TransportistaModel {
 	private static final String SQL_ID_TRANSP = "SELECT id_transp FROM Venta WHERE id_venta = ?";
 	public static final String SQL_CONTAR_TRANSPORTISTAS = "SELECT count(*) FROM Transportista";
 	private static final String SQL_AÑADIR_TRANSP ="insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+	public static final String SQL_USUARIO_CONTRASEÑA_TRANSP = "SELECT usuario,contraseña FROM Transportista";
 	
 	public List<EmpleadoDTO> getListaTransportistas(){
 		return db.recogerEmpleados(SQL_TRANSPORTISTAS);
@@ -42,5 +43,9 @@ public class TransportistaModel {
 	
 	public int contarTransportista() {
 		return db.contarDatos(SQL_CONTAR_TRANSPORTISTAS);
+	}
+
+	public List<EmpleadoDTO> getTransportistasLogin() {
+		return db.getTransportistasLogin(SQL_USUARIO_CONTRASEÑA_TRANSP);
 	}
 }
