@@ -2,16 +2,19 @@ package com.uniovi.muebleria.maven.controlador.Venta;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 
+import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.AddProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.ProductoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
+import com.uniovi.muebleria.maven.util.SendMail;
 import com.uniovi.muebleria.maven.vista.VistaCreacionVentas;
 import com.uniovi.muebleria.maven.vista.VistaDeterminaFecha;
 import com.uniovi.muebleria.maven.vista.VistaEntregarPedido;
@@ -175,7 +178,34 @@ public class VentaController {
 		vistaHistorial.getTxSumaTotal().setText(""+precio+" €");
 		
 	}
-	
-	
-	
+
+	public void entregarPedido() {
+		VentaDTO venta = (VentaDTO)vistaEntregarPedido.getListVentas().getSelectedValue();
+		String sep="\n";
+		
+		ClienteDTO cliente = model.getCliente(venta.getId_pres());
+		ProductoDTO[] productos = getListaProductos(venta);
+		String subject = "Mueblería - Entrega de Pedido con ID: "+venta.getId_venta();
+		StringBuilder msg = new StringBuilder();
+		msg.append("Estimado/a "+cliente.getNombre()+" "+cliente.getApellido()+": ")
+			.append(sep)
+			.append("Se le notifica que se ha realizado la entrega del pedido con id:" + venta.getId_venta() + " y con fecha prevista de entrega"
+				+ " para el " + venta.getFecha() + ".")
+			.append(sep)
+			.append("El detalle de los productos del pedido es el siguiente: ")
+			.append(sep);
+		for (int i=0; i<productos.length;i++) {
+			int cantidad = model.contarUnidades(venta.getId_pres(), productos[i].getId());
+			msg.append("\t " + productos[i].toStringPedido(cantidad))
+				.append(sep);
+		}
+		msg.append(sep)
+			.append("El precio final de la venta es: "+venta.getPrecio()+"€")
+			.append(sep)
+			.append(sep)
+			.append("Atentamente, el equipo de atención al cliente");		
+		
+		SendMail.sendMailWithTTLS("adrian.estrada2001@gmail.com", subject, msg.toString());
+		SendMail.sendMailWithTTLS(cliente.getEmail(), subject, msg.toString());
+	}
 }
