@@ -316,21 +316,12 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.remove(btnCrearVenta);
 		PanelBotones.remove(btnAsignarPresupuesto);
 		PanelBotones.remove(btnSeguimientoPedido);
-		PanelBotones.remove(btnNewButton);
 		panel.remove(btnBorrarBaseDatos);
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
 	}
 
 	public void ventanaAdministrador() {
-		PanelBotones.remove(btCrearPedido);
-		PanelBotones.remove(btnVisualizarHistorial);
-		PanelBotones.remove(btnVerAlmacenes);
-		PanelBotones.remove(btnCreaPresupuesto);
-		PanelBotones.remove(btnCrearVenta);
-		PanelBotones.remove(btnAsignarPresupuesto);
-		PanelBotones.remove(btnSeguimientoPedido);
-		PanelBotones.remove(btnNewButton);
 
 	}
 }
