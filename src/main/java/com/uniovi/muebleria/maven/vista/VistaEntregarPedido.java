@@ -11,6 +11,11 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.border.EtchedBorder;
+
+import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
+import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
+import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
+
 import javax.swing.ListSelectionModel;
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -26,7 +31,7 @@ public class VistaEntregarPedido extends JFrame {
 	private JPanel pnBotones;
 	private JButton btEntregar;
 	private JButton btCancelar;
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -83,6 +88,12 @@ public class VistaEntregarPedido extends JFrame {
 	private JButton getBtEntregar() {
 		if (btEntregar == null) {
 			btEntregar = new JButton("ENTREGAR");
+			btEntregar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_ENTREGAR_PEDIDO);
+					controller.entregarPedido();
+				}
+			});
 			btEntregar.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btEntregar.setBackground(Color.GREEN);
 		}

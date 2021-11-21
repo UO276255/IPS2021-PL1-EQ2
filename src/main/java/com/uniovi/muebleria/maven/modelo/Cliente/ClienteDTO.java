@@ -27,6 +27,22 @@ public class ClienteDTO {
 	
 	
 	
+	public int getDni() {
+		return dni;
+	}
+
+	public void setDni(int dni) {
+		this.dni = dni;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public int getIdCliente() {
 		return IdCliente;
 	}

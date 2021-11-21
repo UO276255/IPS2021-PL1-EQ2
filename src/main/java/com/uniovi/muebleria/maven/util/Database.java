@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
+import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
@@ -62,4 +63,5 @@ public class Database extends DbUtil {
 	public String getUrl() {
 		return URL;
 	}
+
 }

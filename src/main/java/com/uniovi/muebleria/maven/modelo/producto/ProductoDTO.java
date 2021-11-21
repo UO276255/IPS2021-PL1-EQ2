@@ -36,4 +36,10 @@ public class ProductoDTO {
 				+ getPrecio() + ", categoria: " + getCategoria();
 		return cadena;
 	}
+	
+	public String toStringPedido(int cantidad) {
+		String cadena ="Nombre: " + getNombre() + ", precio: "
+				+ getPrecio() + ", categoria: " + getCategoria() + ", x " + cantidad + " uds";
+		return cadena;
+	}
 }

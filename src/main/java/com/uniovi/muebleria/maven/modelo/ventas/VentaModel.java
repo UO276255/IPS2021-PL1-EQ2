@@ -3,6 +3,7 @@ package com.uniovi.muebleria.maven.modelo.ventas;
 import java.sql.Date;
 import java.util.List;
 
+import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.util.Database;
@@ -40,6 +41,9 @@ public class VentaModel {
 	public static final String SQL_VENTAS_TRP = "SELECT * FROM Venta WHERE transporte = 1";
 	public static final String SQL_ALMACEN_VENTAS = "UPDATE Registrado SET cantidad = ? WHERE Id_Almacen=? AND Id_Prod=?";
 	public static final String SQL_CANT_PROD_ALM = "SELECT Cantidad FROM Registrado WHERE Id_Almacen=? AND Id_Prod=?";
+	
+	public static final String SQL_CLIENTE = "SELECT cli.* FROM "
+			+ "Presupuestos pre JOIN Cliente cli ON pre.ID_CLIENTE = cli.ID WHERE pre.ID_PRES = ? ";
 	
 	public VentaModel() {
 		
@@ -114,6 +118,10 @@ public class VentaModel {
 			return 1;
 		db.actualizaAlmacen(SQL_ALMACEN_VENTAS, idAlmacen, producto.getId(), cantidad);
 		return 0;
+	}
+
+	public ClienteDTO getCliente(int id_pres) {
+		return db.getCliente(SQL_CLIENTE, id_pres);
 	}
 	
 	

@@ -1770,4 +1770,28 @@ public abstract class DbUtil {
 		}
 		return fecha;
 	}
+	
+	public ClienteDTO getCliente(String sql, int id_pres) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ClienteDTO cliente = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id_pres);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				cliente = new ClienteDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4),rs.getInt(5), rs.getString(6));
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return cliente;
+	}
 }
