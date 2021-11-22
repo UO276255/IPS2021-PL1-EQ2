@@ -1,7 +1,6 @@
 package com.uniovi.muebleria.maven.modelo.PersonalAlmacen;
 
 import java.sql.Time;
-import java.util.List;
 
 import com.uniovi.muebleria.maven.util.Database;
 
@@ -20,10 +19,6 @@ public class PersonalAlmacenModel {
 	
 	public int contarPersonalAlmacen() {
 		return db.contarDatos(SQL_CONTAR_PERSONAL_ALMACEN);
-	}
-
-	public List<PersonalAlmacenDTO> getPersonalLogin() {
-		return db.getAlmacenLogin(SQL_USUARIO_CONTRASEÑA_ALMACEN);
 	}
 
 }

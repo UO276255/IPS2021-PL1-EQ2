@@ -1,7 +1,6 @@
 package com.uniovi.muebleria.maven.modelo.Vendedor;
 
 import java.sql.Time;
-import java.util.List;
 
 import com.uniovi.muebleria.maven.util.Database;
 
@@ -22,10 +21,6 @@ public class VendedorModel {
 
 	public int contarVendedores() {
 		return db.contarDatos(SQL_CONTAR_VENDEDORES);
-	}
-
-	public List<VendedorDTO> getVendedoresLogin() {
-		return db.getVendedores(SQL_USUARIO_CONTRASEÑA_VENDEDORES);
 	}
 	
 }
