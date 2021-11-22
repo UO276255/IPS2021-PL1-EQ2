@@ -21,8 +21,8 @@ CREATE TABLE Almacen(
 	Id_almacen int PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32));
 	
-CREATE TABLE PersonalAlmacen(
-	Id_perAlmacen int PRIMARY KEY NOT NULL,
+CREATE TABLE Empleado(
+	Id_empleado int PRIMARY KEY NOT NULL,
 	Nombre VARCHAR(32),
 	Apellido VARCHAR(32),
 	DNI VARCHAR(32) UNIQUE,
@@ -31,16 +31,13 @@ CREATE TABLE PersonalAlmacen(
 	Contraseña VARCHAR(32),
 	hora_entrada TIME,
 	hora_salida TIME,
-	inicio_vacaciones DATETIME,
-	fin_vacaciones DATETIME,
 	oficio VARCHAR(32)
 );
-
 
 CREATE TABLE GestionaAlmacen(
 	Id_Gestion int PRIMARY KEY NOT NULL,
 	Id_almacen INT REFERENCES Almacen(Id_almacen),
-	Id_perAlmacen INT REFERENCES PersonalAlmacen(Id_perAlmacen)
+	Id_empleado INT REFERENCES Empleado(Id_empleado)
 );
 
 CREATE TABLE Productos(
@@ -65,48 +62,18 @@ CREATE TABLE Solicitudes (
 	Transporte BIT,
 	Montaje BIT);
 
-CREATE TABLE Transportista(
-	id_transp int PRIMARY KEY NOT NULL,
-	Nombre VARCHAR(32) NOT NULL,
-	Apellido VARCHAR(32) NOT NULL,
-	DNI VARCHAR(32) UNIQUE,
-	Numero_tel INT NOT NULL,
-	USUARIO VARCHAR(32),
-	CONTRASEÑA VARCHAR(32),
-	hora_entrada TIME,
-	hora_salida TIME,
-	inicio_vacaciones DATETIME,
-	fin_vacaciones DATETIME,
-	oficio VARCHAR(32)
-);
-
 CREATE TABLE Venta (
 	Id_venta INT PRIMARY KEY NOT NULL,
 	Fecha_venta DATETIME,
 	Precio INT NOT NULL,
 	Transporte BIT,
 	Id_pres INT REFERENCES Presupuestos(Id_pres),
-	Id_transp INT REFERENCES Transportista(Id_transp));
-	
-CREATE TABLE Vendedor(
-	Id_vendedor int PRIMARY KEY NOT NULL,
-	Nombre VARCHAR(32),
-	Apellido VARCHAR(32),
-	DNI VARCHAR(32) UNIQUE,
-	Telefono INT,
-	Usuario VARCHAR(32),
-	Contraseña VARCHAR(32),	
-	hora_entrada TIME,
-	hora_salida TIME,
-	inicio_vacaciones DATETIME,
-	fin_vacaciones DATETIME,
-	oficio VARCHAR(32)
-);
+	Id_empleado INT REFERENCES Empleado(Id_empleado));
 
 CREATE TABLE Vender(
 	Id_Vender int PRIMARY KEY NOT NULL,
 	Id_venta INT REFERENCES Venta(Id_venta),
-	Id_perAlmacen INT REFERENCES Vendedor(Id_vendedor)
+	Id_empleado INT REFERENCES Empleado(Id_empleado)
 );
 	
 CREATE TABLE Repuesto (
@@ -120,3 +87,10 @@ CREATE TABLE Registrado(
 	Id_prod INT REFERENCES Productos(Id_prod),
 	Id_almacen INT REFERENCES Almacen(Id_almacen),
 	cantidad INT);
+
+CREATE TABLE Vacaciones(
+	Id_vacacion INT PRIMARY KEY NOT NULL,
+	inicio_vacaciones DATETIME,
+	fin_vacaciones DATETIME,
+	Id_empleado INT REFERENCES Empleado(Id_empleado));
+	

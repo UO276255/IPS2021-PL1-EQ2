@@ -9,14 +9,14 @@ public class TransportistaModel {
 	
 	private Database db = new Database();
 	
-	private static final String SQL_TRANSPORTISTAS = "SELECT * FROM Transportista";
+	private static final String SQL_TRANSPORTISTAS = "SELECT * FROM Empleado where oficio = 't'";
 	private static final String SQL_VENTAS = "SELECT * FROM Venta";
-	private static final String SQL_ASIGNAR = "UPDATE Venta set id_transp = ? where id_venta = ?";
+	private static final String SQL_ASIGNAR = "UPDATE Venta set Id_empleado = ? where id_venta = ?";
 	private static final String SQL_ACTUALIZA = "UPDATE Venta set transporte = 1 where id_venta = ?";
-	private static final String SQL_ID_TRANSP = "SELECT id_transp FROM Venta WHERE id_venta = ?";
-	public static final String SQL_CONTAR_TRANSPORTISTAS = "SELECT count(*) FROM Transportista";
-	private static final String SQL_AÑADIR_TRANSP ="insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-	public static final String SQL_USUARIO_CONTRASEÑA_TRANSP = "SELECT usuario,contraseña FROM Transportista";
+	private static final String SQL_ID_TRANSP = "SELECT Id_empleado FROM Venta WHERE id_venta = ?";
+	public static final String SQL_CONTAR_TRANSPORTISTAS = "SELECT count(*) FROM Empleado where oficio = 't'";
+	private static final String SQL_AÑADIR_TRANSP ="insert into Empleado (Id_empleado,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+	public static final String SQL_USUARIO_CONTRASEÑA_TRANSP = "SELECT usuario,contraseña FROM Empleado where oficio = 't'";
 	
 	public List<EmpleadoDTO> getListaTransportistas(){
 		return db.recogerEmpleados(SQL_TRANSPORTISTAS);

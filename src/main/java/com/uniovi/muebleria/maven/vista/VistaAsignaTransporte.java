@@ -137,24 +137,17 @@ public class VistaAsignaTransporte extends JFrame{
 					inicializar();
 					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
 					setTransportista((EmpleadoDTO) getComboBoxListaTransportistas().getSelectedItem());
-					Date dateInicioVacaciones = controller.getDateInicioTransportista(transpElegido.getId());
-					Date dateFinalVacaciones = controller.getDateFinalTransportista(transpElegido.getId());
-					Date actual = (Date) Calendar.getInstance().getTime();
-					if(dateInicioVacaciones.compareTo(actual)<0 && actual.compareTo(dateFinalVacaciones)<0) {
-						JOptionPane.showMessageDialog(null, "No se puede asignar trabajo a un empleado en periodo vacacional.");
-					}else {
-						ProductoDTO[] productos = controller.getListaProductosVentaNoMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
-						for (int i=0;i<productos.length;i++) {
-							addModeloListProdNoMontar(productos[i]);						
-						}
-						ProductoDTO[] productosMon = controller.getListaProductosVentaMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
-						for (int i=0;i<productosMon.length;i++) {
-							addModeloListProdMontar(productosMon[i]);						
-						}
-						setVenta((VentaDTO) getComboBoxListaVentas().getSelectedItem());
-						CardLayout c = (CardLayout) getPanelGeneral().getLayout();
-						c.show(getPanelGeneral(), "PanelMontados");
+					ProductoDTO[] productos = controller.getListaProductosVentaNoMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
+					for (int i=0;i<productos.length;i++) {
+						addModeloListProdNoMontar(productos[i]);						
 					}
+					ProductoDTO[] productosMon = controller.getListaProductosVentaMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
+					for (int i=0;i<productosMon.length;i++) {
+						addModeloListProdMontar(productosMon[i]);						
+					}
+					setVenta((VentaDTO) getComboBoxListaVentas().getSelectedItem());
+					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
+					c.show(getPanelGeneral(), "PanelMontados");
 				}
 			});
 			btnAceptaTransp.setBounds(283,444, 180, 23);

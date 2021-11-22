@@ -153,7 +153,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5), rs.getTime(8), rs.getTime(9), rs.getString(12));
+				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5), rs.getTime(8), rs.getTime(9), rs.getString(10));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -177,7 +177,7 @@ public abstract class DbUtil {
 			pst.setInt(1, idTransp);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5),rs.getTime(8), rs.getTime(9), rs.getString(12));
+				tra = new EmpleadoDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(5),rs.getTime(8), rs.getTime(9), rs.getString(10));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -339,7 +339,7 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				pres = new PresupuestoDTO(rs.getInt(1), rs.getInt(2),presupuestoAceptado(rs.getInt(3)),rs.getDate(4), rs.getInt(5),rs.getString(7));
+				pres = new PresupuestoDTO(rs.getInt(1), rs.getInt(2),presupuestoAceptado(rs.getInt(3)),rs.getDate(4), rs.getInt(5),"");
 				list.add(pres);
 			}
 		} catch (SQLException e) {
@@ -1440,10 +1440,7 @@ public abstract class DbUtil {
 			pst.setString(7,contraseña);
 			pst.setTime(8,hora_entrada);
 			pst.setTime(9,hora_salida);
-			Date date = new Date(0);
-			pst.setDate(10,date);
-			pst.setDate(11,date);
-			pst.setString(12, oficio);
+			pst.setString(10, oficio);
 			
 			pst.executeUpdate();
 			
@@ -1474,10 +1471,7 @@ public abstract class DbUtil {
 			pst.setString(7,contraseña);
 			pst.setTime(8,horaEntrada);
 			pst.setTime(9,horaSalida);
-			Date date = new Date(0);
-			pst.setDate(10,date);
-			pst.setDate(11,date);
-			pst.setString(12, oficio);
+			pst.setString(10, oficio);
 			
 			pst.executeUpdate();
 			
@@ -1555,10 +1549,7 @@ public abstract class DbUtil {
 			pst.setString(7,contraseña);
 			pst.setTime(8,hora_entrada);
 			pst.setTime(9,hora_salida);
-			Date date = new Date(0);
-			pst.setDate(10,date);
-			pst.setDate(11,date);
-			pst.setString(12, oficio);
+			pst.setString(10, oficio);
 			
 			pst.executeUpdate();
 			
@@ -1705,7 +1696,7 @@ public abstract class DbUtil {
 		}
 	}
 	
-	public void asignaFecha(String sql, Date date, int id) {
+	public void asignaFecha(String sql, Date dateIn, Date dateFin, int id) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -1713,8 +1704,10 @@ public abstract class DbUtil {
 			try {
 			c = getConnection();
 			pst = c.prepareStatement(sql);
-			pst.setDate(1, date);
-			pst.setInt(2,id);
+			pst.setInt(1, calculaIdVacacion()+1);
+			pst.setDate(2, dateIn);
+			pst.setDate(3, dateFin);
+			pst.setInt(4, id);
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -1725,19 +1718,44 @@ public abstract class DbUtil {
 		}
 	}
 	
-	public Date inicioVacacional(String sql, int id) {
+	private int calculaIdVacacion() {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		Date fecha = null;
+		int result = 0;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement("SELECT MAX(Id_vacacion) max_id_vacacion FROM Vacaciones");
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+
+	public ArrayList<java.util.Date> fechaVacacional(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ArrayList<java.util.Date> fechas = new ArrayList<>();
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sql);
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
 			
-			if (rs.next()) {
-				fecha = rs.getDate(1);
+			while (rs.next()) {
+				Date date = rs.getDate(1);
+				java.util.Date fecha = new java.util.Date(date.getTime());
+				fechas.add(fecha);
 			}
 			
 		} catch (SQLException e) {
@@ -1746,7 +1764,7 @@ public abstract class DbUtil {
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
-		return fecha;
+		return fechas;
 	}
 	
 	public Date getFecha(String sql, int id) {

@@ -1,12 +1,27 @@
 package com.uniovi.muebleria.maven.vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import com.toedter.calendar.JCalendar;
 import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
@@ -14,26 +29,6 @@ import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.JTextArea;
-import javax.swing.SpinnerDateModel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-
-import java.awt.BorderLayout;
-import javax.swing.border.LineBorder;
-import java.awt.List;
-import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.awt.event.ActionEvent;
-import javax.swing.JSpinner;
 
 public class VistaDeterminaFecha extends JFrame {
 
@@ -48,6 +43,7 @@ public class VistaDeterminaFecha extends JFrame {
 	private VentaDTO venta;
 	private JSpinner spTimer;
 	List listaTransportista;
+	private EmpleadoDTO transportistaSeleccionado;
 
 	/**
 	 * Create the frame.
@@ -132,6 +128,7 @@ public class VistaDeterminaFecha extends JFrame {
 			JOptionPane.showMessageDialog(null, "La venta no tiene transportista asignado");
 		}
 		else
+			transportistaSeleccionado = transportista;
 			listaTransportista.add(transportista.toString());
 	}
 
@@ -164,26 +161,33 @@ public class VistaDeterminaFecha extends JFrame {
 			btAsignar.addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
+					VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTA);
 					Date time = (Date) spTimer.getValue();
 					Date date = getCalendar().getDate();
 					Date actual = Calendar.getInstance().getTime();
-					if (date.getDay() == 0)
+					ArrayList<Date> dateInicioActual = controller.getDiaInicioVacaciones(transportistaSeleccionado.getId());
+					ArrayList<Date> dateFinaloActual = controller.getDiaFinalVacaciones(transportistaSeleccionado.getId());
+					if (date.getDay() == 0) {
 							JOptionPane.showMessageDialog(null, "Debe asignarse una fecha en días laborables");
-					if (date.compareTo(actual)<0)
+					} else if (date.compareTo(actual)<0) {
 						JOptionPane.showMessageDialog(null, "La fecha asignada debe ser posterior a la actual");
-					else if (date.compareTo(actual)==0 && time.getHours() < actual.getHours())
+					} else if (date.compareTo(actual)==0 && time.getHours() < actual.getHours()) {
 						JOptionPane.showMessageDialog(null, "La fecha asignada debe ser posterior a la actual");
-					else if (date.compareTo(actual)==0 && time.getHours() == actual.getHours() 
-							&& time.getMinutes() < actual.getMinutes())
+					} else if (date.compareTo(actual)==0 && time.getHours() == actual.getHours() 
+							&& time.getMinutes() < actual.getMinutes()) {
 						JOptionPane.showMessageDialog(null, "La fecha asignada debe ser posterior a la actual");
-					else {
-						
-						
-						VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTA);
-						if (controller.asignaFechaVenta(venta,date,time))
+					} else if(!dateInicioActual.isEmpty()) {
+						for(int i=0; i<dateInicioActual.size(); i++) {
+							if(dateInicioActual.get(i).compareTo(date)<0 && date.compareTo(dateFinaloActual.get(i))<0) {
+								JOptionPane.showMessageDialog(null, "Este empleado estará en este momento en periodo vacacional.");
+							}
+						}
+					} else {
+						if (controller.asignaFechaVenta(venta,date,time)) {
 							JOptionPane.showMessageDialog(null, "Se asignó la fecha correctamente");
-						else
+						} else {
 							JOptionPane.showMessageDialog(null, "No está dentro del horario del transportista");
+						}
 					}
 				}
 			});

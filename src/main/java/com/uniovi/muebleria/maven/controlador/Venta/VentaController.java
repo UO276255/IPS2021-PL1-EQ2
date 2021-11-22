@@ -212,4 +212,12 @@ public class VentaController {
 //		SendMail.sendMailWithTTLS("suarezgpablo@uniovi.es", subject, msg.toString());
 		SendMail.sendMailWithTTLS(cliente.getEmail(), subject, msg.toString());
 	}
+	
+	public ArrayList<java.util.Date> getDiaInicioVacaciones(int id) {
+		return model.getDiaInicioVacaciones(id);
+	}
+	
+	public ArrayList<java.util.Date> getDiaFinalVacaciones(int id) {
+		return model.getDiaFinalVacaciones(id);
+	}
 }

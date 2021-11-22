@@ -9,9 +9,9 @@ public class VendedorModel {
 	
 	private Database db = new Database();
 	
-	private static final String SQL_AÑADIR_VENDEDOR ="insert into Vendedor (id_vendedor,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-	public static final String SQL_CONTAR_VENDEDORES = "SELECT count(*) FROM Vendedor";
-	public static final String SQL_USUARIO_CONTRASEÑA_VENDEDORES = "SELECT usuario,contraseña FROM Vendedor";
+	private static final String SQL_AÑADIR_VENDEDOR ="insert into Empleado (id_empleado,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+	public static final String SQL_CONTAR_VENDEDORES = "SELECT count(*) FROM Empleado";
+	public static final String SQL_USUARIO_CONTRASEÑA_VENDEDORES = "SELECT usuario,contraseña FROM Empleado";
 	
 	public void crearVendedor(String nombre, String apellido,String DNI, int telefono,String usuario,String contraseña,Time hora_entrada, Time hora_salida, String oficio) {
 		

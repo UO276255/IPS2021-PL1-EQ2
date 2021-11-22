@@ -30,8 +30,8 @@ private Database db = new Database();
 	
 	private static final String SQL_CREAR_REGISTRADO = "INSERT INTO Registrado(ID_REG, ID_PROD, ID_ALMACEN, CANTIDAD) VALUES (?,?,?,?)";
 	
-	private static final String SQL_FECHA_INICIO = "SELECT inicio_vacaciones FROM Transportista where id_transp = ?";
-	private static final String SQL_FECHA_FINAL = "SELECT fin_vacaciones FROM Transportista where id_transp = ?";
+	private static final String SQL_FECHA_INICIO = "SELECT inicio_vacaciones FROM Vacaciones where id_empleado = ?";
+	private static final String SQL_FECHA_FINAL = "SELECT fin_vacaciones FROM Vacaciones where id_empleado = ?";
 	
 	
 	public List<ProductoDTO> getListaProductosVentaNoTransp(int id_venta) {

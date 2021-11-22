@@ -1,6 +1,7 @@
 package com.uniovi.muebleria.maven.modelo.ventas;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
@@ -23,7 +24,7 @@ public class VentaModel {
 													+ "values (?,?,?,0,?,null)";
 	
 	
-	public static final String SQL_TRANSPORTISTA = "SELECT * FROM Transportista WHERE id_transp = ?";
+	public static final String SQL_TRANSPORTISTA = "SELECT * FROM Empleado WHERE id_empleado = ?";
 	
 	
 	private static final String SQL_VENTAS_FECHA = "SELECT * FROM Venta WHERE fecha_venta >= ? AND fecha_venta <= ?";
@@ -44,6 +45,10 @@ public class VentaModel {
 	
 	public static final String SQL_CLIENTE = "SELECT cli.* FROM "
 			+ "Presupuestos pre JOIN Cliente cli ON pre.ID_CLIENTE = cli.ID WHERE pre.ID_PRES = ? ";
+	
+	private static final String SQL_INICIO_VACACIONAL = "SELECT inicio_vacaciones FROM Vacaciones where Id_empleado = ?";
+	
+	private static final String SQL_FINAL_VACACIONAL = "SELECT fin_vacaciones FROM Vacaciones where Id_empleado = ?";
 	
 	public VentaModel() {
 		
@@ -124,6 +129,12 @@ public class VentaModel {
 		return db.getCliente(SQL_CLIENTE, id_pres);
 	}
 	
+	public ArrayList<java.util.Date> getDiaInicioVacaciones(int id) {
+		return db.fechaVacacional(SQL_INICIO_VACACIONAL, id);
+	}
 	
+	public ArrayList<java.util.Date> getDiaFinalVacaciones(int id) {
+		return db.fechaVacacional(SQL_FINAL_VACACIONAL, id);
+	}
 }
 	
