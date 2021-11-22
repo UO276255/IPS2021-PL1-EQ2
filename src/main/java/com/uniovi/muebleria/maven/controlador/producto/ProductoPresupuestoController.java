@@ -16,6 +16,7 @@ public class ProductoPresupuestoController {
 		this.model = m;
 	}
 	
+	
 	public void initViewProdPres() {
 		vista.setVisible(true);
 		setListProductos(getListaProductos());
