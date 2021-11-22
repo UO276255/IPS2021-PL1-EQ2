@@ -58,8 +58,8 @@ public class SendMail {
 	}
 	
 	public static void sendMailWithTTLS(String toEmail, String subject, String body) {
-		final String fromEmail = "adrian.estrada2001@gmail.com"; //requires valid gmail id
-		final String password = "Adrian2001"; // correct password for gmail id
+		final String fromEmail = "muebleria.equipo2.pl1@gmail.com"; //requires valid gmail id
+		final String password = "@Muebleria2"; // correct password for gmail id
 		final String emailID = toEmail; // can be any email id 
 		
 		System.out.println("TLSEmail Start");

@@ -194,8 +194,10 @@ public class VentaController {
 			.append(sep)
 			.append("El detalle de los productos del pedido es el siguiente: ")
 			.append(sep);
+		
 		for (int i=0; i<productos.length;i++) {
 			int cantidad = model.contarUnidades(venta.getId_pres(), productos[i].getId());
+			cantidad = 1;
 			msg.append("\t " + productos[i].toStringPedido(cantidad))
 				.append(sep);
 		}
@@ -206,6 +208,8 @@ public class VentaController {
 			.append("Atentamente, el equipo de atención al cliente");		
 		
 		SendMail.sendMailWithTTLS("adrian.estrada2001@gmail.com", subject, msg.toString());
+		SendMail.sendMailWithTTLS("rubenrc233@gmail.com", subject, msg.toString());
+//		SendMail.sendMailWithTTLS("suarezgpablo@uniovi.es", subject, msg.toString());
 		SendMail.sendMailWithTTLS(cliente.getEmail(), subject, msg.toString());
 	}
 }
