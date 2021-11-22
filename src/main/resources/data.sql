@@ -27,7 +27,7 @@ insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Cont
 insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (3,'Luis','Torres','56938577Z',639293514,'LuisTor','1234',to_date('08:00','HH:MM'),to_date('22:00','HH:MM'),to_date('2022-08-15','yyyy-mm-dd'),to_date('2022-08-31','yyyy-mm-dd'),'t');
 insert into Transportista (id_transp,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (4,'Victoria','Sánchez','42155995M',649183272,'VicSan','202cb962ac59075b964b07152d234b70',to_date('09:00','HH:MM'),to_date('23:59','HH:MM'),to_date('2021-12-20','yyyy-mm-dd'),to_date('2022-01-04','yyyy-mm-dd'),'t');
 
-insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5,null);
+insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) values (1,to_date('2021-10-10','yyyy-mm-dd'),1804,0,5,null);
 insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) values (2,to_date('2021-09-28','yyyy-mm-dd'),140,0,7,null);
 insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,id_transp) values (3,to_date('2021-11-05','yyyy-mm-dd'),140,0,3,null);
 
