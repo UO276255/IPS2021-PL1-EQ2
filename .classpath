@@ -33,10 +33,8 @@
 	<classpathentry kind="lib" path="lib/jgoodies-common-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/jgoodies-looks-2.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.6.jar"/>
-	<classpathentry kind="lib" path="jgoodies-common-1.8.0.jar" sourcepath="jgoodies-common-1.8.0-sources.jar"/>
-	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/adria/Desktop/IPS/javamail-1.4.5/mail.jar"/>
-	<classpathentry kind="lib" path="C:/Users/adria/Desktop/IPS/activation.jar"/>
+	<classpathentry kind="lib" path="D:/Datos/Descargas/activation.jar"/>
+	<classpathentry kind="lib" path="D:/Datos/Descargas/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

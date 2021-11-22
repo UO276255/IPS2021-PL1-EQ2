@@ -1,8 +1,18 @@
 package com.uniovi.muebleria.maven.vista;
 
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -13,16 +23,6 @@ import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.PersonalAlmacen.PersonalAlmacenModel;
 import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorModel;
 import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
 
 public class VistaLogin extends JFrame {
 	private static final long serialVersionUID = -5572975645091268493L;
