@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 
 public class VistaActualizarPrecios extends JFrame {
-
+  
 	private JPanel contentPane;
 	private JPanel pnProductos;
 	private JLabel lbListaProds;
