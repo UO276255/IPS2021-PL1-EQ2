@@ -17,6 +17,7 @@ import com.uniovi.muebleria.maven.modelo.producto.AddProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.CrearProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
+import com.uniovi.muebleria.maven.vista.VistaActualizarPrecios;
 import com.uniovi.muebleria.maven.vista.VistaAlmacenes;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
 import com.uniovi.muebleria.maven.vista.VistaCrearPedido;
@@ -26,6 +27,7 @@ public class ProductoController {
 	private VistaAlmacenes vistaAlm;
 	private ProductoModel model;
 	private VistaCrearPedido vistaPedido;
+	private VistaActualizarPrecios vistaActualizarPrecios;
 	
 	public ProductoController(ProductoModel m, VistaAsignaTransporte v) {
 		this.vista = v;
@@ -42,6 +44,12 @@ public class ProductoController {
 		this.model = m;
 		initView();
 	}
+	
+	public ProductoController(ProductoModel m, VistaActualizarPrecios v) {
+		this.vistaActualizarPrecios = v;
+		this.model = m;
+		initViewActualizaPrecios();
+	}
 	public ProductoController(ProductoModel m, VistaCrearPedido v, boolean noInit) {
 		this.vistaPedido = v;
 		this.model = m;
@@ -51,6 +59,13 @@ public class ProductoController {
 		vistaPedido.setLocationRelativeTo(null);
 		añadirProductos();
 		seleccionarAlmacen();
+	}
+	
+	public void initViewActualizaPrecios() {
+		vistaActualizarPrecios.setVisible(true);
+		vistaActualizarPrecios.setLocationRelativeTo(null);
+		añadirProductosActualizarPrecios();
+		
 	}
 	
 	private void seleccionarAlmacen() {
@@ -168,6 +183,14 @@ public class ProductoController {
 	
 		vistaPedido.getListProducts().setListData(crearProd);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void añadirProductosActualizarPrecios() {
+		List<ProductoDTO> listaProd = model.getProductos();
+		ProductoDTO[] prod = toArray(listaProd);
+	
+		vistaActualizarPrecios.getListProductos().setListData(prod);
+	}
 
 	public boolean seleccionarProducto(CrearProductoDTO prodSelec) {
 		boolean added = false;
@@ -226,7 +249,7 @@ public class ProductoController {
 		int idPedidoCreado = model.crearPedido();
 		for (int i=0; i < lista.size();i++) {
 			model.crearRepuesto(idPedidoCreado, lista.get(i).getProd().getId(), lista.get(i).getnUnidades());
-			model.crearRegistrado(lista.get(i).getProd().getId(), 1, lista.get(i).getnUnidades());
+//			model.crearRegistrado(lista.get(i).getProd().getId(), 1, lista.get(i).getnUnidades());
 		}
 		
 		return true;
@@ -239,5 +262,7 @@ public class ProductoController {
 	public Date getDateFinalTransportista(int id) {
 		return model.getDateFinalTransportista(id);
 	}
+
+	
 
 }

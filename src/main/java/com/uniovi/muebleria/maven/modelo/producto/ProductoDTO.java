@@ -42,4 +42,8 @@ public class ProductoDTO {
 				+ getPrecio() + ", categoria: " + getCategoria() + ", x " + cantidad + " uds";
 		return cadena;
 	}
+	
+	public String toStringActualizarPrecios() {
+		return getNombre() + ", " +getPrecio() + " €/ud";
+	}
 }

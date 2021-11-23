@@ -15,6 +15,7 @@ import com.uniovi.muebleria.maven.modelo.ventas.ProductoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 import com.uniovi.muebleria.maven.util.SendMail;
+import com.uniovi.muebleria.maven.vista.VistaActualizarPrecios;
 import com.uniovi.muebleria.maven.vista.VistaCreacionVentas;
 import com.uniovi.muebleria.maven.vista.VistaDeterminaFecha;
 import com.uniovi.muebleria.maven.vista.VistaEntregarPedido;
@@ -28,6 +29,7 @@ public class VentaController {
 	private VentaModel model;
 	private VistaHistorial vistaHistorial;
 	private VistaEntregarPedido vistaEntregarPedido;
+	
 	
 	public VentaController(VentaModel m, VistaDeterminaFecha v) {
 		this.vistaFecha = v;
@@ -135,6 +137,14 @@ public class VentaController {
 	}
 	
 	public void initViewEntregaPedido() {
+		vistaEntregarPedido.setVisible(true);
+		vistaEntregarPedido.setLocationRelativeTo(null);
+		getListaVentasConTransporte();
+		
+		
+	}
+	
+	public void initViewActualizaPrecios() {
 		vistaEntregarPedido.setVisible(true);
 		vistaEntregarPedido.setLocationRelativeTo(null);
 		getListaVentasConTransporte();
