@@ -17,6 +17,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 
 import java.awt.GridLayout;
