@@ -34,7 +34,7 @@
 	<classpathentry kind="lib" path="lib/jgoodies-looks-2.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.6.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.15.jar"/>
-	<classpathentry kind="lib" path="D:/Datos/Descargas/activation.jar"/>
-	<classpathentry kind="lib" path="D:/Datos/Descargas/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adria/Desktop/IPS/activation.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adria/Desktop/IPS/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
