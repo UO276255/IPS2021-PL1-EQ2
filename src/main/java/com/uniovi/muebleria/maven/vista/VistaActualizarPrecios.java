@@ -17,12 +17,14 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-
+import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
+import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 
 import java.awt.GridLayout;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
+
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 
@@ -42,6 +44,9 @@ public class VistaActualizarPrecios extends JFrame {
 	private JButton btFinalizar;
 	private JFormattedTextField txPrecio;
 	private JLabel lbEuro;
+	private ProductoDTO[] listaProductos;
+
+
 	/**
 	 * Create the frame.
 	 */
@@ -63,6 +68,15 @@ public class VistaActualizarPrecios extends JFrame {
 		contentPane.add(getTxPrecio());
 		contentPane.add(getLbEuro());
 	}
+	
+	public ProductoDTO[] getListaProductos() {
+		return listaProductos;
+	}
+
+	public void setListaProductos(ProductoDTO[] listaProductos) {
+		this.listaProductos = listaProductos;
+	}
+
 	private JPanel getPnProductos() {
 		if (pnProductos == null) {
 			pnProductos = new JPanel();
@@ -112,10 +126,10 @@ public class VistaActualizarPrecios extends JFrame {
 		}
 		return lbProducto;
 	}
-	private JTextField getTxProducto() {
+	public JTextField getTxProducto() {
 		if (txProducto == null) {
 			txProducto = new JTextField();
-			txProducto.setFont(new Font("Tahoma", Font.ITALIC, 12));
+			txProducto.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			txProducto.setEditable(false);
 			txProducto.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 			txProducto.setBackground(new Color(250, 240, 230));
@@ -135,6 +149,17 @@ public class VistaActualizarPrecios extends JFrame {
 	private JButton getBtActualizar() {
 		if (btActualizar == null) {
 			btActualizar = new JButton("ACTUALIZAR");
+			btActualizar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ProductoDTO prod= getListProductos().getSelectedValue();
+					if (prod.toStringActualizarPrecios().equals(getTxProducto().getText())) {
+						ProductoController controller = new ProductoController(new ProductoModel(), VistaMuebleria.VIEW_ACTUALIZAR_PRECIOS,true);
+						listaProductos = controller.actualizarPrecio(prod,listaProductos);
+					}
+					else
+						JOptionPane.showMessageDialog(null, "Debes seleccionar un producto para modificar su precio");
+				}
+			});
 			btActualizar.setBorder(new LineBorder(new Color(0, 0, 0)));
 			btActualizar.setBackground(new Color(255, 255, 0));
 			btActualizar.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -171,12 +196,16 @@ public class VistaActualizarPrecios extends JFrame {
 	private JButton getBtFinalizar() {
 		if (btFinalizar == null) {
 			btFinalizar = new JButton("FINALIZAR");
+			btFinalizar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
 			btFinalizar.setFont(new Font("Tahoma", Font.BOLD, 13));
 			btFinalizar.setBackground(Color.GREEN);
 		}
 		return btFinalizar;
 	}
-	private JFormattedTextField getTxPrecio() {
+	public JFormattedTextField getTxPrecio() {
 		if (txPrecio == null) {
 			txPrecio = new JFormattedTextField(new Integer(0));
 			txPrecio.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -194,4 +223,5 @@ public class VistaActualizarPrecios extends JFrame {
 		}
 		return lbEuro;
 	}
+	
 }

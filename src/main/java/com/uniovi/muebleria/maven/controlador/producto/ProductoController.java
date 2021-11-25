@@ -28,7 +28,11 @@ public class ProductoController {
 	private ProductoModel model;
 	private VistaCrearPedido vistaPedido;
 	private VistaActualizarPrecios vistaActualizarPrecios;
+	private List<ProductoDTO> listaProd;
+	private boolean inicia;
 	
+
+
 	public ProductoController(ProductoModel m, VistaAsignaTransporte v) {
 		this.vista = v;
 		this.model = m;
@@ -48,7 +52,15 @@ public class ProductoController {
 	public ProductoController(ProductoModel m, VistaActualizarPrecios v) {
 		this.vistaActualizarPrecios = v;
 		this.model = m;
+		listaProd = model.getProductos();
 		initViewActualizaPrecios();
+		vistaActualizarPrecios.setListaProductos(toArray(listaProd));
+		
+		
+	}
+	public ProductoController(ProductoModel m, VistaActualizarPrecios v, boolean noInit) {
+		this.vistaActualizarPrecios = v;
+		this.model = m;
 	}
 	public ProductoController(ProductoModel m, VistaCrearPedido v, boolean noInit) {
 		this.vistaPedido = v;
@@ -66,6 +78,14 @@ public class ProductoController {
 		vistaActualizarPrecios.setLocationRelativeTo(null);
 		añadirProductosActualizarPrecios();
 		
+	}
+	
+	public boolean isInicia() {
+		return inicia;
+	}
+
+	public void setInicia(boolean inicia) {
+		this.inicia = inicia;
 	}
 	
 	private void seleccionarAlmacen() {
@@ -192,6 +212,7 @@ public class ProductoController {
 		vistaActualizarPrecios.getListProductos().setListData(prod);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean seleccionarProducto(CrearProductoDTO prodSelec) {
 		boolean added = false;
 		int nUds = Integer.valueOf(vistaPedido.getTxUnidades().getText());
@@ -214,6 +235,7 @@ public class ProductoController {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean eliminarProducto(AddProductoDTO prodToDelete) {
 		int nUds = Integer.valueOf(vistaPedido.getTxUnidades().getText());
 	
@@ -261,6 +283,19 @@ public class ProductoController {
 
 	public Date getDateFinalTransportista(int id) {
 		return model.getDateFinalTransportista(id);
+	}
+
+	public ProductoDTO[] actualizarPrecio(ProductoDTO product, ProductoDTO[] listaProductos) {
+		
+		for (int i=0; i<listaProductos.length;i++) {
+			if (listaProductos[i].getId() == product.getId()) {
+				listaProductos[i].setPrecio(Integer.valueOf(vistaActualizarPrecios.getTxPrecio().getText()));
+				vistaActualizarPrecios.getTxProducto().setText(listaProductos[i].toStringActualizarPrecios());
+			}
+		}
+		
+		vistaActualizarPrecios.getListProductos().setListData(listaProductos);
+		return listaProductos;
 	}
 
 	
