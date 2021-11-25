@@ -81,6 +81,7 @@ public class VistaMuebleria extends JFrame {
 	 */
 	public VistaMuebleria() {
 		setTitle("Muebleria");
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 647, 442);
 		PanelInicio = new JPanel();

@@ -43,6 +43,7 @@ public class VistaLogin extends JFrame {
 		setTitle("Mueblería");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 484, 301);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setForeground(new Color(0, 0, 0));
@@ -65,9 +66,9 @@ public class VistaLogin extends JFrame {
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
 					switch(tipoEmpleado(getPasswordFieldContraseña().getText())) {
-					case 1:	vm.setVisible(true);vm.bloquearVendedor();closeWindow(); break;
-					case 2:	vm.setVisible(true);vm.bloquearAlmacen();closeWindow(); break;
-					case 3:	vm.setVisible(true);vm.bloquearTransportista();closeWindow(); break;
+					case 1:	vm.setVisible(true);vm.setLocationRelativeTo(null);vm.bloquearVendedor();closeWindow(); break;
+					case 2:	vm.setVisible(true);vm.setLocationRelativeTo(null);vm.bloquearAlmacen();closeWindow(); break;
+					case 3:	vm.setVisible(true);vm.setLocationRelativeTo(null);vm.bloquearTransportista();closeWindow(); break;
 					case 0:JOptionPane.showMessageDialog(null,"Credenciales incorrectas");break;
 					}
 				}
