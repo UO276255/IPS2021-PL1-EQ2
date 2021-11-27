@@ -17,6 +17,10 @@ public class VendedorController {
 		this.model = m;
 	}
 	
+	public VendedorController(VendedorModel vendedorModel) {
+		this.model = vendedorModel;
+	}
+
 	@SuppressWarnings("deprecation")
 	public void crearTrabajador(String nombre, String apellido,String DNI, int telefono,String usuario,String contraseña,Date hora_entrada, Date hora_salida, String oficio) {
 		Time horaEntrada = new Time(hora_entrada.getHours(),hora_entrada.getMinutes(),0);
@@ -33,4 +37,8 @@ public class VendedorController {
         }
         return false;
     }
+	
+	public List<VendedorDTO> getVendedores(){
+		return model.getVendedores();
+	}
 }

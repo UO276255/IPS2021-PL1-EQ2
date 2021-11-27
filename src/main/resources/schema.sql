@@ -53,6 +53,7 @@ CREATE TABLE Proveedor (
 CREATE TABLE Pedido (
 	Id_pedido INT PRIMARY KEY NOT NULL,
 	Estado BIT,
+	Fecha_Pedido DATETIME,
 	Id_prov INT REFERENCES Proveedor(Id_prov));
 
 CREATE TABLE Solicitudes (

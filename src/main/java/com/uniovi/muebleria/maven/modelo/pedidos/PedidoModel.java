@@ -8,9 +8,10 @@ public class PedidoModel {
 	
 	private static final String SQL_PEDIDO = "SELECT * FROM Repuesto where id_pedido = ?";
 	private static final String SQL_MAXIMO_ID = "SELECT MAX(Id_pedido) max_id_pedido FROM Pedido";
-	
+	private static final String PRECIO_PEDIDO = "select sum(p.precio_prod * r.cantidad_prod) from repuesto r, productos p where r.id_prod = p.id_prod and r.id_pedido = ?";
 	public static final String SQL_ACTUALIZA_PEDIDO = "UPDATE Pedido set estado = 1 where id_pedido = ?";
 	public static final String SQL_AÑADE_PRODUCTOS = "UPDATE Registrado set cantidad = ? where id_prod = ?";
+	public static final String SQL_COUNT_PEDIDO = "select count(*) from pedido";
 	
 	public PedidoDTO getRepuestoPedido(int id) {
 		return db.recogerRepuestoPedido(SQL_PEDIDO , id);
@@ -26,5 +27,13 @@ public class PedidoModel {
 
 	public void añadirAlmacen(ProductoDTO producto, int num) {
 		db.añadirAlmacen(SQL_AÑADE_PRODUCTOS, producto, num);
+	}
+	
+	public int getPrecioPedido(int id) {
+		return db.getPrecioPedido(PRECIO_PEDIDO,id);
+	}
+	
+	public int countPedidos() {
+		return db.contarDatos(SQL_COUNT_PEDIDO);
 	}
 }
