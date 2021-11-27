@@ -36,7 +36,6 @@
 	<classpathentry kind="lib" path="lib/commons-codec-1.15.jar"/>
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="lib" path="lib/mail.jar"/>
-	<classpathentry kind="lib" path="lib/jCharts-0.7.5.jar"/>
 	<classpathentry kind="lib" path="lib/xchart-3.8.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
