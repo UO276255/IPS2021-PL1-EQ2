@@ -6,21 +6,21 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
-import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.vista.VistaAsignaTransporte;
 
 public class TransportistaController {
 	
 	private VistaAsignaTransporte vista;
-	private TransportistaModel model;
+	private EmpleadoModel model;
 	
-	public TransportistaController(TransportistaModel m, VistaAsignaTransporte v) {
+	public TransportistaController(EmpleadoModel m, VistaAsignaTransporte v) {
 		this.vista = v;
 		this.model = m;
 	}
 	
-	public TransportistaController(TransportistaModel m) {
+	public TransportistaController(EmpleadoModel m) {
 		model = m;
 	}
 
