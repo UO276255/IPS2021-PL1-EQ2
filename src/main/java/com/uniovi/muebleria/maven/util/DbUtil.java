@@ -1643,6 +1643,7 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 	}
+	@SuppressWarnings("resource")
 	public void crearRegistrado(String sql, int idProducto, int idAlmacen, int nUnidades) {
 		String sqlId = "SELECT MAX(Id_Reg) FROM Registrado";
 
@@ -1791,7 +1792,7 @@ public abstract class DbUtil {
 		return fecha;
 	}
 	
-	public List<VendedorDTO> getVendedores(String query){
+	public List<VendedorDTO> getVendedoresLogIn(String query){
 		List<VendedorDTO> lista = new ArrayList<VendedorDTO>();
 		VendedorDTO dto = null;		
 		Connection c = null;
@@ -1805,7 +1806,34 @@ public abstract class DbUtil {
 			while (rs.next()) {
 				dto = new VendedorDTO();
 				dto.setUsuario(rs.getString(1));
-				dto.setContraseña(rs.getString(2));				
+				dto.setContraseña(rs.getString(2));
+				lista.add(dto);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return lista;
+	}
+	
+	public List<VendedorDTO> getVendedores(String query){
+		List<VendedorDTO> lista = new ArrayList<VendedorDTO>();
+		VendedorDTO dto = null;		
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(query);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				dto = new VendedorDTO();
+				dto.setNombre(rs.getString(1));
+				dto.setApellido(rs.getString(2));				
+				dto.setIdVendedor(rs.getInt(3));	
 				lista.add(dto);
 			}
 		} catch (SQLException e) {
@@ -1891,6 +1919,78 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return cliente;
-
+	}
+	public int getPrecioPedido(String sql, int id) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();		
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public ArrayList<VentaDTO> recogerVentasPorMes(String sql,int mes){
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		VentaDTO tra = null;
+		ArrayList<VentaDTO> list = new ArrayList<VentaDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,mes);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				list.add(tra);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+	
+	public List<VentaDTO> getListaVentasPorMesyVendedor(String sql, int mes, int idVendedor) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		VentaDTO tra = null;
+		ArrayList<VentaDTO> list = new ArrayList<VentaDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,mes);
+			pst.setInt(2,idVendedor);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				list.add(tra);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
 	}
 }

@@ -11,7 +11,7 @@ import com.uniovi.muebleria.maven.controlador.Vendedor.VendedorController;
 import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.PersonalAlmacen.PersonalAlmacenModel;
 import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorModel;
-import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoModel;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -347,7 +347,7 @@ public class VistaCrearEmpleado extends JFrame {
 					Integer.parseInt(getTextFieldTelefono().getText()),getTextFieldUsuario().getText(),contraseñaencriptada,
 					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),"pa");
 		} else {
-			TransportistaController controllerT = new TransportistaController(new TransportistaModel());
+			TransportistaController controllerT = new TransportistaController(new EmpleadoModel());
 			String contraseñaencriptada = DigestUtils.md5Hex(getTextFieldContraseña().getText());
 			controllerT.crearTrabajador(getTextFieldNombre().getText(),Integer.parseInt(getTextFieldTelefono().getText()),
 					(Date)getSpinnerEntrada().getValue(),(Date)getSpinnerSalida().getValue(),getTextFieldApellido().getText(),getTextFieldDNI().getText(),

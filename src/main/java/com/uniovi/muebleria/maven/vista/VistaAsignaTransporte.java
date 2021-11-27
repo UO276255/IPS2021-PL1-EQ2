@@ -23,7 +23,7 @@ import javax.swing.JScrollPane;
 import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
-import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
@@ -397,7 +397,7 @@ public class VistaAsignaTransporte extends JFrame{
 			btnFinalizar = new JButton("Finalizar");
 			btnFinalizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					TransportistaController controller = new TransportistaController(new TransportistaModel(),  VistaMuebleria.VIEW_TRANSPORTE);
+					TransportistaController controller = new TransportistaController(new EmpleadoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
 					controller.asignaTransportista(getTransportista().getId(), getVenta().getId_venta());
 					JOptionPane.showMessageDialog(null, "Se ha seleccionado al transportista: " 
 								+ transpElegido.getNombre()  +  " para la venta de id: "

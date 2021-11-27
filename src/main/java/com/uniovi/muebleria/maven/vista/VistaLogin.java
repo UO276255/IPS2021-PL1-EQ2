@@ -22,7 +22,7 @@ import com.uniovi.muebleria.maven.controlador.Vendedor.VendedorController;
 import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
 import com.uniovi.muebleria.maven.modelo.PersonalAlmacen.PersonalAlmacenModel;
 import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorModel;
-import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoModel;
 
 public class VistaLogin extends JFrame {
 	private static final long serialVersionUID = -5572975645091268493L;
@@ -139,7 +139,7 @@ public class VistaLogin extends JFrame {
 	@SuppressWarnings("deprecation")
 	protected int tipoEmpleado(String text) {
 		PersonalAlmacenController controllerAlmacen = new PersonalAlmacenController(new PersonalAlmacenModel(), null);
-		TransportistaController controllerTransp = new TransportistaController(new TransportistaModel(), null);
+		TransportistaController controllerTransp = new TransportistaController(new EmpleadoModel(), null);
 		VendedorController controllerVendedor = new VendedorController(new VendedorModel(), null);
 		if(controllerVendedor.LoginDeVendedor(getTextFieldUsuario().getText(), DigestUtils.md5Hex(getPasswordFieldContraseña().getText()))) {
 			return 1;

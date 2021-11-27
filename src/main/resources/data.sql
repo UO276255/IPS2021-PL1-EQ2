@@ -39,9 +39,10 @@ insert into Empleado (Id_empleado,Nombre,Apellido,DNI,Telefono,Usuario,Contrase√
 insert into Vacaciones (Id_vacacion,inicio_vacaciones,fin_vacaciones,Id_empleado) values (1,to_date('2021-11-15','yyyy-mm-dd'),to_date('2021-11-31','yyyy-mm-dd'),2);
 insert into Vacaciones (Id_vacacion,inicio_vacaciones,fin_vacaciones,Id_empleado) values (2,to_date('2021-12-20','yyyy-mm-dd'),to_date('2022-01-04','yyyy-mm-dd'),12);
 
-insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,Id_empleado) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5,null);
-insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,Id_empleado) values (2,to_date('2021-09-28','yyyy-mm-dd'),140,0,7,null);
-insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,Id_empleado) values (3,to_date('2021-11-05','yyyy-mm-dd'),140,0,3,null);
+insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,Id_empleado) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5,5);
+insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,Id_empleado) values (2,to_date('2021-10-15','yyyy-mm-dd'),5100,0,5,5);
+insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,Id_empleado) values (3,to_date('2021-09-28','yyyy-mm-dd'),140,0,7,7);
+insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,Id_empleado) values (4,to_date('2021-11-05','yyyy-mm-dd'),140,0,3,7);
 
 insert into almacen(Id_almacen,Nombre) values (1,'Almacen 1');
 insert into almacen(Id_almacen,Nombre) values (2,'Almacen 2');
@@ -64,13 +65,13 @@ insert into proveedor(id_prov) values (2);
 insert into proveedor(id_prov) values (3);
 insert into proveedor(id_prov) values (4);
 
-insert into pedido (id_pedido,estado,id_prov) values (1,0,1);
-insert into pedido (id_pedido,estado,id_prov) values (2,0,1);
-insert into pedido (id_pedido,estado,id_prov) values (3,0,1);
-insert into pedido (id_pedido,estado,id_prov) values (4,0,2);
-insert into pedido (id_pedido,estado,id_prov) values (5,0,2);
-insert into pedido (id_pedido,estado,id_prov) values (6,0,3);
-insert into pedido (id_pedido,estado,id_prov) values (7,0,4);
+insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (1,0,to_date('2021-11-10','yyyy-mm-dd'),1);
+insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (2,0,to_date('2021-10-11','yyyy-mm-dd'),1);
+insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (3,0,to_date('2021-12-12','yyyy-mm-dd'),1);
+insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (4,0,to_date('2021-11-13','yyyy-mm-dd'),2);
+insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (5,0,to_date('2021-10-14','yyyy-mm-dd'),2);
+insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (6,0,to_date('2021-11-15','yyyy-mm-dd'),3);
+insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (7,0,to_date('2021-112-16','yyyy-mm-dd'),4);
 
 insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (1,1,123,0,0);
 insert into solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (2,1,95,0,0);

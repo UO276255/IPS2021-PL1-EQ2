@@ -56,4 +56,8 @@ public class VendedorDTO {
 				+ getHorarioIn().toString() + ", horario de salida: " + getHorarioFin().toString();
 		return cadena;
 	}
+	public String toStringGrafico() {
+		String cadena = "Nombre: " + getNombre()  + " Apellido: " + getApellido();
+		return cadena;
+	}
 }

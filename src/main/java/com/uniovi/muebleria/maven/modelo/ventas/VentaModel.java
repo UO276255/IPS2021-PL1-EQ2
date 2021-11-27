@@ -49,6 +49,8 @@ public class VentaModel {
 	private static final String SQL_INICIO_VACACIONAL = "SELECT inicio_vacaciones FROM Vacaciones where Id_empleado = ?";
 	
 	private static final String SQL_FINAL_VACACIONAL = "SELECT fin_vacaciones FROM Vacaciones where Id_empleado = ?";
+	private static final String QSL_VENTA_POR_MES = "select * from venta where Month(fecha_venta) = ?";
+	private static final String QSL_VENTA_POR_MES_Y_VENDEDOR = "select * from venta where Month(fecha_venta) = ? and id_empleado = ?";
 	
 	public VentaModel() {
 		
@@ -56,6 +58,10 @@ public class VentaModel {
 	
 	public List<VentaDTO> getListaVentas(){
 		return db.recogerVentas(SQL_VENTAS);
+	}
+	
+	public List<VentaDTO> getListaVentasPorMes(int mes){
+		return db.recogerVentasPorMes(QSL_VENTA_POR_MES,mes);
 	}
 	
 	public List<VentaDTO> getListaVentasConTransporte(){
@@ -136,5 +142,9 @@ public class VentaModel {
 	public ArrayList<java.util.Date> getDiaFinalVacaciones(int id) {
 		return db.fechaVacacional(SQL_FINAL_VACACIONAL, id);
 	}
+
+	public List<VentaDTO> getListaVentasPorMesyVendedor(int mes, int idVendedor) {
+		return db.getListaVentasPorMesyVendedor(QSL_VENTA_POR_MES_Y_VENDEDOR,mes,idVendedor);	
+		}
 }
 	

@@ -11,8 +11,8 @@ public class VendedorModel {
 	
 	private static final String SQL_AÑADIR_VENDEDOR ="insert into Empleado (id_empleado,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,oficio) values (?,?,?,?,?,?,?,?,?,?)";
 	public static final String SQL_CONTAR_VENDEDORES = "SELECT count(*) FROM Empleado";
-	public static final String SQL_USUARIO_CONTRASEÑA_VENDEDORES = "SELECT usuario,contraseña FROM Empleado where oficio = 'v'";
-	
+	public static final String SQL_USUARIO_CONTRASEÑA_VENDEDORES = " SELECT usuario,contraseña FROM Empleado where oficio = 'v'";
+	public static final String SQL_TODOS_VENDEDORES = " SELECT nombre,apellido,id_empleado FROM Empleado where oficio = 'v'";
 	public void crearVendedor(String nombre, String apellido,String DNI, int telefono,String usuario,String contraseña,Time hora_entrada, Time hora_salida, String oficio) {
 		
 		int id = contarVendedores() + 1;
@@ -25,6 +25,10 @@ public class VendedorModel {
 	}
 	
 	public List<VendedorDTO> getVendedoresLogin() {
-        return db.getVendedores(SQL_USUARIO_CONTRASEÑA_VENDEDORES);
+        return db.getVendedoresLogIn(SQL_USUARIO_CONTRASEÑA_VENDEDORES);
     }
+	
+	public List<VendedorDTO> getVendedores() {
+        return db.getVendedores(SQL_TODOS_VENDEDORES);
+    }	
 }

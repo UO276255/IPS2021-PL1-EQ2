@@ -22,7 +22,7 @@ import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoPresupuestoController;
 import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenModel;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
-import com.uniovi.muebleria.maven.modelo.empleado.TransportistaModel;
+import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoModel;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoModel;
@@ -54,6 +54,7 @@ public class VistaMuebleria extends JFrame {
 	public static final VistaCrearPedido VIEW_PEDIDO = new VistaCrearPedido();
 	public static final VistaGestionaVacaciones VIEW_GESTIONA_VACACIONES = new VistaGestionaVacaciones();
 	public static final VistaActualizarPrecios VIEW_ACTUALIZAR_PRECIOS = new VistaActualizarPrecios();
+	public static VistaCreacionGraficos VIEW_GRAFICOS = new VistaCreacionGraficos();
 
 	private Database db=null;
 	private JButton btnGestionaVacaciones;
@@ -74,6 +75,7 @@ public class VistaMuebleria extends JFrame {
 	private JPanel PanelBotones;
 	private JPanel  panel;
 	private JButton btActualizarPrecios;
+	private JButton btnGraficosRentabilidad;
 	
 	/**
 	 * Create the frame.
@@ -155,7 +157,7 @@ public class VistaMuebleria extends JFrame {
 		btnAsignarTransporte.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAsignarTransporte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TransportistaController controllerT = new TransportistaController(new TransportistaModel(), VIEW_TRANSPORTE);
+				TransportistaController controllerT = new TransportistaController(new EmpleadoModel(), VIEW_TRANSPORTE);
 				controllerT.initView();
 			}
 		});
@@ -271,6 +273,16 @@ public class VistaMuebleria extends JFrame {
 		btnAñadirEmpleado.setFont(new Font("Tahoma", Font.BOLD, 12));
 		PanelBotones.add(btnAñadirEmpleado);
 		PanelBotones.add(getBtnGestionaVacaciones());
+		
+		btnGraficosRentabilidad = new JButton("Graficos de rentabilidad");
+		btnGraficosRentabilidad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VIEW_GRAFICOS = new VistaCreacionGraficos();
+				VIEW_GRAFICOS.setVisible(true);
+			}
+		});
+		btnGraficosRentabilidad.setFont(new Font("Tahoma", Font.BOLD, 12));
+		PanelBotones.add(btnGraficosRentabilidad);
 	}
 
 	public JFrame getFrame() { return this.getFrame(); }
@@ -297,6 +309,7 @@ public class VistaMuebleria extends JFrame {
 		panel.remove(btnBorrarBaseDatos);
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
+		panel.remove(btnGraficosRentabilidad);
 	}
 	
 	public void bloquearAlmacen() {
@@ -314,6 +327,7 @@ public class VistaMuebleria extends JFrame {
 		panel.remove(btnBorrarBaseDatos);
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
+		panel.remove(btnGraficosRentabilidad);
 	}
 	
 	public void bloquearTransportista() {
@@ -332,6 +346,7 @@ public class VistaMuebleria extends JFrame {
 		panel.remove(btnBorrarBaseDatos);
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
+		panel.remove(btnGraficosRentabilidad);
 	}
 
 	public void ventanaAdministrador() {

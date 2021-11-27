@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 import com.uniovi.muebleria.maven.util.Database;
-public class TransportistaModel {
+public class EmpleadoModel {
 	
 	private Database db = new Database();
 	
