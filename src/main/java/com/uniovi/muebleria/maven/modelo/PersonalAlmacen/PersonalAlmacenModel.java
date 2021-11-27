@@ -8,7 +8,7 @@ import com.uniovi.muebleria.maven.util.Database;
 public class PersonalAlmacenModel {
 
 	private Database db = new Database();
-	private static final String SQL_AÑADIR_PERSONAL_ALMACEN ="insert into Empleado (id_empleado,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,inicio_vacaciones,fin_vacaciones,oficio) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String SQL_AÑADIR_PERSONAL_ALMACEN ="insert into Empleado (id_empleado,Nombre,Apellido,DNI,Telefono,Usuario,Contraseña,hora_entrada,hora_salida,oficio) values (?,?,?,?,?,?,?,?,?,?)";
 	public static final String SQL_CONTAR_PERSONAL_ALMACEN = "SELECT count(*) FROM Empleado";
 	public static final String SQL_USUARIO_CONTRASEÑA_ALMACEN = "SELECT usuario,contraseña FROM Empleado where oficio = 'pa'";
 	
