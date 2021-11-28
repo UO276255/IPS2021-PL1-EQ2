@@ -14,6 +14,8 @@ public class PresupuestosModel {
 	public static final String SQL_ASIGNAR_PRESUPUESTO = "UPDATE Presupuestos set id_cliente = ? where id_pres = ?";
 	public static final String SQL_BORRAR_PRESUPUESTO = "UPDATE Presupuestos set Aceptado = 1 where id_pres = ?";
 	public static final String SQL_BORRAR_SOLICITUDES_DE_PRESUPUESTO = "DELETE from SOLICITUDES where id_pres = ?";
+
+	private static final String SQL_PRES = "SELECT p.id_pres, p.precio, p.aceptado,p.fecha_cad, c.nombre, c.apellido FROM Presupuestos p JOIN Cliente c ON p.id_cliente=c.id";
 	
 	public List<PresupuestoDTO> obtenerPresupuestosSinAsignar(){
 		return db.recogerPresupuestos(SQL_LISTA_PRESUPUESTOS_NO_ASIGNADOS);	
@@ -30,6 +32,10 @@ public class PresupuestosModel {
 	public void removePresupuesto(int idPresupuesto) {
 		db.cancelPresupuesto(SQL_BORRAR_PRESUPUESTO,idPresupuesto);
 		
+	}
+
+	public List<PresupuestoVentaDTO> obtenerPresupuestos() {
+		return db.getPresupuestos(SQL_PRES);
 	}
 	
 

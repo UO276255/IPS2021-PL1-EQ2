@@ -2,9 +2,12 @@ package com.uniovi.muebleria.maven.controlador.producto;
 
 import java.util.List;
 
+import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoModel;
 import com.uniovi.muebleria.maven.vista.VistaCrearPresupuesto;
+import com.uniovi.muebleria.maven.vista.VistaVisualizarPresupuestos;
 
 public class ProductoPresupuestoController {
 
@@ -15,7 +18,6 @@ public class ProductoPresupuestoController {
 		this.vista = v;
 		this.model = m;
 	}
-	
 	
 	public void initViewProdPres() {
 		vista.setVisible(true);
@@ -74,4 +76,5 @@ public class ProductoPresupuestoController {
 			}
 		}
 	}
+
 }

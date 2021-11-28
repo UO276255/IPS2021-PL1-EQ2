@@ -54,6 +54,7 @@ public class VistaMuebleria extends JFrame {
 	public static final VistaCrearPedido VIEW_PEDIDO = new VistaCrearPedido();
 	public static final VistaGestionaVacaciones VIEW_GESTIONA_VACACIONES = new VistaGestionaVacaciones();
 	public static final VistaActualizarPrecios VIEW_ACTUALIZAR_PRECIOS = new VistaActualizarPrecios();
+	public static final VistaVisualizarPresupuestos VIEW_VISUALIZAR_PRESUPUESTOS = new VistaVisualizarPresupuestos();
 	public static VistaCreacionGraficos VIEW_GRAFICOS = new VistaCreacionGraficos();
 
 	private Database db=null;
@@ -76,6 +77,7 @@ public class VistaMuebleria extends JFrame {
 	private JPanel  panel;
 	private JButton btActualizarPrecios;
 	private JButton btnGraficosRentabilidad;
+	private JButton btnNewButton_1;
 	
 	/**
 	 * Create the frame.
@@ -282,6 +284,15 @@ public class VistaMuebleria extends JFrame {
 				VIEW_GRAFICOS.setVisible(true);
 			}
 		});
+		
+		btnNewButton_1 = new JButton("Visualizar Presupuesto");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), VIEW_VISUALIZAR_PRESUPUESTOS);
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		PanelBotones.add(btnNewButton_1);
 		btnGraficosRentabilidad.setFont(new Font("Tahoma", Font.BOLD, 12));
 		PanelBotones.add(btnGraficosRentabilidad);
 	}

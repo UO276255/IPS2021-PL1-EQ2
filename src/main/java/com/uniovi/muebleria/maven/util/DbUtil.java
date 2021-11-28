@@ -22,6 +22,7 @@ import com.uniovi.muebleria.maven.modelo.Almacen.AlmacenDTO;
 import com.uniovi.muebleria.maven.modelo.Cliente.ClienteDTO;
 import com.uniovi.muebleria.maven.modelo.PersonalAlmacen.PersonalAlmacenDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorDTO;
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
@@ -2036,6 +2037,32 @@ public abstract class DbUtil {
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
+		
+	}
+	
+	public ArrayList<PresupuestoVentaDTO> getPresupuestos(String sql) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		PresupuestoVentaDTO pres = null;
+		ArrayList<PresupuestoVentaDTO> list = new ArrayList<PresupuestoVentaDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				pres = new PresupuestoVentaDTO(rs.getInt(1), rs.getInt(2),rs.getDate(4), rs.getString(5)+" " +rs.getString(6),presupuestoAceptado(rs.getInt(3)));
+				list.add(pres);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
 		
 	}
 }

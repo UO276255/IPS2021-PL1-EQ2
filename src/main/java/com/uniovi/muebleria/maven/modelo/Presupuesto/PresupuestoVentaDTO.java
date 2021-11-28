@@ -4,10 +4,11 @@ import java.util.Date;
 
 public class PresupuestoVentaDTO {
 	private int IdPresupuesto ;
-	private int precio;;
+	private int precio;
 	private Date fechaCaducidad;
 	private String nombreCliente;
 	private Date fechaCreacion;
+	private boolean aceptado;
 	
 	public PresupuestoVentaDTO() {
 		
@@ -21,6 +22,15 @@ public class PresupuestoVentaDTO {
 		this.fechaCreacion = fechaCaducidad;
 		this.nombreCliente = nombreCliente;
 		this.fechaCreacion.setDate(getFechaCaducidad().getDate() - 15);
+	}
+	public PresupuestoVentaDTO(int IdPresupuesto, int precio,Date fechaCaducidad,String nombreCliente,boolean aceptado) {
+		this.IdPresupuesto = IdPresupuesto;
+		this.precio = precio;
+		this.fechaCaducidad = fechaCaducidad;
+		this.fechaCreacion = fechaCaducidad;
+		this.nombreCliente = nombreCliente;
+		this.fechaCreacion.setDate(getFechaCaducidad().getDate() - 15);
+		this.aceptado=aceptado;
 	}
 
 	public String getNombreCliente() {

@@ -9,12 +9,14 @@ import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.vista.VistaAsignarPresupuesto;
 import com.uniovi.muebleria.maven.vista.VistaCreacionVentas;
+import com.uniovi.muebleria.maven.vista.VistaVisualizarPresupuestos;
 
 public class PresupuestoController {
 
 	private PresupuestosModel model;
 	private VistaAsignarPresupuesto viewPresupuesto;
 	private VistaCreacionVentas viewVentas;
+	private VistaVisualizarPresupuestos viewVistaPresupuesto;
 	
 	public PresupuestoController(PresupuestosModel m, VistaAsignarPresupuesto v) {
 		this.model = m;
@@ -28,6 +30,33 @@ public class PresupuestoController {
 		this.initViewVentas();
 	}
 
+	public PresupuestoController(PresupuestosModel m, VistaVisualizarPresupuestos viewVisualizarPresupuestos) {
+		this.model = m;
+		this.viewVistaPresupuesto = viewVisualizarPresupuestos;
+		this.initViewVisualizarPres();
+		
+	}
+
+	private void initViewVisualizarPres() {
+		viewVistaPresupuesto.setLocationRelativeTo(null);
+		viewVistaPresupuesto.setVisible(true);
+		setListaPresupuestos();
+		
+		
+	}
+
+	private void setListaPresupuestos() {
+		List<PresupuestoVentaDTO> presupuestos = model.obtenerPresupuestos();
+		PresupuestoVentaDTO[] listaPresupuestos = convertirArrayVentaPres(presupuestos);
+		viewVistaPresupuesto.getCbPresupuestos().setModel(new DefaultComboBoxModel<PresupuestoVentaDTO>(listaPresupuestos));
+		
+	}
+
+	public void cargarProductos() {
+		//PresupuestoVentaDTO pres = (PresupuestoVentaDTO) vistaVisPres.getCbPresupuestos().getSelectedItem();
+		
+	}
+	
 	public void initViewPresupuesto() {
 		viewPresupuesto.setVisible(true);
 		setListaPresupuestosSinCliente();	
@@ -78,5 +107,11 @@ public class PresupuestoController {
 		}
 		return lista;
 	}
-
+	private PresupuestoVentaDTO[] convertirArrayVentaPres(List<PresupuestoVentaDTO> presupuestos) {
+		PresupuestoVentaDTO[] lista = new PresupuestoVentaDTO[presupuestos.size()];
+		for(int i=0;i<presupuestos.size();i++) {
+			lista[i] = presupuestos.get(i);
+		}
+		return lista;
+	}
 }
