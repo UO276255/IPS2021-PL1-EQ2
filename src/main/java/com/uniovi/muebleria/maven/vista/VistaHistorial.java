@@ -61,7 +61,7 @@ public class VistaHistorial extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setLocationRelativeTo(null);
 		Panel pnVentas = new Panel();
 		pnVentas.setBounds(10, 50, 379, 388);
 		contentPane.add(pnVentas);

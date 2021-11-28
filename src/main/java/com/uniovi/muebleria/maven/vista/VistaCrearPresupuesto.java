@@ -103,6 +103,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		contentPane.add(getPanelFiltrar(), "PanelFiltrar");
 		uds = new ArrayList<Integer>();
 		numOfProducts = 0;
+		setLocationRelativeTo(null);
 
 	}
 

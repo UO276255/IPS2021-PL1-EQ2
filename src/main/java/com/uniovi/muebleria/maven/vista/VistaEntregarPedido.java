@@ -47,6 +47,7 @@ public class VistaEntregarPedido extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.add(getPnVentas());
 		contentPane.add(getPnBotones());
+		setLocationRelativeTo(null);
 	}
 
 	private JPanel getPnVentas() {

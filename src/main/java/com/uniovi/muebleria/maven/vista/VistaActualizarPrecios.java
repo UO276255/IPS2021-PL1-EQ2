@@ -68,6 +68,7 @@ public class VistaActualizarPrecios extends JFrame {
 		contentPane.add(getPnBotones());
 		contentPane.add(getTxPrecio());
 		contentPane.add(getLbEuro());
+		setLocationRelativeTo(null);
 	}
 	
 	public ProductoDTO[] getListaProductos() {

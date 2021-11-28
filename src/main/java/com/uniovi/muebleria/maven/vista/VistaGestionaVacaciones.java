@@ -68,6 +68,7 @@ public class VistaGestionaVacaciones extends JFrame {
 		contentPane.add(getCalendarFechaFin());
 		contentPane.add(getBtnAsignar());
 		contentPane.add(getBtnCancelar());
+		setLocationRelativeTo(null);
 	}
 	private JScrollPane getScrollPaneEmpleados() {
 		if (scrollPaneEmpleados == null) {

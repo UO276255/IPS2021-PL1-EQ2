@@ -62,7 +62,7 @@ public class VistaDeterminaFecha extends JFrame {
 		contentPane.add(getCalendar());
 		contentPane.add(getPnAsignarCancelar());
 		contentPane.add(getList());
-		
+		setLocationRelativeTo(null);
 		JPanel panelRecoger = new JPanel();
 		panelRecoger.setBounds(27, 96, 289, 335);
 		contentPane.add(panelRecoger);

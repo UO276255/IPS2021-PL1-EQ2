@@ -87,7 +87,6 @@ public class VistaMuebleria extends JFrame {
 		setResizable(false);
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setBounds(100, 100, 647, 442);
 		PanelInicio = new JPanel();
 		PanelInicio.setBackground(new Color(255, 239, 213));
@@ -98,6 +97,7 @@ public class VistaMuebleria extends JFrame {
 		 panel = new JPanel();
 		panel.setBackground(new Color(255, 239, 213));
 		PanelInicio.add(panel, BorderLayout.CENTER);
+		
 		
 		db=new Database();
 		

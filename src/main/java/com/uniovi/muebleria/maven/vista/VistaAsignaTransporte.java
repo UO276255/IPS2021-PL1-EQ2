@@ -92,6 +92,7 @@ public class VistaAsignaTransporte extends JFrame{
 		setBounds(100, 100, 759, 515);
 		getContentPane().setLayout(null);
 		getContentPane().add(getPanelGeneral());
+		setLocationRelativeTo(null);
 	}
 	private JPanel getPanelGeneral() {
 		if (panelGeneral == null) {

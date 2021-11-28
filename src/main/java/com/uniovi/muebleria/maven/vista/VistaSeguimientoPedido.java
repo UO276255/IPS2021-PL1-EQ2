@@ -61,6 +61,7 @@ public class VistaSeguimientoPedido extends JFrame {
 		contentPane.add(getScrollPanePedido());
 		contentPane.add(getBtnCancelar());
 		contentPane.add(getBtnMarcarRecibido());
+		setLocationRelativeTo(null);
 	}
 	public JSpinner getSpinnerIdPed() {
 		if (spinnerIdPed == null) {

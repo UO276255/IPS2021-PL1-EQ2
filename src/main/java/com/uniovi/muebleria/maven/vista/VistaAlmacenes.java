@@ -55,6 +55,7 @@ public class VistaAlmacenes extends JFrame {
 		contentPane.add(getPanelTitulo(), BorderLayout.NORTH);
 		contentPane.add(getPanelSalir(), BorderLayout.SOUTH);
 		contentPane.add(getPanelLista(), BorderLayout.CENTER);
+		setLocationRelativeTo(null);
 	}
 
 	private JPanel getPanelTitulo() {

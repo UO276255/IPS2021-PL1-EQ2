@@ -65,6 +65,7 @@ public class VistaCreacionGraficos extends JFrame {
 		contentPane.add(getPanelInical(), "panelInicio");
 		contentPane.add(getPanelIngresos(), "panelIngreso");
 		contentPane.add(getPanelPorVendedor(), "panelVendedor");
+		setLocationRelativeTo(null);
 	}
 	private JPanel getPanelInical() {
 		if (panelInical == null) {

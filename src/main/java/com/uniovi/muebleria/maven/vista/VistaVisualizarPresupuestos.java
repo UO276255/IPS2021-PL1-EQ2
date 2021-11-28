@@ -52,6 +52,7 @@ public class VistaVisualizarPresupuestos extends JFrame {
 		contentPane.add(getBtSeleccionar());
 		contentPane.add(getPnProductos());
 		contentPane.add(getBtCancelar());
+		setLocationRelativeTo(null);
 	}
 	public JComboBox getCbPresupuestos() {
 		if (cbPresupuestos == null) {

@@ -70,7 +70,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.add(getPanelGeneral());
-		this.dispose();
+		setLocationRelativeTo(null);
 	}
 	public JPanel getPanelGeneral() {
 		if (panelGeneral == null) {
@@ -117,7 +117,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 			btnAsignarNuevo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
-					c.show(getPanelGeneral(), "PanelNuevoCliente");										
+					c.show(getPanelGeneral(), "PanelNuevoCliente");			
 				}
 			});
 			btnAsignarNuevo.setBounds(58, 181, 221, 34);
@@ -190,9 +190,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 			btnAsignarCliente = new JButton("Asignar Cliente");
 			btnAsignarCliente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-						PresupuestoDTO dto = ((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem());
-						System.out.println("BATATA: " + dto.getIdPresupuesto());
-						
+						PresupuestoDTO dto = ((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem());		
 						PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_PRESUPUESTO);
 						controller.asignarClienteAPresupuesto(((ClienteDTO) getComboBoxClientesExistentes().getSelectedItem()).getIdCliente(),
 							dto.getIdPresupuesto());
@@ -286,17 +284,18 @@ public class VistaAsignarPresupuesto extends JFrame {
 			btnAsignar = new JButton("Asignar");
 			btnAsignar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					PresupuestoDTO dto = ((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem());
 					
 					ClienteController controllerC = new ClienteController(new ClienteModel(), VistaMuebleria.VIEW_PRESUPUESTO);
 					controllerC.crearNuevoCliente(getTextFieldNombre().getText(),getTextFieldApellido().getText(),getTextFieldNacimiento().getText(),Integer.parseInt(textFieldDNI.getText()),textFieldEmail.getText());
 					
 					PresupuestoController controllerP = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_PRESUPUESTO);
-					controllerP.asignarClienteAPresupuesto(controllerC.contarClientes(),((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem()).getIdPresupuesto());
+					controllerP.asignarClienteAPresupuesto(controllerC.contarClientes(),dto.getIdPresupuesto());
 
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 					c.show(getPanelGeneral(), "PanelInicial");
 					
-					JOptionPane.showMessageDialog(null, "presupuesto con id : " + ((PresupuestoDTO) getComboBoxPresupuestos().getSelectedItem()).getIdPresupuesto()  + 
+					JOptionPane.showMessageDialog(null, "presupuesto con id : " + dto.getIdPresupuesto()  + 
 							" asociado con exito al cliente con id:  " + (controllerC.contarClientes()));
 					closeWindow();
 				}

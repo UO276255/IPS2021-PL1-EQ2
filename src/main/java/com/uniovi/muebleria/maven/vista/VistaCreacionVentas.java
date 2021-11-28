@@ -55,6 +55,7 @@ public class VistaCreacionVentas extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.add(getPanelGeneral());
+		setLocationRelativeTo(null);
 	}
 
 	private JPanel getPanelGeneral() {
