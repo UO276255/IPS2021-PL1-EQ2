@@ -21,6 +21,7 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
 
 public class VistaGestionaVacaciones extends JFrame {
 
@@ -44,6 +45,8 @@ public class VistaGestionaVacaciones extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaGestionaVacaciones() {
+		setTitle("Muebleria");
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -53,6 +56,7 @@ public class VistaGestionaVacaciones extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 746, 590);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 239, 213));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

@@ -84,16 +84,17 @@ public class VistaMuebleria extends JFrame {
 	 * @param list 
 	 */
 	public VistaMuebleria() {
+		setResizable(false);
 		setTitle("Muebleria");
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setBounds(100, 100, 647, 442);
 		PanelInicio = new JPanel();
 		PanelInicio.setBackground(new Color(255, 239, 213));
 		PanelInicio.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(PanelInicio);
 		PanelInicio.setLayout(new BorderLayout(0, 0));
-		
+		setLocationRelativeTo(null);
 		 panel = new JPanel();
 		panel.setBackground(new Color(255, 239, 213));
 		PanelInicio.add(panel, BorderLayout.CENTER);
@@ -322,6 +323,8 @@ public class VistaMuebleria extends JFrame {
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
 		PanelBotones.remove(btnGraficosRentabilidad);
+		PanelBotones.remove(btnNewButton_1);
+		
 	}
 	
 	public void bloquearAlmacen() {
@@ -341,6 +344,7 @@ public class VistaMuebleria extends JFrame {
 		panel.remove(btnLoadDB);
 		PanelBotones.remove(btnGraficosRentabilidad);
 		PanelBotones.remove(btActualizarPrecios);
+		PanelBotones.remove(btnNewButton_1);
 	}
 	
 	public void bloquearTransportista() {
@@ -361,6 +365,7 @@ public class VistaMuebleria extends JFrame {
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
 		PanelBotones.remove(btActualizarPrecios);
+		PanelBotones.remove(btnNewButton_1);
 	}
 
 	public void ventanaAdministrador() {

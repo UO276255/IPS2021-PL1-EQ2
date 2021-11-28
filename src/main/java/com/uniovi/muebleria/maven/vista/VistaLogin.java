@@ -40,6 +40,7 @@ public class VistaLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaLogin() {
+		setResizable(false);
 		setTitle("Mueblería");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 484, 301);

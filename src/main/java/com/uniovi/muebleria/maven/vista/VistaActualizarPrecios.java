@@ -51,6 +51,7 @@ public class VistaActualizarPrecios extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaActualizarPrecios() {
+		setResizable(false);
 		setTitle("Ventana ActualizarPrecios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 641, 556);

@@ -43,6 +43,7 @@ public class VistaAlmacenes extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaAlmacenes() {
+		setResizable(false);
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 742, 500);

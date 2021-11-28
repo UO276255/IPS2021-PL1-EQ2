@@ -45,6 +45,7 @@ public class VistaCreacionVentas extends JFrame {
 	 */
 	
 	public VistaCreacionVentas() {
+		setResizable(false);
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 707, 383);

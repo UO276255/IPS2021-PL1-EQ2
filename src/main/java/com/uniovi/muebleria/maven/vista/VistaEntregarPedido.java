@@ -36,6 +36,7 @@ public class VistaEntregarPedido extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaEntregarPedido() {
+		setResizable(false);
 		setTitle("Ventana EntregarPedido");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 632, 542);

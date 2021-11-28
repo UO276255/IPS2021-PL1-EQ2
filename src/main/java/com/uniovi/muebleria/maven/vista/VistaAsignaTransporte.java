@@ -76,6 +76,7 @@ public class VistaAsignaTransporte extends JFrame{
 	private JComboBox<VentaDTO> comboBoxListaVentas;
 	
 	public VistaAsignaTransporte() {
+		setResizable(false);
 		getContentPane().setBackground(new Color(255, 239, 213));
 		addWindowListener(new WindowAdapter() {
 			@Override

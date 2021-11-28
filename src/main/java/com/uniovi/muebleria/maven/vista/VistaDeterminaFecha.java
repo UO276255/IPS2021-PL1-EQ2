@@ -49,6 +49,7 @@ public class VistaDeterminaFecha extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaDeterminaFecha() {
+		setResizable(false);
 		
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

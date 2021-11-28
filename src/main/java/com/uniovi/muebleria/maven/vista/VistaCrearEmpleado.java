@@ -66,6 +66,7 @@ public class VistaCrearEmpleado extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaCrearEmpleado() {
+		setResizable(false);
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 722, 415);

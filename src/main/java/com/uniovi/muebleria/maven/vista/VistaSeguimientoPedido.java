@@ -41,6 +41,7 @@ public class VistaSeguimientoPedido extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaSeguimientoPedido() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

@@ -76,11 +76,12 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JList<String> listUnidades;
 	private int numOfProducts;
 
-	
+
 	/**
 	 * Create the frame.
 	 */
 	public VistaCrearPresupuesto() {
+		setResizable(false);
 		setTitle("Crear Presupuesto");
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -118,10 +119,10 @@ public class VistaCrearPresupuesto extends JFrame {
 			panelCrearPresupuesto.add(getLblPresupuesto());
 			panelCrearPresupuesto.add(getBtnCreaPresupuesto());
 			panelCrearPresupuesto.add(getTextCoste());
-		
+
 			panelCrearPresupuesto.add(getLblCoste());
 			panelCrearPresupuesto.add(getBtnFiltrar());
-			
+
 			JLabel lbUnidades = new JLabel("UNIDADES");
 			lbUnidades.setHorizontalAlignment(SwingConstants.CENTER);
 			lbUnidades.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -130,8 +131,8 @@ public class VistaCrearPresupuesto extends JFrame {
 			panelCrearPresupuesto.add(getTxUnidades());
 			panelCrearPresupuesto.add(getLbUds());
 			panelCrearPresupuesto.add(getListUnidades());
-			
-			
+
+
 		}
 		return panelCrearPresupuesto;
 	}
@@ -239,16 +240,20 @@ public class VistaCrearPresupuesto extends JFrame {
 			btnCreaPresupuesto.setFont(new Font("Tahoma", Font.BOLD, 12));
 			btnCreaPresupuesto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
-					controller.crearPresupuesto(Integer.parseInt(textCoste.getText()));
-					ArrayList<ProductoDTO> productos = new ArrayList<ProductoDTO>();
-					for(int i=0; i<modeloListPresupuesto.getSize(); i++) {
-						productos.add(modeloListPresupuesto.getElementAt(i));
+					if(getListPresupuesto().getModel().getSize() == 0) {
+						JOptionPane.showMessageDialog(null, "No es posible crear un presupuesto vacío");
+					} else {
+						ProductoPresupuestoController controller = new ProductoPresupuestoController(new ProductoPresupuestoModel(),  VistaMuebleria.VIEW_PRODPRES);
+						controller.crearPresupuesto(Integer.parseInt(textCoste.getText()));
+						ArrayList<ProductoDTO> productos = new ArrayList<ProductoDTO>();
+						for(int i=0; i<modeloListPresupuesto.getSize(); i++) {
+							productos.add(modeloListPresupuesto.getElementAt(i));
+						}
+
+						controller.crearSolicitudes(controller.getIdPres(), toArray(productos), toArrayUds(uds));
+						JOptionPane.showMessageDialog(null, "Se ha creado el presupuesto de id: " + controller.getIdPres());
+						inicializar();
 					}
-					
-					controller.crearSolicitudes(controller.getIdPres(), toArray(productos), toArrayUds(uds));
-					JOptionPane.showMessageDialog(null, "Se ha creado el presupuesto de id: " + controller.getIdPres());
-					inicializar();
 				}
 			});
 			btnCreaPresupuesto.setBounds(276, 432, 173, 23);
@@ -291,12 +296,12 @@ public class VistaCrearPresupuesto extends JFrame {
 	public void addModeloListProductos(ProductoDTO prod){
 		modeloListProductos.addElement(prod);
 	}
-	
+
 	public void sumarPrecio(int prod) {
 		int actual = Integer.parseInt(textCoste.getText());
 		textCoste.setText("" + (actual + prod));
 	}
-	
+
 	public void restarPrecio(int prod) {
 		int actual = Integer.parseInt(textCoste.getText());
 		if (actual - prod <= 0)
@@ -304,7 +309,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		else
 			textCoste.setText("" + (actual - prod));
 	}
-	
+
 	private ProductoDTO[] toArray(List<ProductoDTO> listProductos) {
 		ProductoDTO[] arrayProductos = new ProductoDTO[listProductos.size()];
 		for(int i=0;i<listProductos.size();i++) {
@@ -312,7 +317,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		}
 		return arrayProductos;
 	}
-	
+
 	private int[] toArrayUds(ArrayList<Integer> listUds) {
 		int[] arrayUds = new int[listUds.size()];
 		for(int i=0;i<listUds.size();i++) {
@@ -320,7 +325,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		}
 		return arrayUds;
 	}
-	
+
 	private void inicializar() {
 		modeloListPresupuesto.clear();
 		listUds.clear();
@@ -441,7 +446,7 @@ public class VistaCrearPresupuesto extends JFrame {
 		}
 		return btnFiltrarProductos;
 	}
-	
+
 	private void rellenarComboBox() {
 		String[] categorias = new String[5];
 		categorias[0] = "Todas";

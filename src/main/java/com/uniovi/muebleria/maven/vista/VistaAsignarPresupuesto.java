@@ -60,6 +60,7 @@ public class VistaAsignarPresupuesto extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaAsignarPresupuesto() {
+		setResizable(false);
 		setTitle("Muebleria");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 635, 328);

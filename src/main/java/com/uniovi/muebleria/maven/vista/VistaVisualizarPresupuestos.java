@@ -38,6 +38,7 @@ public class VistaVisualizarPresupuestos extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaVisualizarPresupuestos() {
+		setResizable(false);
 		setBackground(new Color(250, 235, 215));
 		setTitle("Visualizar Presupuestos");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

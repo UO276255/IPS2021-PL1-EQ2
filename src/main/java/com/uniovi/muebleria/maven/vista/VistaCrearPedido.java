@@ -51,6 +51,7 @@ public class VistaCrearPedido extends JFrame {
 	 */
 	@SuppressWarnings("rawtypes")
 	public VistaCrearPedido() {
+		setResizable(false);
 		setTitle("Muebleria : Crear Pedido");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 716, 515);
