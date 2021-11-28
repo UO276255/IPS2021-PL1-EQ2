@@ -27,6 +27,7 @@ import com.uniovi.muebleria.maven.modelo.Vendedor.VendedorDTO;
 import com.uniovi.muebleria.maven.modelo.empleado.EmpleadoDTO;
 import com.uniovi.muebleria.maven.modelo.pedidos.PedidoDTO;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
+import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
 
 public abstract class DbUtil {
@@ -2065,4 +2066,89 @@ public abstract class DbUtil {
 		return list;
 		
 	}
+	public ArrayList<ProductoPresupuestoDTO> obtenerProductos(String sql, int idPresupuesto) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ProductoPresupuestoDTO pres = null;
+		ArrayList<ProductoPresupuestoDTO> list = new ArrayList<ProductoPresupuestoDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,idPresupuesto);
+			rs = pst.executeQuery();
+			
+			while (rs.next()) {
+				pres = new ProductoPresupuestoDTO(rs.getInt(1),rs.getInt(3), rs.getString(4),rs.getInt(2),rs.getString(6),0,rs.getInt(5));
+				list.add(pres);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+	public void actualizaPresupuesto(String sql, int idPresupuesto, int idProducto, int precioActual) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,precioActual);
+			pst.setInt(2,idPresupuesto);
+			pst.setInt(3,idProducto);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	public int getSumaTotalPresupuesto(String sql, int idPresupuesto) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int total =0;
+	
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,idPresupuesto);
+			rs = pst.executeQuery();
+			
+			if (rs.next()) {
+				total = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return total;
+	}
+	public void actualizaTotalPresupuesto(String sql, int idPresupuesto, int total) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,total);
+			pst.setInt(2,idPresupuesto);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		
+	}
+
 }
