@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -253,7 +254,7 @@ public class VistaHistorial extends JFrame {
 	private void generarFactura() throws FileNotFoundException, DocumentException {
 		VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_HISTORIAL);
 		VentaDTO ventaSeleccionada = (VentaDTO) listVentas.getSelectedValue();
-		ProductoDTO[] productos = controller.getListaProductos(ventaSeleccionada);
+		List<ProductoDTO> productos = controller.getListaProductosFiltrado(ventaSeleccionada);
 		Document documento = new Document();
 		FileOutputStream factura = new FileOutputStream("factura" + ventaSeleccionada.getId_venta() +".pdf");
 		PdfWriter.getInstance(documento, factura);
@@ -266,10 +267,10 @@ public class VistaHistorial extends JFrame {
 		tabla.addCell("CANTIDAD");
 		tabla.addCell("PRECIO PRODUCTO");
 		
-		for(int i=0; i<productos.length; i++) {
-			tabla.addCell("" + productos[i].getNombre());
-			tabla.addCell("" + controller.getCantidadProducto(ventaSeleccionada.getId_pres(), productos[i].getId()));
-			tabla.addCell("" + productos[i].getPrecio());
+		for(int i=0; i<productos.size(); i++) {
+			tabla.addCell("" + productos.get(i).getNombre());
+			tabla.addCell("" + controller.getCantidadProducto(ventaSeleccionada.getId_pres(), productos.get(i).getId()));
+			tabla.addCell("" + productos.get(i).getPrecio());
 		}
 		
 		documento.add(tabla);
