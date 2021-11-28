@@ -1968,6 +1968,31 @@ public abstract class DbUtil {
 		return list;
 	}
 	
+	public List<PedidoDTO> pedidosPorMes(String sql, int mes) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		PedidoDTO tra = null;
+		ArrayList<PedidoDTO> list = new ArrayList<PedidoDTO>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,mes);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				tra = new PedidoDTO(rs.getInt(1), rs.getBoolean(2),rs.getDate(3), rs.getInt(4));
+				list.add(tra);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return list;
+	}
+	
 	public List<VentaDTO> getListaVentasPorMesyVendedor(String sql, int mes, int idVendedor) {
 		Connection c = null;
 		PreparedStatement pst = null;

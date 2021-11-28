@@ -13,7 +13,7 @@ public class PersonalAlmacenModel {
 	public static final String SQL_USUARIO_CONTRASEÑA_ALMACEN = "SELECT usuario,contraseña FROM Empleado where oficio = 'pa'";
 	
 	public void crearPersonalAlmacen(String nombre, String apellido, String DNI, int telefono, String usuario,
-			String contraseña, Time horaEntrada, Time horaSalida, String oficio) {	
+		String contraseña, Time horaEntrada, Time horaSalida, String oficio) {	
 		int id = contarPersonalAlmacen() + 1;		
 		db.crearPersonalAlmacen(SQL_AÑADIR_PERSONAL_ALMACEN,id,nombre,apellido,DNI,telefono,usuario,contraseña,horaEntrada,horaSalida,oficio);
 	}

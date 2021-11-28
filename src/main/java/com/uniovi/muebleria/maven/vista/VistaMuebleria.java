@@ -309,7 +309,7 @@ public class VistaMuebleria extends JFrame {
 		panel.remove(btnBorrarBaseDatos);
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
-		panel.remove(btnGraficosRentabilidad);
+		PanelBotones.remove(btnGraficosRentabilidad);
 	}
 	
 	public void bloquearAlmacen() {
@@ -327,7 +327,8 @@ public class VistaMuebleria extends JFrame {
 		panel.remove(btnBorrarBaseDatos);
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
-		panel.remove(btnGraficosRentabilidad);
+		PanelBotones.remove(btnGraficosRentabilidad);
+		PanelBotones.remove(btActualizarPrecios);
 	}
 	
 	public void bloquearTransportista() {
@@ -343,10 +344,11 @@ public class VistaMuebleria extends JFrame {
 		PanelBotones.remove(btnCrearVenta);
 		PanelBotones.remove(btnAsignarPresupuesto);
 		PanelBotones.remove(btnSeguimientoPedido);
+		PanelBotones.remove(btnGraficosRentabilidad);
 		panel.remove(btnBorrarBaseDatos);
 		panel.remove(btnCargarBaseDatos);
 		panel.remove(btnLoadDB);
-		panel.remove(btnGraficosRentabilidad);
+		PanelBotones.remove(btActualizarPrecios);
 	}
 
 	public void ventanaAdministrador() {

@@ -96,7 +96,15 @@ public class VistaCreacionGraficos extends JFrame {
 			btnGastos = new JButton("Gastos");
 			btnGastos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					graficoGasto();
+					try {
+					int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea ver"));
+					while(mes < 1 || mes > 12) {
+						mes = Integer.parseInt(JOptionPane.showInputDialog("Seleccione un mes valido"));
+					}
+					graficoGasto(mes);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,"Inserte un valor válido");
+				}
 				}
 			});
 			btnGastos.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -129,11 +137,15 @@ public class VistaCreacionGraficos extends JFrame {
 			btnMensual.setFont(new Font("Tahoma", Font.BOLD, 12));
 			btnMensual.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					try {
 					int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea ver"));
 					while(mes < 1 || mes > 12) {
 						mes = Integer.parseInt(JOptionPane.showInputDialog("Seleccione un mes valido"));
 					}
 					graficoMes(mes);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,"Inserte un valor válido");
+				}
 				}
 			});
 			btnMensual.setBounds(47, 91, 117, 23);
@@ -170,14 +182,18 @@ public class VistaCreacionGraficos extends JFrame {
 		return lblTipoDeIngreso;
 	}
 	
-	protected void graficoGasto() {
+	protected void graficoGasto(int mes) {
 		Thread t = new Thread(new Runnable() {
 		    @Override
 		    public void run() {
+		    	try {
 				CreacionGraficos exampleChart = new CreacionGraficos();
-				CategoryChart chart = exampleChart.graficoGastos();
+				CategoryChart chart = exampleChart.graficoGastos(mes);
 				JFrame grafico =  new SwingWrapper<CategoryChart>(chart).displayChart();
 				grafico.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);   
+		    	} catch(Exception e) {
+		    		JOptionPane.showMessageDialog(null,"No hay ningun pedido en ese mes");
+		    	}
 		    }
 		   });
 		t.start();
@@ -210,7 +226,7 @@ public class VistaCreacionGraficos extends JFrame {
 					JFrame grafico =  new SwingWrapper<CategoryChart>(chart).displayChart();
 					grafico.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		    	} catch(Exception e) {
-		    		JOptionPane.showMessageDialog(null,"No hay ninguna venta en ese mes");
+		    		JOptionPane.showMessageDialog(null,"No hay ninguna venta de ese empleado en el mes seleccionado");
 		    	}
 		    }
 		   });
