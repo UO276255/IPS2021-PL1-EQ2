@@ -1,5 +1,6 @@
 package com.uniovi.muebleria.maven.modelo.pedidos;
 
+import java.util.Date;
 import java.util.List;
 
 import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
@@ -10,8 +11,17 @@ public class PedidoDTO {
 	private List<Integer> numProductos;
 	private boolean estado;
 	private int idProv;
+	private Date fecha;
 	
 	public PedidoDTO(int idPedido, List<ProductoDTO> productos, List<Integer> numProductos, boolean estado, int idProv) {
+		this.idPedido = idPedido;
+		this.productos = productos;
+		this.numProductos = numProductos;
+		this.estado = estado;
+		this.idProv = idProv;
+	}
+	
+	public PedidoDTO(int idPedido,boolean estado, Date fecha,int idProv) {
 		this.idPedido = idPedido;
 		this.productos = productos;
 		this.numProductos = numProductos;
@@ -25,6 +35,8 @@ public class PedidoDTO {
 	public boolean isEstado() { return estado; }
 	public int getIdProv() { return idProv;	}
 	public void setId(int idPedido) { this.idPedido = idPedido; }
+	public Date getFecha() { return fecha;	}
+	public void setFecha(Date fecha) { this.fecha =  fecha; }
 	public void setProductos(List<ProductoDTO> productos) { this.productos = productos; }
 	public void setNumProductos(List<Integer> numProductos) { this.numProductos = numProductos; }
 	public void setEstado(boolean estado) { this.estado = estado; }

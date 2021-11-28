@@ -14,8 +14,8 @@ public class EmpleadoModel {
 	private static final String SQL_ASIGNAR = "UPDATE Venta set Id_empleado = ? where id_venta = ?";
 	private static final String SQL_ACTUALIZA = "UPDATE Venta set transporte = 1 where id_venta = ?";
 	private static final String SQL_ID_TRANSP = "SELECT Id_empleado FROM Venta WHERE id_venta = ?";
-	public static final String SQL_CONTAR_TRANSPORTISTAS = "SELECT count(*) FROM Empleado where oficio = 't'";
-	private static final String SQL_AÑADIR_TRANSP ="insert into Empleado (Id_empleado,Nombre,Apellido,DNI,Numero_tel,Usuario,Contraseña,hora_entrada,hora_salida,oficio) values (?,?,?,?,?,?,?,?,?,?)";
+	public static final String SQL_CONTAR_TRANSPORTISTAS = "SELECT count(*) FROM Empleado";
+	private static final String SQL_AÑADIR_TRANSP ="insert into Empleado (Id_empleado,Nombre,Apellido,DNI,telefono,Usuario,Contraseña,hora_entrada,hora_salida,oficio) values (?,?,?,?,?,?,?,?,?,?)";
 	public static final String SQL_USUARIO_CONTRASEÑA_TRANSP = "SELECT usuario,contraseña FROM Empleado where oficio = 't'";
 	
 	public List<EmpleadoDTO> getListaTransportistas(){
