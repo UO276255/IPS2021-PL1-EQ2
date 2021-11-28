@@ -339,7 +339,7 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			while (rs.next()) {
-				pres = new PresupuestoDTO(rs.getInt(1), rs.getInt(2),presupuestoAceptado(rs.getInt(3)),rs.getDate(4), rs.getInt(5),"");
+				pres = new PresupuestoDTO(rs.getInt(1), rs.getInt(2),presupuestoAceptado(rs.getInt(3)),rs.getDate(4), rs.getInt(5),rs.getString(7)+" "+rs.getString(8));
 				list.add(pres);
 			}
 		} catch (SQLException e) {
@@ -1334,8 +1334,9 @@ public abstract class DbUtil {
 			pst.setInt(1,idSol);
 			pst.setInt(2,idPres);	
 			pst.setInt(3,prod.getId());
-			pst.setInt(4,0);
+			pst.setInt(4, prod.getPrecio());
 			pst.setInt(5,0);
+			pst.setInt(6,0);
 			pst.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -2017,5 +2018,24 @@ public abstract class DbUtil {
 			Jdbc.close(rs, pst, c);
 		}
 		return list;
+	}
+	
+	public void actualizaPrecioProducto(String sqlActualizaPrecioProd, int id, int precio) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlActualizaPrecioProd);
+			pst.setInt(1,precio);
+			pst.setInt(2,id);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		
 	}
 }

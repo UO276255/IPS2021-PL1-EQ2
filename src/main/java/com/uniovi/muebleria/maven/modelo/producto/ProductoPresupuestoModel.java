@@ -15,7 +15,7 @@ public class ProductoPresupuestoModel {
 	private static final String SQL_PRODUCTOS_FILTRADOS_DEBAJO = "SELECT * FROM Productos where precio_prod <= ? and categoria = ?";
 	private static final String SQL_PRECIO_PRODUCTO = "SELECT * FROM Productos where id_prod = ?";
 	private static final String SQL_CREAR_PRESUPUESTO = "insert into Presupuestos (id_pres,Precio,Aceptado,Fecha_cad,id_cliente) values (?,?,?,?,?);";
-	private static final String SQL_CREAR_SOLICITUDES = "insert into Solicitudes (id_solic,id_pres,id_prod,transporte,montaje) values (?,?,?,?,?);";
+	private static final String SQL_CREAR_SOLICITUDES = "insert into Solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (?,?,?,?,?,?);";
 	private static final String SQL_EXISTE_PROD_IDSOL = "SELECT id_prod FROM Solicitudes where id_pres = ?";
 	//private static final String SQL_ACTUALIZA_PRESUPUESTO = "UPDATE Solicitudes set cantidad_prod = ? where id_pres = ? and id_prod = ?";
 	

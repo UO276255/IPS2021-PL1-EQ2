@@ -298,6 +298,13 @@ public class ProductoController {
 		return listaProductos;
 	}
 
+	public void modificarPrecios(ProductoDTO[] listaProductos) {
+		for (int i=0; i<listaProductos.length; i++) {
+			model.actualizaPrecioProducto(listaProductos[i]);
+		}
+		
+	}
+
 	
 
 }

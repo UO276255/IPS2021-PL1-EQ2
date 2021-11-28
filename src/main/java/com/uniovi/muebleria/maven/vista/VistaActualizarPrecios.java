@@ -198,6 +198,10 @@ public class VistaActualizarPrecios extends JFrame {
 			btFinalizar = new JButton("FINALIZAR");
 			btFinalizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					ProductoController controller = new ProductoController(new ProductoModel(), VistaMuebleria.VIEW_ACTUALIZAR_PRECIOS,true);
+					controller.modificarPrecios(listaProductos);
+					JOptionPane.showMessageDialog(null, "Se han modificado los precios correctamente");
+					dispose();
 				}
 			});
 			btFinalizar.setFont(new Font("Tahoma", Font.BOLD, 13));

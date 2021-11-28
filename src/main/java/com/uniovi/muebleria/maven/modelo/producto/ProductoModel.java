@@ -32,6 +32,8 @@ private Database db = new Database();
 	
 	private static final String SQL_FECHA_INICIO = "SELECT inicio_vacaciones FROM Vacaciones where id_empleado = ?";
 	private static final String SQL_FECHA_FINAL = "SELECT fin_vacaciones FROM Vacaciones where id_empleado = ?";
+
+	private static final String SQL_ACTUALIZA_PRECIO_PROD = "UPDATE Productos set precio_prod = ? WHERE id_prod = ?";
 	
 	
 	public List<ProductoDTO> getListaProductosVentaNoTransp(int id_venta) {
@@ -95,5 +97,10 @@ private Database db = new Database();
 	
 	public Date getDateFinalTransportista(int id) {
 		return db.getFecha(SQL_FECHA_FINAL, id);
+	}
+
+	public void actualizaPrecioProducto(ProductoDTO productoDTO) {
+		db.actualizaPrecioProducto(SQL_ACTUALIZA_PRECIO_PROD, productoDTO.getId(), productoDTO.getPrecio());
+		
 	}
 }

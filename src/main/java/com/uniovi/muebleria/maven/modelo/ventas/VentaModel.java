@@ -20,7 +20,7 @@ public class VentaModel {
 	public static final String SQL_VENTAS = "SELECT * FROM Venta";
 	public static final String SQL_FECHAS = "UPDATE Venta SET Fecha_venta = ? WHERE Id_venta = ?";
 	public static final String SQL_CONTAR_VENTAS = "SELECT count(*) from Venta";
-	public static final String SQL_CREAR_VENTA = "insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_transp) "
+	public static final String SQL_CREAR_VENTA = "insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,id_empleado) "
 													+ "values (?,?,?,0,?,null)";
 	
 	

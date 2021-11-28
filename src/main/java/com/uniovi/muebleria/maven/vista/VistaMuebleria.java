@@ -103,7 +103,8 @@ public class VistaMuebleria extends JFrame {
 		btnBorrarBaseDatos.setBounds(10, 28, 185, 23);
 		btnBorrarBaseDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				db.removeDatabase();
+				for (int i=0; i<3;i++)
+					db.removeDatabase();
 			}
 		});
 		
@@ -178,7 +179,7 @@ public class VistaMuebleria extends JFrame {
 		btnCrearVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), VIEW_VENTAS);
-				controller.initViewVentas();
+				//controller.initViewVentas();
 				
 				if(VIEW_VENTAS.getComboBoxPresupuestoSinAceptar().getItemCount() == 0) {		
 					JOptionPane.showMessageDialog(null, "No hay ningun presupuesto sin aceptar, lo siento");

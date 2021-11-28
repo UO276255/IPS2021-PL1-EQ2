@@ -60,6 +60,7 @@ CREATE TABLE Solicitudes (
 	Id_solic INT PRIMARY KEY NOT NULL,
 	Id_pres INT REFERENCES Presupuestos(Id_pres),
 	Id_prod INT REFERENCES Productos(Id_prod),
+	Precio_prod INT NOT NULL,
 	Transporte BIT,
 	Montaje BIT);
 
