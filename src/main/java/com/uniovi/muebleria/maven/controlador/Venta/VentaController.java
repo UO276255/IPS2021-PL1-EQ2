@@ -180,10 +180,14 @@ public class VentaController {
 		ProductoDTO[] productos = getListaProductos(venta);
 		ProductoVentaDTO[] arrayProdVentas = new ProductoVentaDTO[productos.length];
 		int sumaMontaje=0;
+		ArrayList<ProductoDTO> prods = new ArrayList<ProductoDTO>(productos.length);
 		for (int i=0; i<productos.length;i++) {
-			ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[i]);
-			prodVenta.setNumUnidades(model.contarUnidades(venta.getId_pres(), productos[i].getId()));
-			arrayProdVentas[i] = prodVenta;
+			if (!contieneProducto(productos[i],prods)) { 
+				ProductoVentaDTO prodVenta = new ProductoVentaDTO(productos[i]);
+				prodVenta.setNumUnidades(model.contarUnidades(venta.getId_pres(), productos[i].getId()));
+				arrayProdVentas[i] = prodVenta;
+				prods.add(productos[i]);
+			}
 		}
 		vistaHistorial.getListProductos().clearSelection();
 		vistaHistorial.getListProductos().setListData(arrayProdVentas);
@@ -193,12 +197,19 @@ public class VentaController {
 		
 	}
 
+	private boolean contieneProducto(ProductoDTO producto, ArrayList<ProductoDTO> prods) {
+		for (int i =0; i< prods.size(); i++)
+			if (prods.get(i).getId() == producto.getId())
+				return true;
+		return false;
+	}
+
 	public void entregarPedido() {
 		VentaDTO venta = (VentaDTO)vistaEntregarPedido.getListVentas().getSelectedValue();
 		String sep="\n";
 		
 		ClienteDTO cliente = model.getCliente(venta.getId_pres());
-		ProductoDTO[] productos = getListaProductos(venta);
+		List<ProductoDTO> productos = getListaProductosFiltrado(venta);
 		String subject = "Mueblería - Entrega de Pedido con ID: "+venta.getId_venta();
 		StringBuilder msg = new StringBuilder();
 		msg.append("Estimado/a "+cliente.getNombre()+" "+cliente.getApellido()+": ")
@@ -208,9 +219,9 @@ public class VentaController {
 			.append(sep)
 			.append("El detalle de los productos del pedido es el siguiente: ")
 			.append(sep);
-		for (int i=0; i<productos.length;i++) {
-			int cantidad = model.contarUnidades(venta.getId_pres(), productos[i].getId());
-			msg.append("\t " + productos[i].toStringPedido(cantidad))
+		for (int i=0; i<productos.size();i++) {
+			int cantidad = model.contarUnidades(venta.getId_pres(), productos.get(i).getId());
+			msg.append("\t " + productos.get(i).toStringPedido(cantidad))
 				.append(sep);
 		}
 		msg.append(sep)
@@ -223,6 +234,17 @@ public class VentaController {
 		SendMail.sendMailWithTTLS(cliente.getEmail(), subject, msg.toString());
 	}
 	
+	public List<ProductoDTO> getListaProductosFiltrado(VentaDTO venta) {
+		ProductoDTO[] productos = getListaProductos(venta);
+		ArrayList<ProductoDTO> prods = new ArrayList<ProductoDTO>(productos.length);
+		for (int i=0; i<productos.length;i++) {
+			if (!contieneProducto(productos[i],prods)) { 
+				prods.add(productos[i]);
+			}
+		}
+		return prods;
+	}
+
 	public ArrayList<java.util.Date> getDiaInicioVacaciones(int id) {
 		return model.getDiaInicioVacaciones(id);
 	}
