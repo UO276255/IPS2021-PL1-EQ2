@@ -3,10 +3,12 @@ package com.uniovi.muebleria.maven.controlador.Presupuestos;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ListModel;
 
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoVentaDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
+import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoDTO;
 import com.uniovi.muebleria.maven.vista.VistaAsignarPresupuesto;
 import com.uniovi.muebleria.maven.vista.VistaCreacionVentas;
 import com.uniovi.muebleria.maven.vista.VistaVisualizarPresupuestos;
@@ -30,10 +32,11 @@ public class PresupuestoController {
 		this.initViewVentas();
 	}
 
-	public PresupuestoController(PresupuestosModel m, VistaVisualizarPresupuestos viewVisualizarPresupuestos) {
+	public PresupuestoController(PresupuestosModel m, VistaVisualizarPresupuestos viewVisualizarPresupuestos, boolean init) {
 		this.model = m;
 		this.viewVistaPresupuesto = viewVisualizarPresupuestos;
-		this.initViewVisualizarPres();
+		if (init) 
+			this.initViewVisualizarPres();
 		
 	}
 
@@ -53,10 +56,20 @@ public class PresupuestoController {
 	}
 
 	public void cargarProductos() {
-		//PresupuestoVentaDTO pres = (PresupuestoVentaDTO) vistaVisPres.getCbPresupuestos().getSelectedItem();
-		
+		PresupuestoVentaDTO pres = (PresupuestoVentaDTO) viewVistaPresupuesto.getCbPresupuestos().getSelectedItem();
+		List<ProductoPresupuestoDTO> productos = model.obtenerProductos(pres.getIdPresupuesto());
+		ProductoPresupuestoDTO[] lProd = toArrayProd(productos);
+		viewVistaPresupuesto.getListProductos().setListData(lProd);
 	}
 	
+	private ProductoPresupuestoDTO[] toArrayProd(List<ProductoPresupuestoDTO> productos) {
+		ProductoPresupuestoDTO[] lista = new ProductoPresupuestoDTO[productos.size()];
+		for(int i=0;i<productos.size();i++) {
+			lista[i] = productos.get(i);
+		}
+		return lista;
+	}
+
 	public void initViewPresupuesto() {
 		viewPresupuesto.setVisible(true);
 		setListaPresupuestosSinCliente();	
@@ -113,5 +126,14 @@ public class PresupuestoController {
 			lista[i] = presupuestos.get(i);
 		}
 		return lista;
+	}
+
+	public void actualizarPresupuesto() {
+		PresupuestoVentaDTO pres = (PresupuestoVentaDTO) viewVistaPresupuesto.getCbPresupuestos().getSelectedItem();
+		ListModel productos = viewVistaPresupuesto.getListProductos().getModel();
+		for (int i = 0; i < productos.getSize();i++) {
+			model.actualizaPresupuesto(pres, (ProductoPresupuestoDTO) productos.getElementAt(i));
+		}
+		model.actualizaPrecioPresupuesto(pres);
 	}
 }

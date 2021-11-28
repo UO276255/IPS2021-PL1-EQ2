@@ -288,7 +288,7 @@ public class VistaMuebleria extends JFrame {
 		btnNewButton_1 = new JButton("Visualizar Presupuesto");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), VIEW_VISUALIZAR_PRESUPUESTOS);
+				PresupuestoController controller = new PresupuestoController(new PresupuestosModel(), VIEW_VISUALIZAR_PRESUPUESTOS,true);
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 12));

@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.uniovi.muebleria.maven.controlador.Presupuestos.PresupuestoController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoPresupuestoController;
+import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestoDTO;
 import com.uniovi.muebleria.maven.modelo.Presupuesto.PresupuestosModel;
 import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoModel;
 
@@ -17,6 +18,8 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
@@ -62,7 +65,7 @@ public class VistaVisualizarPresupuestos extends JFrame {
 			btSeleccionar = new JButton("Seleccionar");
 			btSeleccionar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_VISUALIZAR_PRESUPUESTOS);
+					PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_VISUALIZAR_PRESUPUESTOS,false);
 					controller.cargarProductos();
 				}
 			});
@@ -84,7 +87,7 @@ public class VistaVisualizarPresupuestos extends JFrame {
 		}
 		return pnProductos;
 	}
-	private JList getListProductos() {
+	public JList getListProductos() {
 		if (listProductos == null) {
 			listProductos = new JList();
 		}
@@ -95,6 +98,9 @@ public class VistaVisualizarPresupuestos extends JFrame {
 			btActualizar = new JButton("Actualizar Presupuesto");
 			btActualizar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					PresupuestoController controller = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_VISUALIZAR_PRESUPUESTOS,false);
+					controller.actualizarPresupuesto();
+					JOptionPane.showMessageDialog(null, "El presupuesto fue actualizado con exito");
 				}
 			});
 			btActualizar.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));

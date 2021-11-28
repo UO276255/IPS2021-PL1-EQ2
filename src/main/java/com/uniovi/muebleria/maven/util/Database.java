@@ -3,6 +3,9 @@ package com.uniovi.muebleria.maven.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+
+import com.uniovi.muebleria.maven.modelo.producto.ProductoPresupuestoDTO;
 
 public class Database extends DbUtil {
 
@@ -53,7 +56,4 @@ public class Database extends DbUtil {
 	public String getUrl() {
 		return URL;
 	}
-	
-	
-
 }
