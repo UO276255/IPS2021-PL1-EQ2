@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -134,23 +132,27 @@ public class VistaAsignaTransporte extends JFrame{
 			btnAceptaTransp = new JButton("Aceptar transportista");
 			btnAceptaTransp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					inicializar();
-					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					setTransportista((EmpleadoDTO) getComboBoxListaTransportistas().getSelectedItem());
-					ProductoDTO[] productos = controller.getListaProductosVentaNoMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
-					for (int i=0;i<productos.length;i++) {
-						addModeloListProdNoMontar(productos[i]);						
+					int a = getListTransportar().getModel().getSize();
+					if(getListTransportar().getModel().getSize() == 0) {
+						JOptionPane.showMessageDialog(null, "No se puede asignar un transporte sin productos para transportar.");
+					}else {
+						ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
+						setTransportista((EmpleadoDTO) getComboBoxListaTransportistas().getSelectedItem());
+						ProductoDTO[] productos = controller.getListaProductosVentaNoMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
+						for (int i=0;i<productos.length;i++) {
+							addModeloListProdNoMontar(productos[i]);						
+						}
+						ProductoDTO[] productosMon = controller.getListaProductosVentaMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
+						for (int i=0;i<productosMon.length;i++) {
+							addModeloListProdMontar(productosMon[i]);
+						}
+						setVenta((VentaDTO) getComboBoxListaVentas().getSelectedItem());
+						CardLayout c = (CardLayout) getPanelGeneral().getLayout();
+						c.show(getPanelGeneral(), "PanelMontados");
 					}
-					ProductoDTO[] productosMon = controller.getListaProductosVentaMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
-					for (int i=0;i<productosMon.length;i++) {
-						addModeloListProdMontar(productosMon[i]);						
-					}
-					setVenta((VentaDTO) getComboBoxListaVentas().getSelectedItem());
-					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
-					c.show(getPanelGeneral(), "PanelMontados");
 				}
 			});
-			btnAceptaTransp.setBounds(283,444, 180, 23);
+			btnAceptaTransp.setBounds(283, 444, 180, 23);
 		}
 		return btnAceptaTransp;
 	}
@@ -386,6 +388,8 @@ public class VistaAsignaTransporte extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					CardLayout c = (CardLayout) getPanelGeneral().getLayout();
 					c.show(getPanelGeneral(), "PanelTransporte");
+					modeloListMontar.clear();
+					modeloListNoMontar.clear();
 				}
 			});
 			btnCancelar.setBounds(20, 444, 131, 23);
@@ -399,6 +403,9 @@ public class VistaAsignaTransporte extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					TransportistaController controller = new TransportistaController(new EmpleadoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
 					controller.asignaTransportista(getTransportista().getId(), getVenta().getId_venta());
+					if(!(getListMontar().getModel().getSize() == 0)) {
+						controller.actualizaMontaje(ventaElegida.getId_venta());
+					}
 					JOptionPane.showMessageDialog(null, "Se ha seleccionado al transportista: " 
 								+ transpElegido.getNombre()  +  " para la venta de id: "
 								+ ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
@@ -461,8 +468,8 @@ public class VistaAsignaTransporte extends JFrame{
 						addModeloListProdNoTransp(productos[i]);						
 					}
 					ProductoDTO[] productosTr = controller.getListaProductosVentaTransp(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
-					for (int i=0;i<productosTr.length;i++) {
-						addModeloListProdTransp(productosTr[i]);						
+					for (ProductoDTO productoDTO : productosTr) {
+						addModeloListProdTransp(productoDTO);
 					}
 				}
 			});
@@ -514,4 +521,5 @@ public class VistaAsignaTransporte extends JFrame{
 		}
 		return comboBoxListaVentas;
 	}
+
 }

@@ -69,6 +69,7 @@ CREATE TABLE Venta (
 	Fecha_venta DATETIME,
 	Precio INT NOT NULL,
 	Transporte BIT,
+	Montaje BIT,
 	Id_pres INT REFERENCES Presupuestos(Id_pres),
 	Id_empleado INT REFERENCES Empleado(Id_empleado));
 

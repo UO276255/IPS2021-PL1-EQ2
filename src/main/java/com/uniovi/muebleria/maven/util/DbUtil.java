@@ -201,7 +201,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4), rs.getBoolean(5), rs.getInt(6), rs.getInt(7));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -225,7 +225,7 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4), rs.getBoolean(5), rs.getInt(6), rs.getInt(7));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -248,7 +248,7 @@ public abstract class DbUtil {
 			pst.setInt(1, idVenta);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				venta = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				venta = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4), rs.getBoolean(5), rs.getInt(6), rs.getInt(7));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -681,10 +681,6 @@ public abstract class DbUtil {
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				if(transporte == 0) {
 					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-				}
-				if(listaProducto.contains(prod)) {
-					
-				}else {
 					listaProducto.add(prod);
 				}
 			}
@@ -715,10 +711,6 @@ public abstract class DbUtil {
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				if(transporte == 1) {
 					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-				}
-				if(listaProducto.contains(prod)) {
-					
-				}else {
 					listaProducto.add(prod);
 				}
 			}
@@ -738,7 +730,7 @@ public abstract class DbUtil {
 		ProductoDTO prod = null;
 		int transporte;
 		int montaje;
-		int idpres;
+		int idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
 		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
 		try {
 			c = getConnection();
@@ -746,15 +738,10 @@ public abstract class DbUtil {
 			pst.setInt(1,id_venta);	
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				if(montaje == 0 && transporte == 1) {
 					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-				}
-				if(listaProducto.contains(prod)) {
-					
-				}else {
 					listaProducto.add(prod);
 				}
 			}
@@ -787,10 +774,6 @@ public abstract class DbUtil {
 				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				if(montaje == 1 && transporte == 1) {
 					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-				}
-				if(listaProducto.contains(prod)) {
-					
-				}else {
 					listaProducto.add(prod);
 				}
 			}
@@ -921,7 +904,7 @@ public abstract class DbUtil {
 			rs = pst.executeQuery();
 			
 			if (rs.next()) {
-				result = rs.getInt(5);
+				result = rs.getInt(6);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -945,7 +928,7 @@ public abstract class DbUtil {
 			pst.setInt(2, idpres);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				result = rs.getInt(4);
+				result = rs.getInt(5);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -969,7 +952,7 @@ public abstract class DbUtil {
 			pst.setInt(2, idpres);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				result = rs.getInt(5);
+				result = rs.getInt(6);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -1172,7 +1155,7 @@ public abstract class DbUtil {
 			pst.setDate(2, fecha2);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				prod = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3),rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				prod = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3),rs.getBoolean(4), rs.getBoolean(5), rs.getInt(6), rs.getInt(7));
 				if(listaProducto.contains(prod)) {
 					
 				}else {
@@ -1614,6 +1597,23 @@ public abstract class DbUtil {
 		return id;
 	}
 	
+	public void actualiceMontajeVenta(String sqlAsignar, int idVenta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sqlAsignar);
+			pst.setInt(1,idVenta);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
 	public void crearRepuesto(String sql, int idPedidoCreado, int idProducto, int cantidad) {
 		String sqlId = "SELECT MAX(Id_Repuesto) FROM Repuesto";
 
@@ -1958,7 +1958,7 @@ public abstract class DbUtil {
 			pst.setInt(1,mes);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4), rs.getBoolean(5), rs.getInt(6), rs.getInt(7));
 				list.add(tra);
 			}
 		} catch (SQLException e) {
@@ -2009,7 +2009,7 @@ public abstract class DbUtil {
 			pst.setInt(2,idVendedor);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4),rs.getInt(5),rs.getInt(6));
+				tra = new VentaDTO(rs.getInt(1), rs.getDate(2),rs.getInt(3), rs.getBoolean(4), rs.getBoolean(5), rs.getInt(6), rs.getInt(7));
 				list.add(tra);
 			}
 		} catch (SQLException e) {

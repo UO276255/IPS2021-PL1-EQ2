@@ -7,24 +7,27 @@ public class VentaDTO {
 	private Date fecha;
 	private int precio;
 	private boolean transporte;
+	private boolean montaje;
 	private int id_pres;
 	private int id_transp;
 	
 	public VentaDTO() {}
 	
-	public VentaDTO(int id_venta, Date fecha, int precio, boolean transporte,int id_pres) {
+	public VentaDTO(int id_venta, Date fecha, int precio, boolean transporte, boolean montaje, int id_pres) {
 		this.id_venta = id_venta;
 		this.fecha = fecha;
 		this.precio = precio;
 		this.transporte = transporte;
+		this.montaje = montaje;
 		this.id_pres = id_pres;
 	}
 	
-	public VentaDTO(int id_venta, Date fecha, int precio, boolean transporte,int id_pres, int id_transp) {
+	public VentaDTO(int id_venta, Date fecha, int precio, boolean transporte, boolean montaje ,int id_pres, int id_transp) {
 		this.id_venta = id_venta;
 		this.fecha = fecha;
 		this.precio = precio;
 		this.transporte = transporte;
+		this.montaje = montaje;
 		this.id_pres = id_pres;
 		this.id_transp = id_transp;
 	}
@@ -58,10 +61,15 @@ public class VentaDTO {
 	public boolean isTransporte() {
 		return transporte;
 	}
+	public boolean isMontaje() {
+		return montaje;
+	}
 	public void setTransporte(boolean transporte) {
 		this.transporte = transporte;
 	}
-	
+	public void setMontaje(boolean montaje) {
+		this.montaje = montaje;
+	}	
 	public int getIdTransp() {
 		return id_transp;
 	}

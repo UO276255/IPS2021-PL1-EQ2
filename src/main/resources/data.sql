@@ -39,10 +39,10 @@ insert into Empleado (Id_empleado,Nombre,Apellido,DNI,Telefono,Usuario,Contrase√
 insert into Vacaciones (Id_vacacion,inicio_vacaciones,fin_vacaciones,Id_empleado) values (1,to_date('2021-11-15','yyyy-mm-dd'),to_date('2021-11-31','yyyy-mm-dd'),2);
 insert into Vacaciones (Id_vacacion,inicio_vacaciones,fin_vacaciones,Id_empleado) values (2,to_date('2021-12-20','yyyy-mm-dd'),to_date('2022-01-04','yyyy-mm-dd'),12);
 
-insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,Id_empleado) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,5,5);
-insert into venta(id_venta,fecha_venta,precio,transporte,id_pres,Id_empleado) values (2,to_date('2021-10-15','yyyy-mm-dd'),5100,0,5,5);
-insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,Id_empleado) values (3,to_date('2021-09-28','yyyy-mm-dd'),140,0,7,7);
-insert into venta(id_venta,fecha_venta,precio,transporte,Id_pres,Id_empleado) values (4,to_date('2021-11-05','yyyy-mm-dd'),140,0,3,7);
+insert into venta(id_venta,fecha_venta,precio,transporte,montaje,id_pres,Id_empleado) values (1,to_date('2021-10-10','yyyy-mm-dd'),1840,0,0,5,5);
+insert into venta(id_venta,fecha_venta,precio,transporte,montaje,id_pres,Id_empleado) values (2,to_date('2021-10-15','yyyy-mm-dd'),5100,0,0,5,5);
+insert into venta(id_venta,fecha_venta,precio,transporte,montaje,Id_pres,Id_empleado) values (3,to_date('2021-09-28','yyyy-mm-dd'),140,0,0,7,7);
+insert into venta(id_venta,fecha_venta,precio,transporte,montaje,Id_pres,Id_empleado) values (4,to_date('2021-11-05','yyyy-mm-dd'),140,0,0,3,7);
 
 insert into almacen(Id_almacen,Nombre) values (1,'Almacen 1');
 insert into almacen(Id_almacen,Nombre) values (2,'Almacen 2');

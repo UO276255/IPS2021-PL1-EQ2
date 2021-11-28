@@ -72,6 +72,10 @@ public class VentaController {
 		vistaEntregarPedido.getListVentas().setModel(new DefaultComboBoxModel<VentaDTO>(arrayVentas));
 	}
 	
+	public int getCantidadProducto(int id_pres, int id) {
+		return model.contarUnidades(id_pres, id);
+	}
+	
 	public ArrayList<AddProductoDTO> crearVenta(Date fecha,int precio,int idPresupuesto) {
 		int idVenta = model.CrearVenta(fecha,precio,idPresupuesto);
 		int idAlmacen = 1;
@@ -226,4 +230,5 @@ public class VentaController {
 	public ArrayList<java.util.Date> getDiaFinalVacaciones(int id) {
 		return model.getDiaFinalVacaciones(id);
 	}
+
 }

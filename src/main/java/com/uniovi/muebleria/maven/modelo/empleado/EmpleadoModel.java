@@ -12,7 +12,8 @@ public class EmpleadoModel {
 	private static final String SQL_TRANSPORTISTAS = "SELECT * FROM Empleado where oficio = 't'";
 	private static final String SQL_VENTAS = "SELECT * FROM Venta";
 	private static final String SQL_ASIGNAR = "UPDATE Venta set Id_empleado = ? where id_venta = ?";
-	private static final String SQL_ACTUALIZA = "UPDATE Venta set transporte = 1 where id_venta = ?";
+	private static final String SQL_ACTUALIZA_TR = "UPDATE Venta set transporte = 1 where id_venta = ?";
+	private static final String SQL_ACTUALIZA_MO = "UPDATE Venta set montaje = 1 where id_venta = ?";
 	private static final String SQL_ID_TRANSP = "SELECT Id_empleado FROM Venta WHERE id_venta = ?";
 	public static final String SQL_CONTAR_TRANSPORTISTAS = "SELECT count(*) FROM Empleado";
 	private static final String SQL_AÑADIR_TRANSP ="insert into Empleado (Id_empleado,Nombre,Apellido,DNI,telefono,Usuario,Contraseña,hora_entrada,hora_salida,oficio) values (?,?,?,?,?,?,?,?,?,?)";
@@ -28,9 +29,13 @@ public class EmpleadoModel {
 
 	public void asignaTransportista(int idTransp, int idVenta) {
 		db.asignaTransportistaVenta(SQL_ASIGNAR, idTransp, idVenta);
-		db.actualiceTransporteVenta(SQL_ACTUALIZA, idVenta);
+		db.actualiceTransporteVenta(SQL_ACTUALIZA_TR, idVenta);
 	}
 
+	public void actualizaMontaje(int idVenta) {
+		db.actualiceMontajeVenta(SQL_ACTUALIZA_MO, idVenta);
+	}
+	
 	public int getIdTransp(int idVenta) {
 		return db.buscaIdTranspPorIdVenta(SQL_ID_TRANSP, idVenta);
 	}
@@ -38,7 +43,6 @@ public class EmpleadoModel {
 	public void crearTrabajador(String nombre,int numero_tel,Time hora_entrada, Time hora_salida, String apellido,String DNI, String usuario,String contraseña,String oficio) {
 		int id = contarTransportista() + 1;
 		db.añadirTransportista(SQL_AÑADIR_TRANSP,id,nombre,numero_tel,hora_entrada,hora_salida,apellido,DNI,usuario,contraseña,oficio);
-		
 	}
 	
 	public int contarTransportista() {
@@ -48,4 +52,5 @@ public class EmpleadoModel {
 	public List<EmpleadoDTO> getTransportistasLogin() {
 		return db.getTransportistasLogin(SQL_USUARIO_CONTRASEÑA_TRANSP);
 	}
+
 }

@@ -71,6 +71,10 @@ public class TransportistaController {
 		model.asignaTransportista(idTransp, idVenta);
 	}
 
+	public void actualizaMontaje(int idVenta) {
+		model.actualizaMontaje(idVenta);
+	}
+	
 	public int getTransportistaPorVenta(int idVenta) {
 		return model.getIdTransp(idVenta);
 	}
@@ -84,4 +88,5 @@ public class TransportistaController {
 		}
 		return false;
 	}
+
 }

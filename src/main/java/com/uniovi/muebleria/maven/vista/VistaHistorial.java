@@ -1,34 +1,39 @@
 package com.uniovi.muebleria.maven.vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.toedter.calendar.JCalendar;
-import java.awt.Panel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-
+import java.awt.Color;
 import java.awt.Font;
-import javax.swing.SwingConstants;
 import java.awt.GridLayout;
-import java.awt.List;
-
-import com.toedter.calendar.JDateChooser;
-import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
-import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
-import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Date;
 
 import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.border.EtchedBorder;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.toedter.calendar.JDateChooser;
+import com.uniovi.muebleria.maven.controlador.Venta.VentaController;
+import com.uniovi.muebleria.maven.modelo.producto.ProductoDTO;
+import com.uniovi.muebleria.maven.modelo.ventas.VentaDTO;
+import com.uniovi.muebleria.maven.modelo.ventas.VentaModel;
 
 public class VistaHistorial extends JFrame {
 
@@ -41,6 +46,7 @@ public class VistaHistorial extends JFrame {
 	private JButton btSeleccionar;
 	private JTextField txSumaMontaje;
 	private JTextField txSumaTotal;
+	private JButton btnGenerarFactura;
 	
 	/**
 	 * Create the frame.
@@ -56,7 +62,7 @@ public class VistaHistorial extends JFrame {
 		contentPane.setLayout(null);
 		
 		Panel pnVentas = new Panel();
-		pnVentas.setBounds(10, 50, 379, 417);
+		pnVentas.setBounds(10, 50, 379, 388);
 		contentPane.add(pnVentas);
 		pnVentas.setLayout(new BorderLayout(0, 0));
 		
@@ -152,6 +158,7 @@ public class VistaHistorial extends JFrame {
 		btnNewButton.setBackground(Color.RED);
 		btnNewButton.setBounds(260, 339, 110, 45);
 		pnCentro.add(btnNewButton);
+		contentPane.add(getBtnGenerarFactura());
 	}
 	
 	
@@ -220,5 +227,69 @@ public class VistaHistorial extends JFrame {
 		btSeleccionar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btSeleccionar.setBackground(new Color(173, 255, 47));
 		return btSeleccionar;
+	}
+	private JButton getBtnGenerarFactura() {
+		if (btnGenerarFactura == null) {
+			btnGenerarFactura = new JButton("Generar factura");
+			btnGenerarFactura.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						VentaDTO ventaSeleccionada = (VentaDTO) listVentas.getSelectedValue();
+						generarFactura();
+						JOptionPane.showMessageDialog(null, "Se ha generado la factura para la venta de id " + ventaSeleccionada.getId_venta());
+					} catch (FileNotFoundException | DocumentException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+			btnGenerarFactura.setBackground(new Color(135, 206, 235));
+			btnGenerarFactura.setFont(new Font("Tahoma", Font.BOLD, 12));
+			btnGenerarFactura.setBounds(10, 444, 379, 23);
+		}
+		return btnGenerarFactura;
+	}
+	
+	private void generarFactura() throws FileNotFoundException, DocumentException {
+		VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_HISTORIAL);
+		VentaDTO ventaSeleccionada = (VentaDTO) listVentas.getSelectedValue();
+		ProductoDTO[] productos = controller.getListaProductos(ventaSeleccionada);
+		Document documento = new Document();
+		FileOutputStream factura = new FileOutputStream("factura" + ventaSeleccionada.getId_venta() +".pdf");
+		PdfWriter.getInstance(documento, factura);
+		documento.open();
+		Paragraph titulo = new Paragraph("Factura para venta de id: " + ventaSeleccionada.getId_venta() + "\n\n", FontFactory.getFont("arial",22,Font.BOLD,BaseColor.BLACK));
+		documento.add(titulo);
+		
+		PdfPTable tabla = new PdfPTable(3);
+		tabla.addCell("PRODUCTO");
+		tabla.addCell("CANTIDAD");
+		tabla.addCell("PRECIO PRODUCTO");
+		
+		for(int i=0; i<productos.length; i++) {
+			tabla.addCell("" + productos[i].getNombre());
+			tabla.addCell("" + controller.getCantidadProducto(ventaSeleccionada.getId_pres(), productos[i].getId()));
+			tabla.addCell("" + productos[i].getPrecio());
+		}
+		
+		documento.add(tabla);
+		
+		Paragraph precio = new Paragraph("Precio total de la venta: " + ventaSeleccionada.getPrecio(), FontFactory.getFont("arial",16,Font.PLAIN,BaseColor.BLACK));
+		documento.add(precio);
+		
+		String transp = "No";
+		if(ventaSeleccionada.isTransporte()) {
+			transp = "Sí";
+		}
+		Paragraph transporte = new Paragraph("Transporte: " + transp, FontFactory.getFont("arial",16,Font.PLAIN,BaseColor.BLACK));
+		documento.add(transporte);
+		
+		String mont = "No";
+		if(ventaSeleccionada.isMontaje()) {
+			mont = "Sí";
+		}
+		Paragraph montaje = new Paragraph("Montaje: " + mont, FontFactory.getFont("arial",16,Font.PLAIN,BaseColor.BLACK));
+		documento.add(montaje);
+		
+		documento.close();
 	}
 }
