@@ -275,7 +275,15 @@ public class VistaHistorial extends JFrame {
 		
 		documento.add(tabla);
 		
-		Paragraph precio = new Paragraph("Precio total de la venta: " + ventaSeleccionada.getPrecio(), FontFactory.getFont("arial",16,Font.PLAIN,BaseColor.BLACK));
+		int precioTotal = ventaSeleccionada.getPrecio();
+		
+		String mont = "No";
+		if(ventaSeleccionada.isMontaje()) {
+			mont = "Sí";
+			precioTotal += 5;
+		}
+		
+		Paragraph precio = new Paragraph("Precio total de la venta: " + precioTotal, FontFactory.getFont("arial",16,Font.PLAIN,BaseColor.BLACK));
 		documento.add(precio);
 		
 		String transp = "No";
@@ -285,10 +293,7 @@ public class VistaHistorial extends JFrame {
 		Paragraph transporte = new Paragraph("Transporte: " + transp, FontFactory.getFont("arial",16,Font.PLAIN,BaseColor.BLACK));
 		documento.add(transporte);
 		
-		String mont = "No";
-		if(ventaSeleccionada.isMontaje()) {
-			mont = "Sí";
-		}
+		
 		Paragraph montaje = new Paragraph("Montaje: " + mont, FontFactory.getFont("arial",16,Font.PLAIN,BaseColor.BLACK));
 		documento.add(montaje);
 		

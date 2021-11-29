@@ -189,6 +189,9 @@ public class VentaController {
 				prods.add(productos[i]);
 			}
 		}
+		if (venta.isMontaje())
+			sumaMontaje += 5;
+		precio += sumaMontaje;
 		vistaHistorial.getListProductos().clearSelection();
 		vistaHistorial.getListProductos().setListData(arrayProdVentas);
 		
