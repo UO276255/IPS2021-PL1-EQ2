@@ -15,8 +15,10 @@ private Database db = new Database();
 			  + "JOIN Presupuestos pres ON pres.id_pres = sol.id_pres "
 			  + "JOIN Venta ven ON ven.id_pres = pres.id_pres "
 			  + "WHERE id_venta = ?";
-	public static final String SQL_ACTUALIZA_TRANSPORTE = "UPDATE Solicitudes set Transporte = ? where id_prod = ? and id_pres = ?";
-	public static final String SQL_ACTUALIZA_MONTAJE = "UPDATE Solicitudes set Montaje = ? where id_prod = ? and id_pres = ?";
+	
+	public static final String SQL_ACTUALIZA_TRANSPORTE = "UPDATE Solicitudes set Transporte = ? where id_solic = ?";
+	public static final String SQL_ACTUALIZA_MONTAJE = "UPDATE Solicitudes set Montaje = ? where id_solic = ?";
+	
 	private static final String SQL_MAXIMO_ID = "SELECT MAX(id_venta) max_id_venta FROM Venta";
 	private static final String SQL_PRODUCTOS = "SELECT * FROM Productos";
 	
@@ -52,12 +54,20 @@ private Database db = new Database();
 		return db.recogerProductosVentaMontar(SQL_PRODUCTO_VENTA, id_venta);
 	}
 	
-	public void ActualizarTransporte(int bit, int id_prod, int id_venta) {
-		db.AsignarTransporte(SQL_ACTUALIZA_TRANSPORTE,bit,id_prod,id_venta);
+	public void ActualizarATransporte(int bit, int id_prod, int id_venta) {
+		db.AsignarATransporte(SQL_ACTUALIZA_TRANSPORTE,bit,id_prod,id_venta);
 	}
 	
-	public void ActualizarMontaje(int bit, int id_prod, int id_venta) {
-		db.AsignarTransporte(SQL_ACTUALIZA_MONTAJE,bit,id_prod,id_venta);
+	public void ActualizarARecogida(int bit, int id_prod, int id_venta) {
+		db.AsignarARecogida(SQL_ACTUALIZA_TRANSPORTE,bit,id_prod,id_venta);
+	}
+	
+	public void ActualizarAMontaje(int bit, int id_prod, int id_venta) {
+		db.AsignarAMontaje(SQL_ACTUALIZA_MONTAJE,bit,id_prod,id_venta);
+	}
+	
+	public void ActualizarANoMontaje(int bit, int id_prod, int id_venta) {
+		db.AsignarANoMontaje(SQL_ACTUALIZA_MONTAJE,bit,id_prod,id_venta);
 	}
 	
 	public List<ProductoDTO> getProductosPorAlmacen(int idAlmacen){

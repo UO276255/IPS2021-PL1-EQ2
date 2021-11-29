@@ -270,7 +270,7 @@ public class VistaHistorial extends JFrame {
 		for(int i=0; i<productos.size(); i++) {
 			tabla.addCell("" + productos.get(i).getNombre());
 			tabla.addCell("" + controller.getCantidadProducto(ventaSeleccionada.getId_pres(), productos.get(i).getId()));
-			tabla.addCell("" + productos.get(i).getPrecio());
+			tabla.addCell("" + controller.getPrecioProductoVenta(ventaSeleccionada.getId_pres(), productos.get(i).getId()));
 		}
 		
 		documento.add(tabla);

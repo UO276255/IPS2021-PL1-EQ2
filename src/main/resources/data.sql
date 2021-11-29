@@ -73,15 +73,15 @@ insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (5,0,to_date('
 insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (6,0,to_date('2021-11-15','yyyy-mm-dd'),3);
 insert into pedido (id_pedido,estado,Fecha_Pedido,id_prov) values (7,0,to_date('2021-112-16','yyyy-mm-dd'),4);
 
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (1,1,123,0,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (2,1,95,0,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (3,2,32,0,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (4,3,105,0,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (5,4,29,0,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (6,5,140,0,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (7,5,150,0,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (8,6,32,0,0,0);
-insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (10,7,105,0,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (1,1,123,1110,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (2,1,95,150,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (3,2,32,42,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (4,3,105,140,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (5,4,29,580,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (6,5,140,1104,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (7,5,150,700,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (8,6,32,42,0,0);
+insert into solicitudes (id_solic,id_pres,id_prod,precio_prod,transporte,montaje) values (10,7,105,140,0,0);
 
 insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (1,1,123,2);
 insert into repuesto (id_repuesto,id_pedido,id_prod,cantidad_prod) values (2,1,95,2);

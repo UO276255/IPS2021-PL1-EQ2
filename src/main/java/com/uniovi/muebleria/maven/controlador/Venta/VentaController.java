@@ -253,4 +253,8 @@ public class VentaController {
 		return model.getDiaFinalVacaciones(id);
 	}
 
+	public int getPrecioProductoVenta(int id_pres, int id) {
+		return model.getPrecioProductoVenta(id_pres, id);
+	}
+
 }

@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
 
 import com.uniovi.muebleria.maven.controlador.empleado.TransportistaController;
 import com.uniovi.muebleria.maven.controlador.producto.ProductoController;
@@ -142,7 +143,7 @@ public class VistaAsignaTransporte extends JFrame{
 						setTransportista((EmpleadoDTO) getComboBoxListaTransportistas().getSelectedItem());
 						ProductoDTO[] productos = controller.getListaProductosVentaNoMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
 						for (int i=0;i<productos.length;i++) {
-							addModeloListProdNoMontar(productos[i]);						
+							addModeloListProdNoMontar(productos[i]);
 						}
 						ProductoDTO[] productosMon = controller.getListaProductosVentaMontar(((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
 						for (int i=0;i<productosMon.length;i++) {
@@ -170,7 +171,7 @@ public class VistaAsignaTransporte extends JFrame{
 			btnParaTransportar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					controller.actualizarTransporte(1, getListRecoger().getSelectedValue().getId(), ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
+					controller.actualizarATransporte(1, getListRecoger().getSelectedValue().getId(), ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
 					for (int i=0;i<getListRecoger().getSelectedValuesList().size();i++) {
 						modeloListTransp.addElement(getListRecoger().getSelectedValuesList().get(i));
 						modeloListRecoger.removeElement(getListRecoger().getSelectedValuesList().get(i));
@@ -199,7 +200,7 @@ public class VistaAsignaTransporte extends JFrame{
 			btnParaRecoger.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					controller.actualizarTransporte(0, getListTransportar().getSelectedValue().getId(), ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
+					controller.actualizarARecogida(0, getListTransportar().getSelectedValue().getId(), ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
 					for (int i=0;i<getListTransportar().getSelectedValuesList().size();i++) {
 						modeloListRecoger.addElement(getListTransportar().getSelectedValuesList().get(i));
 						modeloListTransp.removeElement(getListTransportar().getSelectedValuesList().get(i));
@@ -324,7 +325,7 @@ public class VistaAsignaTransporte extends JFrame{
 			btnParaMontar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					controller.actualizarMontaje(1, getListNoMontar().getSelectedValue().getId(), ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
+					controller.actualizarAMontaje(1, getListNoMontar().getSelectedValue().getId(), ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
 					for (int i=0;i<getListNoMontar().getSelectedValuesList().size();i++) {
 						modeloListMontar.addElement(getListNoMontar().getSelectedValuesList().get(i));
 						modeloListNoMontar.removeElement(getListNoMontar().getSelectedValuesList().get(i));
@@ -340,7 +341,7 @@ public class VistaAsignaTransporte extends JFrame{
 			btnParaNoMontar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ProductoController controller = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_TRANSPORTE);
-					controller.actualizarMontaje(0, getListMontar().getSelectedValue().getId(), ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
+					controller.actualizarANoMontaje(0, getListMontar().getSelectedValue().getId(), ((VentaDTO) getComboBoxListaVentas().getSelectedItem()).getId_venta());
 					for (int i=0;i<getListMontar().getSelectedValuesList().size();i++) {
 						modeloListNoMontar.addElement(getListMontar().getSelectedValuesList().get(i));
 						modeloListMontar.removeElement(getListMontar().getSelectedValuesList().get(i));

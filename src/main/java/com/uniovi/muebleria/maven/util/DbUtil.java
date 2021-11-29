@@ -669,20 +669,21 @@ public abstract class DbUtil {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		ProductoDTO prod = null;
-		int transporte;
-		int idpres;
+		ArrayList<Integer> transporte;
+		int idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
 		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sqlProductoVenta);
 			pst.setInt(1,id_venta);	
 			rs = pst.executeQuery();
-			while (rs.next()) {
-				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+			if (rs.next()) {
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
-				if(transporte == 0) {
-					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-					listaProducto.add(prod);
+				for(int i=0; i<transporte.size(); i++) {
+					if(transporte.get(i) == 0) {
+						prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
+						listaProducto.add(prod);
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -699,20 +700,21 @@ public abstract class DbUtil {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		ProductoDTO prod = null;
-		int transporte;
-		int idpres;
+		ArrayList<Integer> transporte;
+		int idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
 		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sqlProductoVenta);
 			pst.setInt(1,id_venta);	
 			rs = pst.executeQuery();
-			while (rs.next()) {
-				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+			if (rs.next()) {
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
-				if(transporte == 1) {
-					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-					listaProducto.add(prod);
+				for(int i=0; i<transporte.size(); i++) {
+					if(transporte.get(i) == 1) {
+						prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
+						listaProducto.add(prod);
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -729,8 +731,8 @@ public abstract class DbUtil {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		ProductoDTO prod = null;
-		int transporte;
-		int montaje;
+		ArrayList<Integer> transporte;
+		ArrayList<Integer> montaje;
 		int idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
 		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
 		try {
@@ -738,12 +740,14 @@ public abstract class DbUtil {
 			pst = c.prepareStatement(sqlProductoVenta);
 			pst.setInt(1,id_venta);	
 			rs = pst.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
 				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
 				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
-				if(montaje == 0 && transporte == 1) {
-					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-					listaProducto.add(prod);
+				for(int i=0; i<transporte.size(); i++) {
+					if(montaje.get(i) == 0 && transporte.get(i) == 1) {
+						prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
+						listaProducto.add(prod);
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -760,22 +764,23 @@ public abstract class DbUtil {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		ProductoDTO prod = null;
-		int montaje;
-		int transporte;
-		int idpres;
+		ArrayList<Integer> montaje;
+		ArrayList<Integer> transporte;
+		int idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);;
 		ArrayList<ProductoDTO> listaProducto = new ArrayList<ProductoDTO>();
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sqlProductoVenta);
 			pst.setInt(1,id_venta);	
 			rs = pst.executeQuery();
-			while (rs.next()) {
-				idpres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
-				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
-				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ?", rs.getInt(1), idpres);
-				if(montaje == 1 && transporte == 1) {
-					prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-					listaProducto.add(prod);
+			if (rs.next()) {
+				transporte = productoParaTransportar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ? and transporte = 1", rs.getInt(1), idpres);
+				montaje = productoParaMontar("SELECT * FROM solicitudes WHERE id_prod = ? and id_pres = ? and montaje = 0", rs.getInt(1), idpres);
+				for(int i=0; i<transporte.size(); i++) {
+					if(montaje.get(i) == 1 && transporte.get(i) == 1) {
+						prod = new ProductoDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
+						listaProducto.add(prod);
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -872,17 +877,17 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public void AsignarTransporte(String sql, int bit, int id_prod, int id_venta) {
+	public void AsignarATransporte(String sql, int bit, int id_prod, int id_venta) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		int id_pres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+		int id_solic = getIdSolicPorIdPresIdProd("SELECT * FROM solicitudes where id_pres = ? and id_prod = ? and transporte = 0", id_pres, id_prod);
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sql);
 			pst.setInt(1,bit);
-			pst.setInt(2,id_prod);
-			pst.setInt(3,id_pres);
+			pst.setInt(2,id_solic);
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -890,6 +895,89 @@ public abstract class DbUtil {
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
+	}
+	
+	public void AsignarARecogida(String sql, int bit, int id_prod, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int id_pres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+		int id_solic = getIdSolicPorIdPresIdProd("SELECT * FROM solicitudes where id_pres = ? and id_prod = ? and transporte = 1", id_pres, id_prod);
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,bit);
+			pst.setInt(2,id_solic);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public void AsignarAMontaje(String sql, int bit, int id_prod, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int id_pres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+		int id_solic = getIdSolicPorIdPresIdProd("SELECT * FROM solicitudes where id_pres = ? and id_prod = ? and transporte = 1 and montaje = 0", id_pres, id_prod);
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,bit);
+			pst.setInt(2,id_solic);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public void AsignarANoMontaje(String sql, int bit, int id_prod, int id_venta) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int id_pres = getIdPresPorIdVenta("SELECT * FROM venta WHERE id_venta = ?", id_venta);
+		int id_solic = getIdSolicPorIdPresIdProd("SELECT * FROM solicitudes where id_pres = ? and id_prod = ? and transporte = 1 and montaje = 1", id_pres, id_prod);
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1,bit);
+			pst.setInt(2,id_solic);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+	}
+	
+	public int getIdSolicPorIdPresIdProd(String sql,int id_pres, int id_prod) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, id_pres);
+			pst.setInt(2, id_prod);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
 	}
 	
 	public int getIdPresPorIdVenta(String sql, int id) {
@@ -916,11 +1004,11 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public int productoParaTransportar(String sql, int idprod, int idpres) {
+	public ArrayList<Integer> productoParaTransportar(String sql, int idprod, int idpres) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		int result = 0;
+		ArrayList<Integer> result = new ArrayList<Integer>();
 		
 		try {
 			c = getConnection();
@@ -928,8 +1016,8 @@ public abstract class DbUtil {
 			pst.setInt(1, idprod);
 			pst.setInt(2, idpres);
 			rs = pst.executeQuery();
-			if (rs.next()) {
-				result = rs.getInt(5);
+			while (rs.next()) {
+				result.add(rs.getInt(5));
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -940,7 +1028,31 @@ public abstract class DbUtil {
 		return result;
 	}
 	
-	public int productoParaMontar(String sql, int idprod, int idpres) {
+	public ArrayList<Integer> productoParaMontar(String sql, int idprod, int idpres) {
+		Connection c = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+		try {
+			c = getConnection();
+			pst = c.prepareStatement(sql);
+			pst.setInt(1, idprod);
+			pst.setInt(2, idpres);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				result.add(rs.getInt(6));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+			Jdbc.close(rs, pst, c);
+		}
+		return result;
+	}
+	
+	public int getPrecioProductoVenta(String sql, int idpres, int idprod) {
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -949,11 +1061,11 @@ public abstract class DbUtil {
 		try {
 			c = getConnection();
 			pst = c.prepareStatement(sql);
-			pst.setInt(1, idprod);
-			pst.setInt(2, idpres);
+			pst.setInt(1, idpres);
+			pst.setInt(2, idprod);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				result = rs.getInt(6);
+				result = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

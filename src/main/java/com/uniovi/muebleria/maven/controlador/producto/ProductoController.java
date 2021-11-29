@@ -137,12 +137,20 @@ public class ProductoController {
 		}
 	}
 	
-	public void actualizarTransporte(int bit, int id_prod, int id_venta) {
-		model.ActualizarTransporte(bit, id_prod, id_venta);
+	public void actualizarATransporte(int bit, int id_prod, int id_venta) {
+		model.ActualizarATransporte(bit, id_prod, id_venta);
 	}
 	
-	public void actualizarMontaje(int bit, int id_prod, int id_venta) {
-		model.ActualizarMontaje(bit, id_prod, id_venta);
+	public void actualizarARecogida(int bit, int id_prod, int id_venta) {
+		model.ActualizarARecogida(bit, id_prod, id_venta);
+	}
+	
+	public void actualizarAMontaje(int bit, int id_prod, int id_venta) {
+		model.ActualizarAMontaje(bit, id_prod, id_venta);
+	}
+	
+	public void actualizarANoMontaje(int bit, int id_prod, int id_venta) {
+		model.ActualizarANoMontaje(bit, id_prod, id_venta);
 	}
 	
 	public void actualizaListaMontaje(int id) {

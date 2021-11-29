@@ -100,10 +100,11 @@ public class VistaCreacionVentas extends JFrame {
 			btnCrearVenta = new JButton("Crear Venta");
 			btnCrearVenta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					PresupuestoVentaDTO presSeleccionado = (PresupuestoVentaDTO) getComboBoxPresupuestoSinAceptar().getSelectedItem();
 					VentaController controller = new VentaController(new VentaModel(), VistaMuebleria.VIEW_VENTAS);
 					PresupuestoController controllerP = new PresupuestoController(new PresupuestosModel(),  VistaMuebleria.VIEW_VENTAS);
 					ProductoController prodController = new ProductoController(new ProductoModel(),  VistaMuebleria.VIEW_PEDIDO, false);
-					PresupuestoVentaDTO dto = (PresupuestoVentaDTO) getComboBoxPresupuestoSinAceptar().getSelectedItem();
+					PresupuestoVentaDTO dto = presSeleccionado;
 					controllerP.removePresupuesto(dto.getIdPresupuesto());
 					ArrayList<AddProductoDTO> listaProd = controller.crearVenta((new Date(System.currentTimeMillis())),dto.getPrecio(),dto.getIdPresupuesto());
 					prodController.crearPedido(listaProd);

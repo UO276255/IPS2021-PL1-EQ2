@@ -52,6 +52,8 @@ public class VentaModel {
 	private static final String QSL_VENTA_POR_MES = "select * from venta where Month(fecha_venta) = ?";
 	private static final String QSL_VENTA_POR_MES_Y_VENDEDOR = "select * from venta where Month(fecha_venta) = ? and id_empleado = ?";
 	
+	private static final String SQL_PRECIO_PRODUCTO_VENTA = "SELECT precio_prod from solicitudes where id_pres = ? and id_prod = ?";
+	
 	public VentaModel() {
 		
 	}
@@ -146,5 +148,9 @@ public class VentaModel {
 	public List<VentaDTO> getListaVentasPorMesyVendedor(int mes, int idVendedor) {
 		return db.getListaVentasPorMesyVendedor(QSL_VENTA_POR_MES_Y_VENDEDOR,mes,idVendedor);	
 		}
+
+	public int getPrecioProductoVenta(int id_pres, int id_prod) {
+		return db.getPrecioProductoVenta(SQL_PRECIO_PRODUCTO_VENTA, id_pres, id_prod);
+	}
 }
 	
