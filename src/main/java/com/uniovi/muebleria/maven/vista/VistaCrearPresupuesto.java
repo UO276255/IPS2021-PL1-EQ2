@@ -460,6 +460,7 @@ public class VistaCrearPresupuesto extends JFrame {
 	private JFormattedTextField getTxUnidades() {
 		if (txUnidades == null) {
 			txUnidades = new JFormattedTextField(new Integer(0));
+			txUnidades.setText("1");
 			txUnidades.setFont(new Font("Tahoma", Font.BOLD, 14));
 			txUnidades.setHorizontalAlignment(SwingConstants.CENTER);
 			txUnidades.setBackground(new Color(250, 235, 215));
